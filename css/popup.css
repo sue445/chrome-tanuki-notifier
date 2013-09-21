@@ -1,0 +1,13 @@
+body {
+    min-width: 600px;
+    overflow-x: hidden;
+}
+
+#notifyHistories li{
+    list-style-type: none;
+    padding-left: 18px;
+}
+
+#notifyHistories li.new{
+    background: url(../img/new-icon.gif) no-repeat 0 1px;
+}

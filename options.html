@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>Chrome Gitlab Notifier</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Gitlab Setting</h1>
+
+    <dl class="dl-horizontal">
+        <dt>Gitlab Path</dt>
+        <dd>
+            <input type="text" id="gitlabPath" size="60" />
+        </dd>
+        <dt>Gitlab API Path</dt>
+        <dd>
+            <input type="text" id="apiPath" size="60" />
+        </dd>
+        <dt>Private token</dt>
+        <dd>
+            <input type="password" id="privateToken" size="60" />
+        </dd>
+        <dt>Polling interval</dt>
+        <dd>
+            <input type="text" id="pollingSecond" size="3" /> second(s)
+        </dd>
+        <dt>Display event count</dt>
+        <dd>
+            show <input type="text" id="maxEventCount" size="3" /> events
+        </dd>
+        <dt>Mark as new event</dt>
+        <dd>
+            mark <img src="img/new-icon.gif"/> if within <input type="text" id="newMarkMinute" size="3" /> minute(s) after being notified
+        </dd>
+    </dl>
+
+    <button class="save btn btn-primary">
+        <span class="glyphicon glyphicon-save"></span>
+        Save
+    </button>
+    <button class="clear btn btn-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        Clear cache
+    </button>
+    <span class="status"></span>
+
+    <h1>Repository Events</h1>
+    <button id="load_repository" class="btn btn-default">
+        <span class="glyphicon glyphicon-refresh"></span>
+        Refresh Repository List
+    </button>
+
+    <table class="table table-striped table-hover">
+        <tbody id="projects">
+        </tbody>
+    </table>
+
+    <button class="save btn btn-primary">
+        <span class="glyphicon glyphicon-save"></span>
+        Save
+    </button>
+    <button class="clear btn btn-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+        Clear cache
+    </button>
+
+    <span class="status"></span>
+
+</div>
+
+<script src="lib/jquery-2.0.3.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="src/gitlab.js"></script>
+<script src="src/config.js"></script>
+<script src="src/options.js"></script>
+
+</body>
+</html>

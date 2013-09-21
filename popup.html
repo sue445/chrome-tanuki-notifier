@@ -1,31 +1,23 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Getting Started Extension's Popup</title>
-    <style>
-      body {
-        min-width: 357px;
-        overflow-x: hidden;
-      }
+<head>
+    <title>Chrome Gitlab Notifier</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/popup.css" rel="stylesheet" media="screen">
+</head>
+<body>
 
-      img {
-        margin: 5px;
-        border: 2px solid black;
-        vertical-align: middle;
-        width: 75px;
-        height: 75px;
-      }
-    </style>
+<div>
+    <ul id="notifyHistories">
+    </ul>
+</div>
 
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
-     -->
-    <script src="popup.js"></script>
-  </head>
-  <body>
-  </body>
+<script src="lib/jquery-2.0.3.min.js"></script>
+<script src="lib/jquery.timeago.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="src/gitlab.js"></script>
+<script src="src/config.js"></script>
+<script src="src/popup.js"></script>
+</body>
 </html>
 
