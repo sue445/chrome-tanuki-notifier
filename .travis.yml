@@ -1,1 +1,4 @@
 script: phantomjs spec/lib/run-jasmine.js spec/SpecRunner.html
+branches:
+  only:
+    - master
