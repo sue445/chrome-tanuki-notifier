@@ -14,7 +14,15 @@
                 }
 
                 var latest = projectEvents[0];
-                var recent = recentEvents[projectId] || {target_id: null, target_type: null, action_name: null};
+                var recent = recentEvents[projectId];
+
+                if(!recent){
+                    recentEvents[projectId] = latest;
+
+                    // Not show notification when first running
+                    return;
+                }
+
                 if(isSameEvent(latest, recent)){
                     // not changed
                    return;
