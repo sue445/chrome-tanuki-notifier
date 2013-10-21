@@ -17,3 +17,6 @@ Notify Gitlab Project events (Issue, MergeRequest, Milestone)
 5. Check events
 6. Save
 7. Wait a minute
+
+## Test Suite
+http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
