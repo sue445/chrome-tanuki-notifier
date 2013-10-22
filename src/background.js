@@ -1,9 +1,72 @@
+var background = {
+    notify: function(args){
+        var project      = args.project;
+        var projectEvent = args.projectEvent;
+        var internal     = args.internal;
+        var currentTime  = args.currentTime;
+
+        util.checkArgs(args, ["project", "projectEvent", "internal", "currentTime"]);
+
+        var notificationId =  JSON.stringify({
+            project_name: project.name,
+            target_type:  projectEvent.target_type,
+            target_id:    internal.target_id,
+            target_url:   internal.target_url,
+            notified_at:  currentTime.getTime()
+        });
+
+        this.createNotification({
+            notificationId: notificationId,
+            title:          project.name,
+            message:        "[" + projectEvent.target_type + "] #" + internal.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name
+        });
+
+        projectEvent.project_name = project.name;
+        projectEvent.target_id = internal.target_id;
+        projectEvent.target_url = internal.target_url;
+        projectEvent.notified_at = currentTime;
+        config.addNotifiedHistories([projectEvent]);
+
+        this.incNotificationCount();
+    },
+
+    createNotification: function(args){
+        var notificationId = args.notificationId;
+        var title          = args.title;
+        var message        = args.message;
+
+        util.checkArgs(args, ["notificationId", "title", "message"]);
+
+        chrome.notifications.create(
+            notificationId,
+            {
+                type:     "basic",
+                iconUrl:  "img/gitlab-icon.png",
+                title:    title,
+                message:  message,
+                priority: 0
+            },
+            function(notificationId){
+                //alert("failed notification: " + notificationId);
+            }
+        );
+    },
+
+    incNotificationCount: function(){
+        chrome.browserAction.getBadgeText({}, function(badgeText){
+            var oldCount = this.toInt(badgeText);
+            chrome.browserAction.setBadgeText({text: String(oldCount + 1)});
+        });
+    },
+
+    toInt: function(str){
+        return parseInt(str) || 0;
+    }
+};
+
 (function($){
     function fetch(){
-        var projects = config.getActiveProjects();
-        var notificationCount = 0;
-
-        $.each(projects, function(projectId, project){
+        $.each(config.getActiveProjects(), function(projectId, project){
             gitlab.getProjectEvents(projectId).done(function(projectEvents){
                 // latest check
                 if(projectEvents.length < 1){
@@ -29,56 +92,33 @@
                 var eventCount = 0;
                 $.each(projectEvents, function(index, projectEvent){
                     if(isSameEvent(projectEvent, recent)){
+                        // break loop
                         return false;
                     }
-                    var configEvents = projects[projectId].events;
-                    if(configEvents[projectEvent.target_type]){
-                        if(eventCount >= config.getMaxEventCount()){
-                            return false;
-                        }
-                        eventCount++;
-
-                        var project_name = projects[projectEvent.project_id].name;
-
-                        gitlab.getEventInternalId({
-                            project_name: project_name,
-                            target_type:  projectEvent.target_type,
-                            target_id:    projectEvent.target_id
-                        }, function(res){
-                            var message = "[" + projectEvent.target_type + "] #" + res.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name;
-
-                            var notified_at = new Date();
-                            var notificationId =  JSON.stringify({
-                                project_name: project_name,
-                                target_type:  projectEvent.target_type,
-                                target_id:    res.target_id,
-                                target_url:   res.target_url,
-                                notified_at:  notified_at.getTime()
-                            });
-
-                            chrome.notifications.create(
-                                notificationId,
-                                {
-                                    type:     "basic",
-                                    iconUrl:  "img/gitlab-icon.png",
-                                    title:    project_name,
-                                    message:  message,
-                                    priority: 0
-                                },
-                                function(notificationId){
-//                                alert("failed notification: " + notificationId);
-                                }
-                            );
-                            projectEvent.project_name = project_name;
-                            projectEvent.target_id = res.target_id;
-                            projectEvent.target_url = res.target_url;
-                            projectEvent.notified_at = notified_at;
-                            config.addNotifiedHistories([projectEvent]);
-
-                            notificationCount++;
-                            showNotificationCount(notificationCount);
-                        });
+                    var project = config.getProject(projectId);
+                    if(!project.events[projectEvent.target_type]){
+                        // continue loop
+                        return;
                     }
+
+                    if(eventCount >= config.getMaxEventCount()){
+                        // break loop
+                        return false;
+                    }
+                    eventCount++;
+
+                    gitlab.getEventInternalId({
+                        project_name: project.name,
+                        target_type:  projectEvent.target_type,
+                        target_id:    projectEvent.target_id
+                    }, function(internal){
+                        background.notify({
+                            project:      project,
+                            projectEvent: projectEvent,
+                            internal:     internal,
+                            currentTime:  new Date()
+                        });
+                    });
                 });
             });
         });
@@ -86,17 +126,6 @@
 
     function isSameEvent(event1, event2){
         return event1.target_id == event2.target_id && event1.target_type == event2.target_type && event1.action_name == event2.action_name;
-    }
-
-    function showNotificationCount(count){
-        chrome.browserAction.getBadgeText({}, function(badgeText){
-            var oldCount = toInt(badgeText);
-            chrome.browserAction.setBadgeText({text: String(oldCount + count)});
-        });
-    }
-
-    function toInt(str){
-        return parseInt(str) || 0;
     }
 
     $(document).ready(function(){
