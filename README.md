@@ -1,5 +1,4 @@
-[![Stories in Ready](https://badge.waffle.io/sue445/chrome-gitlab-notifier.png?label=ready)](https://waffle.io/sue445/chrome-gitlab-notifier)  
-# Chrome Gitlab Notifier [![Build Status](https://travis-ci.org/sue445/chrome-gitlab-notifier.png)](https://travis-ci.org/sue445/chrome-gitlab-notifier)
+# Chrome Gitlab Notifier [![Build Status](https://travis-ci.org/sue445/chrome-gitlab-notifier.png)](https://travis-ci.org/sue445/chrome-gitlab-notifier) [![Stories in Ready](https://badge.waffle.io/sue445/chrome-gitlab-notifier.png?label=ready)](https://waffle.io/sue445/chrome-gitlab-notifier)
 
 Notify Gitlab Project events (Issue, MergeRequest, Milestone)
 
