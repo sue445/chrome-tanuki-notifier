@@ -1,10 +1,10 @@
 var gitlab= (function(){
     var perPage = 100;
     var eventPath = {
-        "Issue"        : "issues",
-        "MergeRequest" : "merge_requests",
-        "Milestone"    : "milestones",
-    };
+        "Issue"        : {page: "issues"        , api: "issues"},
+        "MergeRequest" : {page: "merge_requests", api: "merge_request"},
+        "Milestone"    : {page: "milestones"    , api: "milestones"}
+    }
 
     // public methods
     function getProjects(projectCallback){
@@ -35,7 +35,7 @@ var gitlab= (function(){
 
     function getEventInternalUrl(args, internalUrlCallback){
         $.ajax({
-            url: config.getApiPath() + "projects/" + args.project_name + "/" + eventPath[args.target_type] + "/" + args.target_id,
+            url: config.getApiPath() + "projects/" + encodeURIComponent(args.project_name) + "/" + eventPath[args.target_type].api + "/" + args.target_id,
             type: "GET",
             dataType: "json",
             headers: {
@@ -43,7 +43,7 @@ var gitlab= (function(){
             },
         }).then(function(res){
                 var id = res.iid || res.id
-                internalUrlCallback(config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type] + "/" + id);
+                internalUrlCallback(config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id);
             });
     }
 

@@ -47,7 +47,7 @@ describe("gitlab", function() {
         describe("when contains iid", function(){
             beforeEach(function() {
                 $.mockjax({
-                    url: 'http://example.com/api/v3/projects/gitlab/gitlabhq/issues/42',
+                    url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
                     responseText: stub.project_issue_v6,
                 });
             });
@@ -73,7 +73,7 @@ describe("gitlab", function() {
         describe("when not contains iid", function(){
             beforeEach(function() {
                 $.mockjax({
-                    url: 'http://example.com/api/v3/projects/gitlab/gitlabhq/issues/42',
+                    url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
                     responseText: stub.project_issue_v5,
                 });
             });
