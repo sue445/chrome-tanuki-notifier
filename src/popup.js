@@ -39,6 +39,7 @@
             $("<a/>").attr({href: projectUrl, target: "_blank"}).text("["+ projectEvent.project_name +"]").appendTo(li);
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({
+                href:                "#",
                 "data-project-name": projectEvent.project_name,
                 "data-target-type" : projectEvent.target_type,
                 "data-target-id"   : projectEvent.target_id
