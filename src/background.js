@@ -1,8 +1,6 @@
 (function($){
     function fetch(){
         var projects = config.getActiveProjects();
-        var ajaxProjectEvents = [];
-        var recentEvents = config.getRecentEvents();
         var notificationCount = 0;
 
         var notifiedHistories = [];
@@ -14,10 +12,10 @@
                 }
 
                 var latest = projectEvents[0];
-                var recent = recentEvents[projectId];
+                var recent = config.getRecentEvent(projectId)
 
                 if(!recent){
-                    recentEvents[projectId] = latest;
+                    config.setRecentEvent(projectId, latest);
 
                     // Not show notification when first running
                     return;
@@ -27,7 +25,7 @@
                     // not changed
                    return;
                 }
-                recentEvents[projectId] = latest;
+                config.setRecentEvent(projectId, latest);
 
                 var eventCount = 0;
                 $.each(projectEvents, function(index, projectEvent){
@@ -40,43 +38,50 @@
                             return false;
                         }
                         eventCount++;
-                        var message = "[" + projectEvent.target_type + "] #" + projectEvent.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name;
-                        projectEvent.project_name = projects[projectEvent.project_id].name;
-                        projectEvent.notified_at = new Date();
 
-                        var notificationId =  JSON.stringify({
-                            project_name: projectEvent.project_name,
+                        var project_name = projects[projectEvent.project_id].name;
+
+                        gitlab.getEventInternalId({
+                            project_name: project_name,
                             target_type:  projectEvent.target_type,
-                            target_id:    projectEvent.target_id,
-                            notified_at:  (new Date()).getTime()
-                        });
+                            target_id:    projectEvent.target_id
+                        }, function(res){
+                            var message = "[" + projectEvent.target_type + "] #" + res.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name;
 
-                        chrome.notifications.create(
-                            notificationId,
-                            {
-                                type:     "basic",
-                                iconUrl:  "img/gitlab-icon.png",
-                                title:    projectEvent.project_name,
-                                message:  message,
-                                priority: 0
-                            },
-                            function(notificationId){
+                            var notified_at = new Date();
+                            var notificationId =  JSON.stringify({
+                                project_name: project_name,
+                                target_type:  projectEvent.target_type,
+                                target_id:    res.target_id,
+                                target_url:   res.target_url,
+                                notified_at:  notified_at.getTime()
+                            });
+
+                            chrome.notifications.create(
+                                notificationId,
+                                {
+                                    type:     "basic",
+                                    iconUrl:  "img/gitlab-icon.png",
+                                    title:    project_name,
+                                    message:  message,
+                                    priority: 0
+                                },
+                                function(notificationId){
 //                                alert("failed notification: " + notificationId);
-                            }
-                        );
-                        notifiedHistories.push(projectEvent);
+                                }
+                            );
+                            projectEvent.project_name = project_name;
+                            projectEvent.target_id = res.target_id;
+                            projectEvent.target_url = res.target_url;
+                            projectEvent.notified_at = notified_at;
+                            config.addNotifiedHistories([projectEvent]);
 
-                        notificationCount++;
-                        showNotificationCount(notificationCount);
+                            notificationCount++;
+                            showNotificationCount(notificationCount);
+                        });
                     }
                 });
             });
-            ajaxProjectEvents.push(df);
-        });
-
-        $.when.apply(null, ajaxProjectEvents).then(function(){
-            config.addNotifiedHistories(notifiedHistories);
-            config.setRecentEvents(recentEvents);
         });
     }
 
@@ -91,9 +96,8 @@
     $(document).ready(function(){
         chrome.notifications.onClicked.addListener(function(notificationId){
             // open event page
-            gitlab.getEventInternalUrl(JSON.parse(notificationId), function(url){
-                chrome.tabs.create({url: url});
-            });
+            var notification = JSON.parse(notificationId);
+            chrome.tabs.create({url: notification.target_url});
         });
 
         chrome.browserAction.setBadgeText({text: ""});
