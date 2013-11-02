@@ -37,12 +37,7 @@
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: projectUrl, target: "_blank"}).text("["+ projectEvent.project_name +"]").appendTo(li);
             $("<span/>").text(" ").appendTo(li);
-            $("<a/>").attr({
-                href:                "#",
-                "data-project-name": projectEvent.project_name,
-                "data-target-type" : projectEvent.target_type,
-                "data-target-id"   : projectEvent.target_id
-            }).addClass("eventLink").text("#" + projectEvent.target_id + " " + projectEvent.target_title).appendTo(li);
+            $("<a/>").attr({href: projectEvent.target_url, target: "_blank"}).addClass("eventLink").text("#" + projectEvent.target_id + " " + projectEvent.target_title).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
             $("<span/>").addClass("label").addClass(actionLabels[projectEvent.action_name]).text(projectEvent.action_name).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
@@ -52,17 +47,6 @@
         });
 
         $("abbr.timeago").timeago();
-
-        $("a.eventLink").click(function(){
-            // open event page
-            gitlab.getEventInternalUrl({
-                project_name: $(this).attr("data-project-name"),
-                target_type:  $(this).attr("data-target-type"),
-                target_id:    $(this).attr("data-target-id")
-            }, function(url){
-                chrome.tabs.create({url: url});
-            });
-        });
     });
 
 })(jQuery);

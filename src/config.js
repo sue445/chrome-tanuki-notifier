@@ -52,6 +52,16 @@ var config= (function(){
         localStorage["recentEvents"] = JSON.stringify(recentEvents);
     }
 
+    function setRecentEvent(projectId, recentEvent){
+        var recentEvents = getRecentEvents();
+        recentEvents[projectId] = recentEvent;
+        setRecentEvents(recentEvents);
+    }
+
+    function getRecentEvent(projectId){
+        return getRecentEvents()[projectId];
+    }
+
     function getNotifiedHistories(){
         return JSON.parse(localStorage["notifiedHistories"] || "[]");
     }
@@ -105,6 +115,8 @@ var config= (function(){
         getNewMarkMinute:     getNewMarkMinute,
         getRecentEvents:      getRecentEvents,
         setRecentEvents:      setRecentEvents,
+        setRecentEvent:       setRecentEvent,
+        getRecentEvent:       getRecentEvent,
         getNotifiedHistories: getNotifiedHistories,
         addNotifiedHistories: addNotifiedHistories,
         clearCache:           clearCache,

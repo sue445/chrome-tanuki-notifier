@@ -27,13 +27,13 @@ var gitlab= (function(){
         });
     }
 
-    function getEventUrl(projectEvent){
-        var projects = config.getActiveProjects();
-        var projectName = projects[projectEvent.project_id].name;
-        return config.getGitlabPath() + projectName + getEventPath(projectEvent);
+    function getEventInternalUrl(args, internalUrlCallback){
+        getEventInternalId(args, function(id){
+            internalUrlCallback(config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id);
+        });
     }
 
-    function getEventInternalUrl(args, internalUrlCallback){
+    function getEventInternalId(args, callback){
         $.ajax({
             url: config.getApiPath() + "projects/" + encodeURIComponent(args.project_name) + "/" + eventPath[args.target_type].api + "/" + args.target_id,
             type: "GET",
@@ -43,7 +43,8 @@ var gitlab= (function(){
             },
         }).then(function(res){
                 var id = res.iid || res.id
-                internalUrlCallback(config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id);
+                var url = config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id;
+                callback({target_id: id, target_url: url});
             });
     }
 
@@ -58,8 +59,8 @@ var gitlab= (function(){
     return {
         getProjects:         getProjects,
         getProjectEvents:    getProjectEvents,
-        getEventUrl:         getEventUrl,
         getEventInternalUrl: getEventInternalUrl,
+        getEventInternalId:  getEventInternalId,
         events:              events,
     };
 
@@ -92,17 +93,6 @@ var gitlab= (function(){
                     getProjectsBase(projectCallback, df, page + 1);
                 }
             });
-    }
-
-    function getEventPath(projectEvent){
-        if(projectEvent.target_type == "Issue"){
-            return "/issues/" + projectEvent.target_id;
-        } else if(projectEvent.target_type == "MergeRequest"){
-            return "/merge_requests/" + projectEvent.target_id;
-        } else if(projectEvent.target_type == "Milestone"){
-            return "/milestones/" + projectEvent.target_id;
-        }
-        return "";
     }
 
 }());
