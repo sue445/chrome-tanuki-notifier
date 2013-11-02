@@ -33,7 +33,6 @@
             }
 
             var projectUrl = config.getGitlabPath() + projectEvent.project_name;
-            var eventUrl = gitlab.getEventUrl(projectEvent);
 
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: projectUrl, target: "_blank"}).text("["+ projectEvent.project_name +"]").appendTo(li);
