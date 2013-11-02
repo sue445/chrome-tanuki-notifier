@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Chrome Gitlab Notifier",
-    "description": "Notify Gitlab events",
+    "description": "Notify Gitlab events (Issue, MergeRequest and Milestone)",
     "version": "1.0.0",
 
     "icons": {
