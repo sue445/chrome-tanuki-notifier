@@ -41,9 +41,16 @@
                         }
                         eventCount++;
                         var message = "[" + projectEvent.target_type + "] #" + projectEvent.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name;
-                        var notificationId = gitlab.getEventUrl(projectEvent) + ";" + (new Date()).getTime();
                         projectEvent.project_name = projects[projectEvent.project_id].name;
                         projectEvent.notified_at = new Date();
+
+                        var notificationId =  JSON.stringify({
+                            project_name: projectEvent.project_name,
+                            target_type:  projectEvent.target_type,
+                            target_id:    projectEvent.target_id,
+                            notified_at:  (new Date()).getTime()
+                        });
+
                         chrome.notifications.create(
                             notificationId,
                             {
@@ -83,8 +90,10 @@
 
     $(document).ready(function(){
         chrome.notifications.onClicked.addListener(function(notificationId){
-            var url = notificationId.split(";", 2)[0];
-            chrome.tabs.create({'url': url});
+            // open event page
+            gitlab.getEventInternalUrl(JSON.parse(notificationId), function(url){
+                chrome.tabs.create({url: url});
+            });
         });
 
         chrome.browserAction.setBadgeText({text: ""});

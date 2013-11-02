@@ -1,5 +1,10 @@
 var gitlab= (function(){
     var perPage = 100;
+    var eventPath = {
+        "Issue"        : {page: "issues"        , api: "issues"},
+        "MergeRequest" : {page: "merge_requests", api: "merge_request"},
+        "Milestone"    : {page: "milestones"    , api: "milestones"}
+    }
 
     // public methods
     function getProjects(projectCallback){
@@ -28,6 +33,20 @@ var gitlab= (function(){
         return config.getGitlabPath() + projectName + getEventPath(projectEvent);
     }
 
+    function getEventInternalUrl(args, internalUrlCallback){
+        $.ajax({
+            url: config.getApiPath() + "projects/" + encodeURIComponent(args.project_name) + "/" + eventPath[args.target_type].api + "/" + args.target_id,
+            type: "GET",
+            dataType: "json",
+            headers: {
+                "PRIVATE-TOKEN" : config.getPrivateToken()
+            },
+        }).then(function(res){
+                var id = res.iid || res.id
+                internalUrlCallback(config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id);
+            });
+    }
+
     function events(){
         return [
             "Issue",
@@ -37,10 +56,11 @@ var gitlab= (function(){
     }
 
     return {
-        getProjects:      getProjects,
-        getProjectEvents: getProjectEvents,
-        getEventUrl:      getEventUrl,
-        events:           events,
+        getProjects:         getProjects,
+        getProjectEvents:    getProjectEvents,
+        getEventUrl:         getEventUrl,
+        getEventInternalUrl: getEventInternalUrl,
+        events:              events,
     };
 
     // private methods

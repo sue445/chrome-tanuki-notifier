@@ -1,11 +1,13 @@
 describe("gitlab", function() {
     beforeEach(function() {
         $.mockjaxClear();
-        localStorage["api_path"] = "http://example.com/api/v3/";
+        localStorage["gitlabPath"] = "http://example.com/";
+        localStorage["apiPath"]    = "http://example.com/api/v3/";
     });
 
     afterEach(function() {
-        localStorage.removeItem("api_path");
+        localStorage.removeItem("gitlabPath");
+        localStorage.removeItem("apiPath");
     });
 
     describe("getProjects", function() {
@@ -37,6 +39,60 @@ describe("gitlab", function() {
 
             runs(function(){
                 expect(called).toEqual(true);
+            });
+        });
+    });
+
+    describe("getEventInternalUrl", function(){
+        describe("when contains iid", function(){
+            beforeEach(function() {
+                $.mockjax({
+                    url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
+                    responseText: stub.project_issue_v6,
+                });
+            });
+
+            it("should get internal id url", function(){
+                var called = false;
+
+                gitlab.getEventInternalUrl({project_name: "gitlab/gitlabhq", target_type: "Issue", target_id: "42"}, function(url){
+                    expect(url).toEqual("http://example.com/gitlab/gitlabhq/issues/3");
+                    called = true;
+                });
+
+                waitsFor(function(){
+                    return called;
+                }, "wait getEventInternalUrl callback", 1000);
+
+                runs(function(){
+                    expect(called).toEqual(true);
+                });
+            });
+        });
+
+        describe("when not contains iid", function(){
+            beforeEach(function() {
+                $.mockjax({
+                    url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
+                    responseText: stub.project_issue_v5,
+                });
+            });
+
+            it("should get global id url", function(){
+                var called = false;
+
+                gitlab.getEventInternalUrl({project_name: "gitlab/gitlabhq", target_type: "Issue", target_id: "42"}, function(url){
+                    expect(url).toEqual("http://example.com/gitlab/gitlabhq/issues/42");
+                    called = true;
+                });
+
+                waitsFor(function(){
+                    return called;
+                }, "wait getEventInternalUrl callback", 1000);
+
+                runs(function(){
+                    expect(called).toEqual(true);
+                });
             });
         });
     });
