@@ -17,13 +17,13 @@ var gitlab= (function(){
         return $.ajax({
             url: config.getApiPath() + "projects/" + projectId + "/events",
             data: {
-                per_page: perPage,
+                per_page: perPage
             },
             type: "GET",
             dataType: "json",
             headers: {
                 "PRIVATE-TOKEN" : config.getPrivateToken()
-            },
+            }
         });
     }
 
@@ -40,7 +40,7 @@ var gitlab= (function(){
             dataType: "json",
             headers: {
                 "PRIVATE-TOKEN" : config.getPrivateToken()
-            },
+            }
         }).then(function(res){
                 var id = res.iid || res.id
                 var url = config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id;
@@ -52,7 +52,7 @@ var gitlab= (function(){
         return [
             "Issue",
             "MergeRequest",
-            "Milestone",
+            "Milestone"
         ];
     }
 
@@ -61,7 +61,7 @@ var gitlab= (function(){
         getProjectEvents:    getProjectEvents,
         getEventInternalUrl: getEventInternalUrl,
         getEventInternalId:  getEventInternalId,
-        events:              events,
+        events:              events
     };
 
     // private methods
@@ -70,13 +70,13 @@ var gitlab= (function(){
             url: config.getApiPath() + "projects",
             data: {
                 page: page,
-                per_page: perPage,
+                per_page: perPage
             },
             type: "GET",
             dataType: "json",
             headers: {
                 "PRIVATE-TOKEN" : config.getPrivateToken()
-            },
+            }
         }).fail(function(xhr, status, e){
                 alert(status + " " + e);
                 df.reject();

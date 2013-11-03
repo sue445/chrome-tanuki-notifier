@@ -85,5 +85,5 @@ var stub = {
         "state": "opened",
         "updated_at": "2012-07-12T13:43:19Z",
         "created_at": "2012-06-28T12:58:06Z"
-    },
+    }
 }

@@ -21,7 +21,7 @@ describe("gitlab", function() {
                 url: 'http://example.com/api/v3/projects',
 
                 // response has 7 projects
-                responseText: stub.projects,
+                responseText: stub.projects
             });
         });
 
@@ -48,7 +48,7 @@ describe("gitlab", function() {
             beforeEach(function() {
                 $.mockjax({
                     url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
-                    responseText: stub.project_issue_v6,
+                    responseText: stub.project_issue_v6
                 });
             });
 
@@ -74,7 +74,7 @@ describe("gitlab", function() {
             beforeEach(function() {
                 $.mockjax({
                     url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
-                    responseText: stub.project_issue_v5,
+                    responseText: stub.project_issue_v5
                 });
             });
 

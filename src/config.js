@@ -121,7 +121,7 @@ var config= (function(){
         addNotifiedHistories: addNotifiedHistories,
         clearCache:           clearCache,
         isChecked:            isChecked,
-        save:                 save,
+        save:                 save
     };
 
     // private methods

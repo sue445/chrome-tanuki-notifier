@@ -29,7 +29,7 @@
             pollingSecond: $("#pollingSecond").val(),
             maxEventCount: $("#maxEventCount").val(),
             newMarkMinute: $("#newMarkMinute").val(),
-            projects:      projects,
+            projects:      projects
         });
 
         showStatus("Options Saved.");
