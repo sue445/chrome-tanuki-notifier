@@ -4,6 +4,8 @@
 ### bugfixes
 * gitlab6: Wrong issue|merge request numbers in links
   * https://github.com/sue445/chrome-gitlab-notifier/issues/8
+* wrong unread count on badge
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/11
 
 ### enhancements
 * Not show notification when first running
