@@ -28,8 +28,8 @@ var gitlab= (function(){
     }
 
     function getEventInternalUrl(args, internalUrlCallback){
-        getEventInternalId(args, function(id){
-            internalUrlCallback(config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id);
+        getEventInternalId(args, function(res){
+            internalUrlCallback(config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + res.target_id);
         });
     }
 

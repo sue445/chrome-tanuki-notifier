@@ -3,9 +3,8 @@
         var projects = config.getActiveProjects();
         var notificationCount = 0;
 
-        var notifiedHistories = [];
         $.each(projects, function(projectId, project){
-            var df = gitlab.getProjectEvents(projectId).done(function(projectEvents){
+            gitlab.getProjectEvents(projectId).done(function(projectEvents){
                 // latest check
                 if(projectEvents.length < 1){
                     return;
@@ -90,7 +89,14 @@
     }
 
     function showNotificationCount(count){
-        chrome.browserAction.setBadgeText({text: String(count)});
+        chrome.browserAction.getBadgeText({}, function(badgeText){
+            var oldCount = toInt(badgeText);
+            chrome.browserAction.setBadgeText({text: String(oldCount + count)});
+        });
+    }
+
+    function toInt(str){
+        return parseInt(str) || 0;
     }
 
     $(document).ready(function(){
