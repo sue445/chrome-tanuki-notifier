@@ -90,7 +90,14 @@
     }
 
     function showNotificationCount(count){
-        chrome.browserAction.setBadgeText({text: String(count)});
+        chrome.browserAction.getBadgeText({}, function(badgeText){
+            var oldCount = toInt(badgeText);
+            chrome.browserAction.setBadgeText({text: String(oldCount + count)});
+        });
+    }
+
+    function toInt(str){
+        return parseInt(str) || 0;
     }
 
     $(document).ready(function(){
