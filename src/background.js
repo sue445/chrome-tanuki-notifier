@@ -3,9 +3,8 @@
         var projects = config.getActiveProjects();
         var notificationCount = 0;
 
-        var notifiedHistories = [];
         $.each(projects, function(projectId, project){
-            var df = gitlab.getProjectEvents(projectId).done(function(projectEvents){
+            gitlab.getProjectEvents(projectId).done(function(projectEvents){
                 // latest check
                 if(projectEvents.length < 1){
                     return;
