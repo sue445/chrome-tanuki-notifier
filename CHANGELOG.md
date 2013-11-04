@@ -1,5 +1,8 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.1...master)
+
+## 1.0.1 (2013/11/05)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.0...1.0.1)
 
 ### bugfixes
 * gitlab6: Wrong issue|merge request numbers in links
