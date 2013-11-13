@@ -17,7 +17,7 @@
 
             var project = {name: $("#" + projectId + " td.name").text(), events: {}}
             $.each(gitlab.events(), function(index, event){
-                project.events[event] = config.isChecked("#" + projectId + " td." + event + " input:checkbox");
+                project.events[event] = util.isChecked("#" + projectId + " td." + event + " input:checkbox");
             });
             projects[projectId] = project;
         });

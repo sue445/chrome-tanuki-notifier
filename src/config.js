@@ -89,10 +89,6 @@ var config= (function(){
         localStorage.removeItem("recentEvents");
     }
 
-    function isChecked(element){
-        return $(element).is(":checked") ? true : false;
-    }
-
     function save(args){
         util.checkArgs(args, ["gitlabPath", "privateToken", "privateToken", "pollingSecond", "maxEventCount", "newMarkMinute", "projects"]);
 
@@ -122,7 +118,6 @@ var config= (function(){
         getNotifiedHistories: getNotifiedHistories,
         addNotifiedHistories: addNotifiedHistories,
         clearCache:           clearCache,
-        isChecked:            isChecked,
         save:                 save
     };
 

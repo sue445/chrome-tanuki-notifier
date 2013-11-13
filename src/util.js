@@ -26,9 +26,14 @@ var util = (function(){
         return $("<span/>");
     }
 
+    function isChecked(element){
+        return $(element).is(":checked") ? true : false;
+    }
+
     return {
         checkArgs:       checkArgs,
-        createEventIcon: createEventIcon
+        createEventIcon: createEventIcon,
+        isChecked:       isChecked
     };
 
     // private methods
