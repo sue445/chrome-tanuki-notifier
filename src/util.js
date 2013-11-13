@@ -14,8 +14,21 @@ var util = (function(){
         });
     }
 
+    function createEventIcon(targetType){
+        if(targetType == "Issue"){
+            return $("<span/>").addClass("glyphicon glyphicon-warning-sign").attr({title: "Issue"});
+        } else if(targetType == "MergeRequest"){
+            return $("<span/>").addClass("glyphicon glyphicon-upload").attr({title: "MergeRequest"});
+        } else if(targetType == "Milestone"){
+            return $("<span/>").addClass("glyphicon glyphicon-calendar").attr({title: "Milestone"});
+        }
+
+        return $("<span/>");
+    }
+
     return {
-        checkArgs: checkArgs
+        checkArgs:       checkArgs,
+        createEventIcon: createEventIcon
     };
 
     // private methods

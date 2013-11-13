@@ -24,13 +24,7 @@
                 li.addClass("new");
             }
 
-            if(projectEvent.target_type == "Issue"){
-                $("<span/>").addClass("glyphicon glyphicon-warning-sign").attr({title: "Issue"}).appendTo(li);
-            } else if(projectEvent.target_type == "MergeRequest"){
-                $("<span/>").addClass("glyphicon glyphicon-upload").attr({title: "MergeRequest"}).appendTo(li);
-            } else if(projectEvent.target_type == "Milestone"){
-                $("<span/>").addClass("glyphicon glyphicon-calendar").attr({title: "Milestone"}).appendTo(li);
-            }
+            util.createEventIcon(projectEvent.target_type).appendTo(li);
 
             var projectUrl = config.getGitlabPath() + projectEvent.project_name;
 
