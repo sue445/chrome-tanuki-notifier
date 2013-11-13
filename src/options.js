@@ -59,6 +59,7 @@
 
                     var label = $("<label/>").addClass("checkbox-inline");
                     $("<input/>").attr({type: "checkbox", checked: checked}).appendTo(label);
+                    util.createEventIcon(event).appendTo(label);
                     $("<span/>").text(event).appendTo(label);
                     $("<td/>").addClass(event).append(label).appendTo(tr);
                 }
