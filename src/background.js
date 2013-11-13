@@ -54,13 +54,9 @@ var background = {
 
     incNotificationCount: function(){
         chrome.browserAction.getBadgeText({}, function(badgeText){
-            var oldCount = this.toInt(badgeText);
+            var oldCount = util.toInt(badgeText);
             chrome.browserAction.setBadgeText({text: String(oldCount + 1)});
         });
-    },
-
-    toInt: function(str){
-        return parseInt(str) || 0;
     }
 };
 

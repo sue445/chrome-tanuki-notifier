@@ -30,10 +30,15 @@ var util = (function(){
         return $(element).is(":checked") ? true : false;
     }
 
+    function toInt(str){
+        return parseInt(str) || 0;
+    }
+
     return {
         checkArgs:       checkArgs,
         createEventIcon: createEventIcon,
-        isChecked:       isChecked
+        isChecked:       isChecked,
+        toInt:           toInt
     };
 
     // private methods
