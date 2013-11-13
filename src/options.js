@@ -17,7 +17,7 @@
 
             var project = {name: $("#" + projectId + " td.name").text(), events: {}}
             $.each(gitlab.events(), function(index, event){
-                project.events[event] = config.isChecked("#" + projectId + " td." + event + " input:checkbox");
+                project.events[event] = util.isChecked("#" + projectId + " td." + event + " input:checkbox");
             });
             projects[projectId] = project;
         });
@@ -59,6 +59,7 @@
 
                     var label = $("<label/>").addClass("checkbox-inline");
                     $("<input/>").attr({type: "checkbox", checked: checked}).appendTo(label);
+                    util.createEventIcon(event).appendTo(label);
                     $("<span/>").text(event).appendTo(label);
                     $("<td/>").addClass(event).append(label).appendTo(tr);
                 }
@@ -74,6 +75,10 @@
     }
 
     $(document).ready(function(){
+        if(!chrome){
+            return;
+        }
+
         restoreOptions();
         refreshProjects();
 
