@@ -6,6 +6,10 @@
     };
 
     $(document).ready(function(){
+        if(!chrome){
+            return;
+        }
+
         var projects = config.getActiveProjects();
         var ajaxProjectEvents = [];
         var allProjectEvents = [];

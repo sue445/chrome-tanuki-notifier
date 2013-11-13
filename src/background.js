@@ -125,6 +125,10 @@ var background = {
     }
 
     $(document).ready(function(){
+        if(!chrome){
+            return;
+        }
+
         chrome.notifications.onClicked.addListener(function(notificationId){
             // open event page
             var notification = JSON.parse(notificationId);

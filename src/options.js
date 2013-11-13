@@ -75,6 +75,10 @@
     }
 
     $(document).ready(function(){
+        if(!chrome){
+            return;
+        }
+
         restoreOptions();
         refreshProjects();
 
