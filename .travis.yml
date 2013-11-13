@@ -2,3 +2,9 @@ script: phantomjs spec/lib/run-jasmine.js spec/SpecRunner.html
 branches:
   only:
     - master
+after_success:
+  - git checkout -b gh-pages
+  - '[ $GH_TOKEN ] && git push -f --quiet https://$GH_TOKEN@github.com/sue445/chrome-gitlab-notifier.git gh-pages'
+env:
+  global:
+    - secure: "TAIbJjQH7vzK96MQRpWNYyzSm9OeKaLemgddPz8RTgxQEtwvXy3svvPC+4YHyjYPleQrdfyk9PB1QhZ5qq6OgInXgSvfm34zEItN7Fue9wnMUuiJJcq4zqpYX1uRuBKmkIUGB1iI9bevWyHyhIVD1IhF9GkGuTWuw6JpA5k9yn8="
