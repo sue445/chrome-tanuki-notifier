@@ -4,7 +4,7 @@ var gitlab= (function(){
         "Issue"        : {page: "issues"        , api: "issues"},
         "MergeRequest" : {page: "merge_requests", api: "merge_request"},
         "Milestone"    : {page: "milestones"    , api: "milestones"}
-    }
+    };
 
     // public methods
     function getProjects(projectCallback){
@@ -34,6 +34,8 @@ var gitlab= (function(){
     }
 
     function getEventInternalId(args, callback){
+        util.checkArgs(args, ["project_name", "target_type", "target_id"]);
+
         $.ajax({
             url: config.getApiPath() + "projects/" + encodeURIComponent(args.project_name) + "/" + eventPath[args.target_type].api + "/" + args.target_id,
             type: "GET",

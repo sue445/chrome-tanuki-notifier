@@ -94,6 +94,8 @@ var config= (function(){
     }
 
     function save(args){
+        util.checkArgs(args, ["gitlabPath", "privateToken", "privateToken", "pollingSecond", "maxEventCount", "newMarkMinute", "projects"]);
+
         localStorage["gitlabPath"]    = args.gitlabPath;
         localStorage["apiPath"]       = args.apiPath;
         localStorage["privateToken"]  = args.privateToken;
