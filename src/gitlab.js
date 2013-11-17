@@ -21,6 +21,7 @@ var gitlab= (function(){
             },
             type: "GET",
             dataType: "json",
+            timeout: config.getPollingSecond() * 1000,
             headers: {
                 "PRIVATE-TOKEN" : config.getPrivateToken()
             }
@@ -52,6 +53,7 @@ var gitlab= (function(){
 
     function events(){
         return [
+            "Commit",   // target_type == null
             "Issue",
             "MergeRequest",
             "Milestone"

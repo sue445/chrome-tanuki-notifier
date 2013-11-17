@@ -9,7 +9,6 @@
 
 <div class="container">
     <h1>Gitlab Setting</h1>
-
     <dl class="dl-horizontal">
         <dt>Gitlab Path</dt>
         <dd>
@@ -23,6 +22,10 @@
         <dd>
             <input type="password" id="privateToken" size="60" />
         </dd>
+    </dl>
+
+    <h1>Notification Setting</h1>
+    <dl class="dl-horizontal">
         <dt>Polling interval</dt>
         <dd>
             <input type="text" id="pollingSecond" size="3" /> second(s) <strong>(if change this, please restart chrome)</strong>
@@ -30,6 +33,10 @@
         <dt>Display event count</dt>
         <dd>
             show <input type="text" id="maxEventCount" size="3" /> events
+        </dd>
+        <dt>Notification count</dt>
+        <dd>
+            notify <input type="text" id="maxNotificationCount" size="3" /> events/project
         </dd>
         <dt>Mark as new event</dt>
         <dd>

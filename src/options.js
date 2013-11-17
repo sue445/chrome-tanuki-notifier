@@ -6,6 +6,7 @@
         $("#privateToken").val(config.getPrivateToken());
         $("#pollingSecond").val(config.getPollingSecond());
         $("#maxEventCount").val(config.getMaxEventCount());
+        $("#maxNotificationCount").val(config.getMaxNotificationCount());
         $("#newMarkMinute").val(config.getNewMarkMinute());
     }
 
@@ -23,13 +24,14 @@
         });
 
         config.save({
-            gitlabPath:    $("#gitlabPath").val(),
-            apiPath:       $("#apiPath").val(),
-            privateToken:  $("#privateToken").val(),
-            pollingSecond: $("#pollingSecond").val(),
-            maxEventCount: $("#maxEventCount").val(),
-            newMarkMinute: $("#newMarkMinute").val(),
-            projects:      projects
+            gitlabPath:           $("#gitlabPath").val(),
+            apiPath:              $("#apiPath").val(),
+            privateToken:         $("#privateToken").val(),
+            pollingSecond:        $("#pollingSecond").val(),
+            maxEventCount:        $("#maxEventCount").val(),
+            maxNotificationCount: $("#maxNotificationCount").val(),
+            newMarkMinute:        $("#newMarkMinute").val(),
+            projects:             projects
         });
 
         showStatus("Options Saved.");

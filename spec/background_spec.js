@@ -1,33 +1,41 @@
 describe("background", function() {
     describe("#notify", function() {
-        var project = {
-            name: "MyProject"
-        };
-
-        var projectEvent = {
-            target_type:  "Issue",
-            target_title: "MyIssue",
-            action_name:  "opened"
-        };
-
-        var internal = {
-            target_id: 1,
-            target_url: "http://example.com/gitlab/gitlabhq/issues/1"
-        };
-
-        var currentTime = new Date();
+        var project;
+        var projectEvent;
+        var internal;
+        var currentTime;
+        var message;
 
         beforeEach(function() {
             // setup
             spyOn(background, "incNotificationCount");
             spyOn(background, "createNotification");
 
+            project = {
+                name: "MyProject"
+            };
+
+            projectEvent = {
+                target_type:  "Issue",
+                target_title: "MyIssue",
+                action_name:  "opened"
+            };
+
+            internal = {
+                target_id: 1,
+                target_url: "http://example.com/gitlab/gitlabhq/issues/1"
+            };
+
+            currentTime = new Date();
+            message = "some message";
+
             // exercise
             background.notify({
                 project:      project,
                 projectEvent: projectEvent,
                 internal:     internal,
-                currentTime:  currentTime
+                currentTime:  currentTime,
+                message:      message
             });
         });
 
@@ -49,6 +57,7 @@ describe("background", function() {
                 project_name: project.name,
                 target_id:    internal.target_id,
                 target_url:   internal.target_url,
+                message:      message
             };
 
             var actual = config.getNotifiedHistories()[0];
@@ -61,17 +70,14 @@ describe("background", function() {
 
         it("should called createNotification", function() {
             var notificationId = JSON.stringify({
-                project_name: project.name,
-                target_type:  projectEvent.target_type,
-                target_id:    internal.target_id,
-                target_url:   internal.target_url,
-                notified_at:  currentTime.getTime()
+                target_url: internal.target_url,
+                message:    message
             });
 
             var params = {
                 notificationId: notificationId,
-                title:   project.name,
-                message: "[" + projectEvent.target_type + "] #" + internal.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name
+                title:          project.name,
+                message:        message
             };
             expect(background.createNotification).toHaveBeenCalledWith(params);
         });

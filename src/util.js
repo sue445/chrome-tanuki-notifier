@@ -21,6 +21,8 @@ var util = (function(){
             return $("<span/>").addClass("glyphicon glyphicon-upload").attr({title: "MergeRequest"});
         } else if(targetType == "Milestone"){
             return $("<span/>").addClass("glyphicon glyphicon-calendar").attr({title: "Milestone"});
+        } else if(targetType == "Commit"){
+            return $("<span/>").addClass("glyphicon glyphicon-circle-arrow-up").attr({title: "Commit"});
         }
 
         return $("<span/>");
