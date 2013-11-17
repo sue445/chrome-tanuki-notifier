@@ -2,7 +2,7 @@ var util = (function(){
     // public methods
     function checkArgs(args, names){
         // skip argument check when release version
-        //return;
+        return;
 
         args = args || {};
         names = names || [];
