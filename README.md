@@ -31,3 +31,5 @@ Notify Gitlab Project events (Issue, MergeRequest and Milestone)
 
 ## Test Suite
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
+
+[![endorse](https://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
