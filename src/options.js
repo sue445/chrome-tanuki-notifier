@@ -50,7 +50,12 @@
         if(config.getPrivateToken().length > 0){
             gitlab.getProjects(function(project){
                 var tr = $("<tr/>").attr({id: project.id}).addClass("project");
-                $("<td/>").addClass("name").text(project.path_with_namespace).appendTo(tr);
+
+                var projectUrl = config.getGitlabPath() + project.path_with_namespace;
+
+                $("<td/>").addClass("name").append(
+                    $("<a/>").attr({href: projectUrl}).text(project.path_with_namespace)
+                ).appendTo(tr);
 
                 var project = config.getProject(project.id);
                 var events = gitlab.events();
