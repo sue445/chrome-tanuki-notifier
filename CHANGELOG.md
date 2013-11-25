@@ -1,6 +1,10 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.1...master)
 
+### bugfixes
+* Close notify box on-click
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/19
+
 ### enhancements
 * Notify commit
   * https://github.com/sue445/chrome-gitlab-notifier/issues/5
