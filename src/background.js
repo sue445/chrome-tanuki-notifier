@@ -130,9 +130,12 @@ var background = {
         }
 
         chrome.notifications.onClicked.addListener(function(notificationId){
-            // open event page
-            var notification = JSON.parse(notificationId);
-            chrome.tabs.create({url: notification.target_url});
+            // close notification popup
+            chrome.notifications.clear(notificationId, function(wasCleared){
+                // open gitlab event page (Issue, MergeRequest, Milestone)
+                var notification = JSON.parse(notificationId);
+                chrome.tabs.create({url: notification.target_url});
+            });
         });
 
         chrome.browserAction.setBadgeText({text: ""});
