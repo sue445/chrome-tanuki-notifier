@@ -4,27 +4,26 @@ var background = {
         var projectEvent = args.projectEvent;
         var internal     = args.internal;
         var currentTime  = args.currentTime;
+        var message      = args.message;
 
-        util.checkArgs(args, ["project", "projectEvent", "internal", "currentTime"]);
+        util.checkArgs(args, ["project", "projectEvent", "internal", "currentTime", "message"]);
 
         var notificationId =  JSON.stringify({
-            project_name: project.name,
-            target_type:  projectEvent.target_type,
-            target_id:    internal.target_id,
             target_url:   internal.target_url,
-            notified_at:  currentTime.getTime()
+            message:      message
         });
 
         this.createNotification({
             notificationId: notificationId,
             title:          project.name,
-            message:        "[" + projectEvent.target_type + "] #" + internal.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name
+            message:        message
         });
 
         projectEvent.project_name = project.name;
-        projectEvent.target_id = internal.target_id;
-        projectEvent.target_url = internal.target_url;
-        projectEvent.notified_at = currentTime;
+        projectEvent.target_id    = internal.target_id;
+        projectEvent.target_url   = internal.target_url;
+        projectEvent.notified_at  = currentTime;
+        projectEvent.message      = message;
         config.addNotifiedHistories([projectEvent]);
 
         this.incNotificationCount();
@@ -47,17 +46,17 @@ var background = {
                 priority: 0
             },
             function(notificationId){
-                //alert("failed notification: " + notificationId);
+                // do nothing
             }
         );
     },
 
     incNotificationCount: function(){
-        chrome.browserAction.getBadgeText({}, function(badgeText){
-            var oldCount = util.toInt(badgeText);
-            chrome.browserAction.setBadgeText({text: String(oldCount + 1)});
-        });
-    }
+        this.notificationCount ++;
+        chrome.browserAction.setBadgeText({text: String(this.notificationCount)});
+    },
+
+    notificationCount: 0
 };
 
 (function($){
@@ -83,45 +82,133 @@ var background = {
                     // not changed
                    return;
                 }
-                config.setRecentEvent(projectId, latest);
 
                 var eventCount = 0;
                 $.each(projectEvents, function(index, projectEvent){
-                    if(isSameEvent(projectEvent, recent)){
+                    projectEvent.target_type = projectEvent.target_type || "Commit";
+
+                    if(projectEvent.target_type == "Commit"){
+                        // Commit has null target_id
+                        projectEvent.target_id = getCommitTargetId(projectEvent);
+                    }
+
+                    if(index == 0){
+                        config.setRecentEvent(projectId, projectEvent);
+                    }
+
+                    if(isSameEvent(projectEvent, recent) || eventCount >= config.getMaxNotificationCount()){
                         // break loop
                         return false;
                     }
-                    var project = config.getProject(projectId);
-                    if(!project.events[projectEvent.target_type]){
+
+                    if(!isNotifyTargetEvent(projectId, projectEvent.target_type)){
                         // continue loop
                         return;
                     }
 
-                    if(eventCount >= config.getMaxEventCount()){
-                        // break loop
-                        return false;
-                    }
-                    eventCount++;
+                    var project = config.getProject(projectId);
 
-                    gitlab.getEventInternalId({
-                        project_name: project.name,
-                        target_type:  projectEvent.target_type,
-                        target_id:    projectEvent.target_id
-                    }, function(internal){
-                        background.notify({
-                            project:      project,
-                            projectEvent: projectEvent,
-                            internal:     internal,
-                            currentTime:  new Date()
+                    if(projectEvent.target_type == "Commit"){
+                        var commitMessage = getCommitMessage(projectEvent);
+                        var displayId = getCommitTargetId(projectEvent);
+                        var targetUrl = getCommitTargetUrl(projectId, projectEvent);
+
+                        if(targetUrl && commitMessage){
+                            var branchName = projectEvent.data.ref.replace(/^refs\/heads\//, "");
+                            projectEvent.target_title = commitMessage;
+
+                            background.notify({
+                                project:      project,
+                                projectEvent: projectEvent,
+                                internal: {
+                                    target_id:  displayId,
+                                    target_url: targetUrl
+                                },
+                                message:      "[" + branchName + "] " + "@" + projectEvent.data.user_name + " " + displayId + " " + projectEvent.target_title + " (" + projectEvent.data.total_commits_count + " commits)",
+                                currentTime:  new Date()
+                            });
+                            eventCount++;
+                        }
+
+                    } else if(projectEvent.target_type == "Issue" || projectEvent.target_type == "MergeRequest" || projectEvent.target_type == "Milestone"){
+                        // Issue, MergeRequest, Milestone
+                        gitlab.getEventInternalId({
+                            project_name: project.name,
+                            target_type:  projectEvent.target_type,
+                            target_id:    projectEvent.target_id
+                        }, function(internal){
+                            background.notify({
+                                project:      project,
+                                projectEvent: projectEvent,
+                                internal:     internal,
+                                message:      "[" + projectEvent.target_type + "] #" + internal.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name,
+                                currentTime:  new Date()
+                            });
+                            eventCount++;
                         });
-                    });
+                    }
                 });
             });
         });
     }
 
+    function getCommitMessage(projectEvent){
+        if(!projectEvent.data || !projectEvent.data.commits || projectEvent.data.commits.length == 0){
+            return null;
+        }
+
+        // use latest commit message
+        for(var index = projectEvent.data.commits.length-1; index >= 0; index--){
+            var commitMessage = projectEvent.data.commits[index].message;
+            var firstLine =  commitMessage.split(/(\r\n|\r|\n)/)[0];
+            if(firstLine.length > 0){
+                return firstLine;
+            }
+        }
+        return null;
+    }
+
     function isSameEvent(event1, event2){
+        event1 = event1 || {};
+        event2 = event2 || {};
         return event1.target_id == event2.target_id && event1.target_type == event2.target_type && event1.action_name == event2.action_name;
+    }
+
+    function isNotifyTargetEvent(projectId, targetType){
+        var project = config.getProject(projectId);
+        return project.events[targetType] ? true : false;
+    }
+
+    function getCommitTargetId(projectEvent){
+        var after = projectEvent.data.after;
+        var before = projectEvent.data.before;
+
+        if(isValidCommitId(before) && isValidCommitId(after)){
+            return before.substr(0, 6) + "..." + after.substr(0, 6);
+        } else if(isValidCommitId(before)){
+            return before.substr(0, 6);
+        } else if(isValidCommitId(after)){
+            return after.substr(0, 6);
+        }
+    }
+
+    function getCommitTargetUrl(projectId, projectEvent){
+        var project = config.getProject(projectId);
+        var after = projectEvent.data.after;
+        var before = projectEvent.data.before;
+
+        if(isValidCommitId(before) && isValidCommitId(after)){
+            return config.getGitlabPath() + project.name + "/compare/" + before + "..." + after;
+        } else if(isValidCommitId(before)){
+            return config.getGitlabPath() + project.name + "/commit/" + before;
+        } else if(isValidCommitId(after)){
+            return config.getGitlabPath() + project.name + "/commit/" + after;
+        }
+    }
+
+    function isValidCommitId(commitId){
+        // invalid commit id is "0000000000000000000000...."
+        return util.toInt(commitId) != 0;
     }
 
     $(document).ready(function(){
@@ -138,10 +225,21 @@ var background = {
             });
         });
 
+        chrome.notifications.onClosed.addListener(function(notificationId, byUser){
+            chrome.notifications.clear(notificationId, function(wasCleared){
+                // do nothing
+            });
+        });
+
+        // startup
         chrome.browserAction.setBadgeText({text: ""});
         fetch();
+
         setInterval(function(){
-            fetch();
+            chrome.browserAction.getBadgeText({}, function(badgeText){
+                background.notificationCount = util.toInt(badgeText);
+                fetch();
+            });
         }, config.getPollingSecond() * 1000);
     });
 })(jQuery);

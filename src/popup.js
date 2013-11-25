@@ -35,7 +35,17 @@
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: projectUrl, target: "_blank"}).text("["+ projectEvent.project_name +"]").appendTo(li);
             $("<span/>").text(" ").appendTo(li);
-            $("<a/>").attr({href: projectEvent.target_url, target: "_blank"}).addClass("eventLink").text("#" + projectEvent.target_id + " " + projectEvent.target_title).appendTo(li);
+
+            var message = projectEvent.message;
+            if(!message){
+                // for previous version cache
+                if(projectEvent.target_type == "Commit"){
+                    message = projectEvent.target_title;
+                } else{
+                    message = "#" + projectEvent.target_id + " " + projectEvent.target_title;
+                }
+            }
+            $("<a/>").attr({href: projectEvent.target_url, target: "_blank"}).addClass("eventLink").text(message).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
             $("<span/>").addClass("label").addClass(actionLabels[projectEvent.action_name]).text(projectEvent.action_name).appendTo(li);
             $("<span/>").text(" ").appendTo(li);

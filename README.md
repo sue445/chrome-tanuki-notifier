@@ -19,6 +19,9 @@ Notify Gitlab Project events (Issue, MergeRequest and Milestone)
 6. Save
 7. Wait a minute
 
+## Upgrading
+Open extension option -> Clear cache
+
 ## Screenshots
 ### Option
 ![Option](https://f.cloud.github.com/assets/608755/1415697/52d0e646-3f18-11e3-96dc-c828a39e9316.png)

@@ -40,6 +40,10 @@ var config= (function(){
         return localStorage["maxEventCount"] || 100;
     }
 
+    function getMaxNotificationCount(){
+        return localStorage["maxNotificationCount"] || 10;
+    }
+
     function getNewMarkMinute(){
         return localStorage["newMarkMinute"] || 10;
     }
@@ -53,6 +57,7 @@ var config= (function(){
     }
 
     function setRecentEvent(projectId, recentEvent){
+        recentEvent.target_type = recentEvent.target_type || "Commit";
         var recentEvents = getRecentEvents();
         recentEvents[projectId] = recentEvent;
         setRecentEvents(recentEvents);
@@ -90,39 +95,48 @@ var config= (function(){
     }
 
     function save(args){
-        util.checkArgs(args, ["gitlabPath", "privateToken", "privateToken", "pollingSecond", "maxEventCount", "newMarkMinute", "projects"]);
+        util.checkArgs(args, ["gitlabPath", "privateToken", "privateToken", "pollingSecond", "maxEventCount", "maxNotificationCount", "newMarkMinute", "projects"]);
 
-        localStorage["gitlabPath"]    = args.gitlabPath;
-        localStorage["apiPath"]       = args.apiPath;
-        localStorage["privateToken"]  = args.privateToken;
-        localStorage["pollingSecond"] = args.pollingSecond;
-        localStorage["maxEventCount"] = args.maxEventCount;
-        localStorage["newMarkMinute"] = args.newMarkMinute;
-        localStorage["projects"]      = JSON.stringify(args.projects);
+        localStorage["gitlabPath"]           = args.gitlabPath;
+        localStorage["apiPath"]              = args.apiPath;
+        localStorage["privateToken"]         = args.privateToken;
+        localStorage["pollingSecond"]        = args.pollingSecond;
+        localStorage["maxEventCount"]        = args.maxEventCount;
+        localStorage["maxNotificationCount"] = args.maxNotificationCount;
+        localStorage["newMarkMinute"]        = args.newMarkMinute;
+        localStorage["projects"]             = JSON.stringify(args.projects);
     }
 
     return {
-        getGitlabPath:        getGitlabPath,
-        getApiPath:           getApiPath,
-        getPrivateToken:      getPrivateToken,
-        getPollingSecond:     getPollingSecond,
-        getProject:           getProject,
-        getProjects:          getProjects,
-        getActiveProjects:    getActiveProjects,
-        getMaxEventCount:     getMaxEventCount,
-        getNewMarkMinute:     getNewMarkMinute,
-        getRecentEvents:      getRecentEvents,
-        setRecentEvents:      setRecentEvents,
-        setRecentEvent:       setRecentEvent,
-        getRecentEvent:       getRecentEvent,
-        getNotifiedHistories: getNotifiedHistories,
-        addNotifiedHistories: addNotifiedHistories,
-        clearCache:           clearCache,
-        save:                 save
+        getGitlabPath:           getGitlabPath,
+        getApiPath:              getApiPath,
+        getPrivateToken:         getPrivateToken,
+        getPollingSecond:        getPollingSecond,
+        getProject:              getProject,
+        getProjects:             getProjects,
+        getActiveProjects:       getActiveProjects,
+        getMaxEventCount:        getMaxEventCount,
+        getMaxNotificationCount: getMaxNotificationCount,
+        getNewMarkMinute:        getNewMarkMinute,
+        getRecentEvents:         getRecentEvents,
+        setRecentEvents:         setRecentEvents,
+        setRecentEvent:          setRecentEvent,
+        getRecentEvent:          getRecentEvent,
+        getNotifiedHistories:    getNotifiedHistories,
+        addNotifiedHistories:    addNotifiedHistories,
+        clearCache:              clearCache,
+        save:                    save
     };
 
     // private methods
     function isActive(projectEvents){
-        return projectEvents["Issue"] || projectEvents["MergeRequest"] || projectEvents["Milestone"];
+        var events = gitlab.events();
+        for(var i = 0; i < events.length; i++){
+            var event = events[i];
+            if(projectEvents[event]){
+                return true;
+            }
+        }
+        return false;
     }
 }());
