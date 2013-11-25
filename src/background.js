@@ -117,10 +117,6 @@ var background = {
                             var branchName = projectEvent.data.ref.replace(/^refs\/heads\//, "");
                             projectEvent.target_title = commitMessage;
 
-                            var message = "[" + branchName + "] " + "@" + projectEvent.data.user_name + " " + displayId + " " + projectEvent.target_title;
-                            if(projectEvent.data.total_commits_count > 1){
-                                message += " (" + projectEvent.data.total_commits_count + " commits)";
-                            }
                             background.notify({
                                 project:      project,
                                 projectEvent: projectEvent,
@@ -128,7 +124,7 @@ var background = {
                                     target_id:  displayId,
                                     target_url: targetUrl
                                 },
-                                message:      message,
+                                message:      "[" + branchName + "] " + "@" + projectEvent.data.user_name + " " + displayId + " " + projectEvent.target_title + " (" + projectEvent.data.total_commits_count + " commits)",
                                 currentTime:  new Date()
                             });
                             eventCount++;
