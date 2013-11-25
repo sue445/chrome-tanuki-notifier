@@ -36,11 +36,16 @@ var util = (function(){
         return parseInt(str) || 0;
     }
 
+    function calcHash(obj){
+        return MD5_hexhash(JSON.stringify(obj));
+    }
+
     return {
         checkArgs:       checkArgs,
         createEventIcon: createEventIcon,
         isChecked:       isChecked,
-        toInt:           toInt
+        toInt:           toInt,
+        calcHash:        calcHash
     };
 
     // private methods

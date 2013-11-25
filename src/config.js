@@ -48,23 +48,18 @@ var config= (function(){
         return localStorage["newMarkMinute"] || 10;
     }
 
-    function getRecentEvents(){
-        return JSON.parse(localStorage["recentEvents"] || "{}");
-    }
-
-    function setRecentEvents(recentEvents){
-        localStorage["recentEvents"] = JSON.stringify(recentEvents);
-    }
-
     function setRecentEvent(projectId, recentEvent){
-        recentEvent.target_type = recentEvent.target_type || "Commit";
-        var recentEvents = getRecentEvents();
-        recentEvents[projectId] = recentEvent;
-        setRecentEvents(recentEvents);
+        var recentEventHashes = getRecentEventHashes();
+        recentEventHashes[projectId] = {
+            hash: util.calcHash(recentEvent),
+            created_at: new Date()
+        };
+        setRecentEventHashes(recentEventHashes);
     }
 
-    function getRecentEvent(projectId){
-        return getRecentEvents()[projectId];
+    function getRecentEventHash(projectId){
+        var obj = getRecentEventHashes()[projectId];
+        return obj ? obj.hash : null;
     }
 
     function getNotifiedHistories(){
@@ -92,6 +87,7 @@ var config= (function(){
     function clearCache(){
         localStorage.removeItem("notifiedHistories");
         localStorage.removeItem("recentEvents");
+        localStorage.removeItem("recentEventHashes");
     }
 
     function save(args){
@@ -118,10 +114,8 @@ var config= (function(){
         getMaxEventCount:        getMaxEventCount,
         getMaxNotificationCount: getMaxNotificationCount,
         getNewMarkMinute:        getNewMarkMinute,
-        getRecentEvents:         getRecentEvents,
-        setRecentEvents:         setRecentEvents,
         setRecentEvent:          setRecentEvent,
-        getRecentEvent:          getRecentEvent,
+        getRecentEventHash:      getRecentEventHash,
         getNotifiedHistories:    getNotifiedHistories,
         addNotifiedHistories:    addNotifiedHistories,
         clearCache:              clearCache,
@@ -129,6 +123,14 @@ var config= (function(){
     };
 
     // private methods
+    function getRecentEventHashes(){
+        return JSON.parse(localStorage["recentEventHashes"] || "{}");
+    }
+
+    function setRecentEventHashes(recentEventHashes){
+        localStorage["recentEventHashes"] = JSON.stringify(recentEventHashes);
+    }
+
     function isActive(projectEvents){
         var events = gitlab.events();
         for(var i = 0; i < events.length; i++){

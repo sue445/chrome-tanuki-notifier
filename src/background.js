@@ -69,58 +69,45 @@ var background = {
                 }
 
                 var latest = projectEvents[0];
-                var recent = config.getRecentEvent(projectId)
+                var recentHash = config.getRecentEventHash(projectId);
 
-                latest.target_type = latest.target_type || "Commit";
-                if(latest.target_type == "Commit"){
-                    // Commit has null target_id
-                    latest.target_id = getCommitTargetId(latest);
-                }
-
-                if(!recent){
+                if(!recentHash){
                     config.setRecentEvent(projectId, latest);
 
                     // Not show notification when first running
                     return;
                 }
 
-                if(isSameEvent(latest, recent)){
+                if(isSameEvent(latest, recentHash)){
                     // not changed
                    return;
                 }
 
+                config.setRecentEvent(projectId, latest);
+
                 var eventCount = 0;
                 $.each(projectEvents, function(index, projectEvent){
-                    projectEvent.target_type = projectEvent.target_type || "Commit";
-                    if(projectEvent.target_type == "Commit"){
-                        // Commit has null target_id
-                        projectEvent.target_id = getCommitTargetId(projectEvent);
-                    }
-
-                    if(index == 0){
-                        config.setRecentEvent(projectId, projectEvent);
-                    }
-
-                    if(isSameEvent(projectEvent, recent) || eventCount >= config.getMaxNotificationCount()){
+                    if(isSameEvent(projectEvent, recentHash) || eventCount >= config.getMaxNotificationCount()){
                         // break loop
                         return false;
                     }
 
-                    if(!isNotifyTargetEvent(projectId, projectEvent.target_type)){
+                    var targetType = projectEvent.target_type || "Commit";
+
+                    if(!isNotifyTargetEvent(projectId, targetType)){
                         // continue loop
                         return;
                     }
 
                     var project = config.getProject(projectId);
 
-                    if(projectEvent.target_type == "Commit"){
+                    if(targetType == "Commit" && projectEvent.data){
                         var commitMessage = getCommitMessage(projectEvent);
                         var displayId = getCommitTargetId(projectEvent);
                         var targetUrl = getCommitTargetUrl(projectId, projectEvent);
 
                         if(targetUrl && commitMessage){
                             var branchName = projectEvent.data.ref.replace(/^refs\/heads\//, "");
-                            projectEvent.target_title = commitMessage;
 
                             background.notify({
                                 project:      project,
@@ -129,24 +116,24 @@ var background = {
                                     target_id:  displayId,
                                     target_url: targetUrl
                                 },
-                                message:      "[" + branchName + "] " + "@" + projectEvent.data.user_name + " " + displayId + " " + projectEvent.target_title + " (" + projectEvent.data.total_commits_count + " commits)",
+                                message:      "[" + branchName + "] " + "@" + projectEvent.data.user_name + " " + displayId + " " + commitMessage + " (" + projectEvent.data.total_commits_count + " commits)",
                                 currentTime:  new Date()
                             });
                             eventCount++;
                         }
 
-                    } else if(projectEvent.target_type == "Issue" || projectEvent.target_type == "MergeRequest" || projectEvent.target_type == "Milestone"){
+                    } else if(targetType == "Issue" || targetType == "MergeRequest" || targetType == "Milestone"){
                         // Issue, MergeRequest, Milestone
                         gitlab.getEventInternalId({
                             project_name: project.name,
-                            target_type:  projectEvent.target_type,
+                            target_type:  targetType,
                             target_id:    projectEvent.target_id
                         }, function(internal){
                             background.notify({
                                 project:      project,
                                 projectEvent: projectEvent,
                                 internal:     internal,
-                                message:      "[" + projectEvent.target_type + "] #" + internal.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name,
+                                message:      "[" + targetType + "] #" + internal.target_id + " " + projectEvent.target_title +  " " + projectEvent.action_name,
                                 currentTime:  new Date()
                             });
                             eventCount++;
@@ -173,10 +160,10 @@ var background = {
         return null;
     }
 
-    function isSameEvent(event1, event2){
-        event1 = event1 || {};
-        event2 = event2 || {};
-        return event1.target_id == event2.target_id && event1.target_type == event2.target_type && event1.action_name == event2.action_name;
+    function isSameEvent(event, recentHash){
+        event = event || {};
+
+        return util.calcHash(event) == recentHash;
     }
 
     function isNotifyTargetEvent(projectId, targetType){
