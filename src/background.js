@@ -131,8 +131,10 @@ var background = {
 
         chrome.notifications.onClicked.addListener(function(notificationId){
             // close notification popup
-            chrome.notifications.clear(notificationId, function(){
-                // do nothing
+            chrome.notifications.clear(notificationId, function(wasCleared){
+                // open gitlab event page (Issue, MergeRequest, Milestone)
+                var notification = JSON.parse(notificationId);
+                chrome.tabs.create({url: notification.target_url});
             });
         });
 
