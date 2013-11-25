@@ -71,6 +71,12 @@ var background = {
                 var latest = projectEvents[0];
                 var recent = config.getRecentEvent(projectId)
 
+                latest.target_type = latest.target_type || "Commit";
+                if(latest.target_type == "Commit"){
+                    // Commit has null target_id
+                    latest.target_id = getCommitTargetId(latest);
+                }
+
                 if(!recent){
                     config.setRecentEvent(projectId, latest);
 
@@ -86,7 +92,6 @@ var background = {
                 var eventCount = 0;
                 $.each(projectEvents, function(index, projectEvent){
                     projectEvent.target_type = projectEvent.target_type || "Commit";
-
                     if(projectEvent.target_type == "Commit"){
                         // Commit has null target_id
                         projectEvent.target_id = getCommitTargetId(projectEvent);
