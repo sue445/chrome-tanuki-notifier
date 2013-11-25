@@ -16,13 +16,13 @@ var util = (function(){
 
     function createEventIcon(targetType){
         if(targetType == "Issue"){
-            return $("<span/>").addClass("glyphicon glyphicon-warning-sign").attr({title: "Issue"});
+            return $("<i/>").addClass("icon-exclamation-sign").attr({title: "Issue"});
         } else if(targetType == "MergeRequest"){
-            return $("<span/>").addClass("glyphicon glyphicon-upload").attr({title: "MergeRequest"});
+            return $("<i/>").addClass("icon-check").attr({title: "MergeRequest"});
         } else if(targetType == "Milestone"){
-            return $("<span/>").addClass("glyphicon glyphicon-calendar").attr({title: "Milestone"});
+            return $("<i/>").addClass("icon-calendar").attr({title: "Milestone"});
         } else if(targetType == "Commit"){
-            return $("<span/>").addClass("glyphicon glyphicon-circle-arrow-up").attr({title: "Commit"});
+            return $("<i/>").addClass("icon-upload-alt").attr({title: "Commit"});
         }
 
         return $("<span/>");
