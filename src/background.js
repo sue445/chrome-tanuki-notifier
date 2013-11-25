@@ -44,10 +44,7 @@ var background = {
                 iconUrl:  "img/gitlab-icon.png",
                 title:    title,
                 message:  message,
-                priority: 0,
-                buttons:  [
-                    {title: "Open Gitlab page"}
-                ]
+                priority: 0
             },
             function(notificationId){
                 //alert("failed notification: " + notificationId);
@@ -137,12 +134,6 @@ var background = {
             chrome.notifications.clear(notificationId, function(){
                 // do nothing
             });
-        });
-
-        chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex){
-            // open gitlab event page
-            var notification = JSON.parse(notificationId);
-            chrome.tabs.create({url: notification.target_url});
         });
 
         chrome.browserAction.setBadgeText({text: ""});
