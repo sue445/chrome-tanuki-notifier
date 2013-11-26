@@ -24,13 +24,14 @@ Open extension option -> Clear cache
 
 ## Screenshots
 ### Option
-![Option](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230251_original.png?1385474583)
+![Option](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230251_original.png)
 
 ### Notification
 ![Notification](https://f.cloud.github.com/assets/608755/1415698/52d15d24-3f18-11e3-8a77-9d5b6fbece3e.png)
+![Notification](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230723.png)
 
 ### Popup
-![Popup](https://f.cloud.github.com/assets/608755/1415696/52cf060a-3f18-11e3-92ed-9d9c62482be1.png)
+![Popup](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230722.png)
 
 ## Test Suite
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
