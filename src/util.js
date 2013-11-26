@@ -15,14 +15,14 @@ var util = (function(){
     }
 
     function createEventIcon(targetType){
-        if(targetType == "Issue"){
+        if(!targetType || targetType == "Commit"){
+            return $("<i/>").addClass("icon-upload-alt").attr({title: "Commit"});
+        } else if(targetType == "Issue"){
             return $("<i/>").addClass("icon-exclamation-sign").attr({title: "Issue"});
         } else if(targetType == "MergeRequest"){
             return $("<i/>").addClass("icon-check").attr({title: "MergeRequest"});
         } else if(targetType == "Milestone"){
             return $("<i/>").addClass("icon-calendar").attr({title: "Milestone"});
-        } else if(targetType == "Commit"){
-            return $("<i/>").addClass("icon-upload-alt").attr({title: "Commit"});
         }
 
         return $("<span/>");
