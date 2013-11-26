@@ -1,5 +1,8 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.1...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.3...master)
+
+## 1.0.2 (2013/11/26)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.1...1.0.2)
 
 ### bugfixes
 * Close notify box on-click
