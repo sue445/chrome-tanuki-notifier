@@ -24,7 +24,7 @@ Open extension option -> Clear cache
 
 ## Screenshots
 ### Option
-![Option](https://f.cloud.github.com/assets/608755/1415697/52d0e646-3f18-11e3-96dc-c828a39e9316.png)
+![Option](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230251_original.png?1385474583)
 
 ### Notification
 ![Notification](https://f.cloud.github.com/assets/608755/1415698/52d15d24-3f18-11e3-8a77-9d5b6fbece3e.png)
