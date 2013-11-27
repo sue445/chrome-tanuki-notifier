@@ -14,14 +14,14 @@ var util = (function(){
         });
     }
 
-    function createEventIcon(targetType){
-        if(!targetType || targetType == "Commit"){
+    function createEventIcon(target_type){
+        if(!target_type || target_type == "Commit"){
             return $("<i/>").addClass("icon-upload-alt").attr({title: "Commit"});
-        } else if(targetType == "Issue"){
+        } else if(target_type == "Issue"){
             return $("<i/>").addClass("icon-exclamation-sign").attr({title: "Issue"});
-        } else if(targetType == "MergeRequest"){
+        } else if(target_type == "MergeRequest"){
             return $("<i/>").addClass("icon-check").attr({title: "MergeRequest"});
-        } else if(targetType == "Milestone"){
+        } else if(target_type == "Milestone"){
             return $("<i/>").addClass("icon-calendar").attr({title: "Milestone"});
         }
 

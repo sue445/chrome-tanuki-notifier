@@ -1,9 +1,9 @@
 describe("background", function() {
     describe("#notify", function() {
         var project;
-        var projectEvent;
+        var project_event;
         var internal;
-        var currentTime;
+        var current_time;
         var message;
 
         beforeEach(function() {
@@ -15,7 +15,7 @@ describe("background", function() {
                 name: "MyProject"
             };
 
-            projectEvent = {
+            project_event = {
                 target_type:  "Issue",
                 target_title: "MyIssue",
                 action_name:  "opened"
@@ -26,15 +26,15 @@ describe("background", function() {
                 target_url: "http://example.com/gitlab/gitlabhq/issues/1"
             };
 
-            currentTime = new Date();
+            current_time = new Date();
             message = "some message";
 
             // exercise
             background.notify({
                 project:      project,
-                projectEvent: projectEvent,
+                project_event: project_event,
                 internal:     internal,
-                currentTime:  currentTime,
+                current_time:  current_time,
                 message:      message
             });
         });
@@ -51,9 +51,9 @@ describe("background", function() {
             expect(config.getNotifiedHistories().length).toEqual(1);
 
             var expected = {
-                target_type:  projectEvent.target_type,
-                target_title: projectEvent.target_title,
-                action_name:  projectEvent.action_name,
+                target_type:  project_event.target_type,
+                target_title: project_event.target_title,
+                action_name:  project_event.action_name,
                 project_name: project.name,
                 target_id:    internal.target_id,
                 target_url:   internal.target_url,
@@ -69,13 +69,13 @@ describe("background", function() {
         });
 
         it("should called createNotification", function() {
-            var notificationId = JSON.stringify({
+            var notification_id = JSON.stringify({
                 target_url: internal.target_url,
                 message:    message
             });
 
             var params = {
-                notificationId: notificationId,
+                notification_id: notification_id,
                 title:          project.name,
                 message:        message
             };

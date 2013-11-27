@@ -17,37 +17,37 @@
         // https://developer.chrome.com/extensions/browserAction.html#event-onClicked
         chrome.browserAction.setBadgeText({text: ""});
 
-        var currentTime = new Date();
-        var newMilliSeconds = config.getNewMarkMinute() * 60 * 1000;
-        $.each(config.getNotifiedHistories(), function(index, projectEvent){
+        var current_time = new Date();
+        var new_milli_seconds = config.getNewMarkMinute() * 60 * 1000;
+        $.each(config.getNotifiedHistories(), function(index, project_event){
             var li = $("<li/>");
 
-            if(currentTime.getTime() - newMilliSeconds < (new Date(projectEvent.notified_at)).getTime()){
+            if(current_time.getTime() - new_milli_seconds < (new Date(project_event.notified_at)).getTime()){
                 li.addClass("new");
             }
 
-            util.createEventIcon(projectEvent.target_type).appendTo(li);
+            util.createEventIcon(project_event.target_type).appendTo(li);
 
-            var projectUrl = config.getGitlabPath() + projectEvent.project_name;
+            var project_url = config.getGitlabPath() + project_event.project_name;
 
             $("<span/>").text(" ").appendTo(li);
-            $("<a/>").attr({href: projectUrl, target: "_blank"}).text("["+ projectEvent.project_name +"]").appendTo(li);
+            $("<a/>").attr({href: project_url, target: "_blank"}).text("["+ project_event.project_name +"]").appendTo(li);
             $("<span/>").text(" ").appendTo(li);
 
-            var message = projectEvent.message;
+            var message = project_event.message;
             if(!message){
                 // for previous version cache
-                if(projectEvent.target_type == "Commit"){
-                    message = projectEvent.target_title;
+                if(project_event.target_type == "Commit"){
+                    message = project_event.target_title;
                 } else{
-                    message = "#" + projectEvent.target_id + " " + projectEvent.target_title;
+                    message = "#" + project_event.target_id + " " + project_event.target_title;
                 }
             }
-            $("<a/>").attr({href: projectEvent.target_url, target: "_blank"}).addClass("eventLink").text(message).appendTo(li);
+            $("<a/>").attr({href: project_event.target_url, target: "_blank"}).addClass("eventLink").text(message).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
-            $("<span/>").addClass("label").addClass(actionLabels[projectEvent.action_name]).text(projectEvent.action_name).appendTo(li);
+            $("<span/>").addClass("label").addClass(actionLabels[project_event.action_name]).text(project_event.action_name).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
-            $("<abbr/>").addClass("timeago").attr({title: projectEvent.notified_at}).appendTo(li);
+            $("<abbr/>").addClass("timeago").attr({title: project_event.notified_at}).appendTo(li);
 
             li.appendTo($("#notifyHistories"));
         });

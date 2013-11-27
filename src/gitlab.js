@@ -1,5 +1,5 @@
 var gitlab= (function(){
-    var perPage = 100;
+    var per_page = 100;
     var eventPath = {
         "Issue"        : {page: "issues"        , api: "issues"},
         "MergeRequest" : {page: "merge_requests", api: "merge_request"},
@@ -13,11 +13,11 @@ var gitlab= (function(){
         return df.promise();
     }
 
-    function getProjectEvents(projectId){
+    function getProjectEvents(project_id){
         return $.ajax({
-            url: config.getApiPath() + "projects/" + projectId + "/events",
+            url: config.getApiPath() + "projects/" + project_id + "/events",
             data: {
-                per_page: perPage
+                per_page: per_page
             },
             type: "GET",
             dataType: "json",
@@ -74,7 +74,7 @@ var gitlab= (function(){
             url: config.getApiPath() + "projects",
             data: {
                 page: page,
-                per_page: perPage
+                per_page: per_page
             },
             type: "GET",
             dataType: "json",
@@ -89,7 +89,7 @@ var gitlab= (function(){
                     projectCallback(project);
                 });
 
-                if(projects.length < perPage){
+                if(projects.length < per_page){
                     // final page
                     df.resolve();
                 } else{

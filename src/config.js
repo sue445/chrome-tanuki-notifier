@@ -16,10 +16,10 @@ var config= (function(){
         return localStorage["pollingSecond"] || 60;
     }
 
-    function getProject(projectId){
-        projectId = parseInt(projectId);
+    function getProject(project_id){
+        project_id = parseInt(project_id);
         var projects = getProjects();
-        return projects[projectId] || {name: "", events: {}};
+        return projects[project_id] || {name: "", events: {}};
     }
 
     function getProjects(){
@@ -27,13 +27,13 @@ var config= (function(){
     }
 
     function getActiveProjects(){
-        var activeProjects = {};
-        $.each(getProjects(), function(projectId, project){
+        var active_projects = {};
+        $.each(getProjects(), function(project_id, project){
             if(isActive(project.events)){
-                activeProjects[projectId] = project;
+                active_projects[project_id] = project;
             }
         });
-        return activeProjects;
+        return active_projects;
     }
 
     function getMaxEventCount(){
@@ -48,17 +48,17 @@ var config= (function(){
         return localStorage["newMarkMinute"] || 10;
     }
 
-    function setRecentEvent(projectId, recentEvent){
+    function setRecentEvent(project_id, recent_event){
         var recentEventHashes = getRecentEventHashes();
-        recentEventHashes[projectId] = {
-            hash: util.calcHash(recentEvent),
+        recentEventHashes[project_id] = {
+            hash: util.calcHash(recent_event),
             created_at: new Date()
         };
         setRecentEventHashes(recentEventHashes);
     }
 
-    function getRecentEventHash(projectId){
-        var obj = getRecentEventHashes()[projectId];
+    function getRecentEventHash(project_id){
+        var obj = getRecentEventHashes()[project_id];
         return obj ? obj.hash : null;
     }
 
@@ -69,19 +69,19 @@ var config= (function(){
     function addNotifiedHistories(newHistories){
         // newHistories = [newest ... oldest]
         // notifiedHistories = [newest ... oldest]
-        var notifiedHistories = getNotifiedHistories();
+        var notified_histories = getNotifiedHistories();
 
         // add param histories
         while(newHistories.length > 0){
-            notifiedHistories.unshift(newHistories.pop());
+            notified_histories.unshift(newHistories.pop());
         }
 
         // remove old histories
-        while(notifiedHistories.length > getMaxEventCount()){
-            notifiedHistories.pop();
+        while(notified_histories.length > getMaxEventCount()){
+            notified_histories.pop();
         }
 
-        localStorage["notifiedHistories"] = JSON.stringify(notifiedHistories);
+        localStorage["notifiedHistories"] = JSON.stringify(notified_histories);
     }
 
     function clearCache(){
@@ -131,11 +131,11 @@ var config= (function(){
         localStorage["recentEventHashes"] = JSON.stringify(recentEventHashes);
     }
 
-    function isActive(projectEvents){
+    function isActive(project_events){
         var events = gitlab.events();
         for(var i = 0; i < events.length; i++){
             var event = events[i];
-            if(projectEvents[event]){
+            if(project_events[event]){
                 return true;
             }
         }

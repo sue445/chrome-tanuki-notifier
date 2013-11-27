@@ -14,13 +14,13 @@
     function saveOptions(){
         var projects = {};
         $("#projects tr.project").each(function(){
-            var projectId = parseInt($(this).attr("id"));
+            var project_id = parseInt($(this).attr("id"));
 
-            var project = {name: $("#" + projectId + " td.name").text(), events: {}}
+            var project = {name: $("#" + project_id + " td.name").text(), events: {}}
             $.each(gitlab.events(), function(index, event){
-                project.events[event] = util.isChecked("#" + projectId + " td." + event + " input:checkbox");
+                project.events[event] = util.isChecked("#" + project_id + " td." + event + " input:checkbox");
             });
-            projects[projectId] = project;
+            projects[project_id] = project;
         });
 
         config.save({
@@ -51,10 +51,10 @@
             gitlab.getProjects(function(project){
                 var tr = $("<tr/>").attr({id: project.id}).addClass("project");
 
-                var projectUrl = config.getGitlabPath() + project.path_with_namespace;
+                var project_url = config.getGitlabPath() + project.path_with_namespace;
 
                 $("<td/>").addClass("name").append(
-                    $("<a/>").attr({href: projectUrl}).text(project.path_with_namespace)
+                    $("<a/>").attr({href: project_url}).text(project.path_with_namespace)
                 ).appendTo(tr);
 
                 var project = config.getProject(project.id);
