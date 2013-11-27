@@ -11,8 +11,6 @@
         }
 
         var projects = config.getActiveProjects();
-        var ajaxProjectEvents = [];
-        var allProjectEvents = [];
 
         // remove notification count when show popup
         // because) can not use both chrome.browserAction.onClicked and popup
