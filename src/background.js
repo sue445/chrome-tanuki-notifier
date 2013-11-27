@@ -1,10 +1,10 @@
 var background = {
     notify: function(args){
-        var project      = args.project;
+        var project       = args.project;
         var project_event = args.project_event;
-        var internal     = args.internal;
+        var internal      = args.internal;
         var current_time  = args.current_time;
-        var message      = args.message;
+        var message       = args.message;
 
         util.checkArgs(args, ["project", "project_event", "internal", "current_time", "message"]);
 
@@ -15,8 +15,8 @@ var background = {
 
         this.createNotification({
             notification_id: notification_id,
-            title:          project.name,
-            message:        message
+            title:           project.name,
+            message:         message
         });
 
         project_event.project_name = project.name;
@@ -31,8 +31,8 @@ var background = {
 
     createNotification: function(args){
         var notification_id = args.notification_id;
-        var title          = args.title;
-        var message        = args.message;
+        var title           = args.title;
+        var message         = args.message;
 
         util.checkArgs(args, ["notification_id", "title", "message"]);
 
@@ -110,7 +110,7 @@ var background = {
                             var branch_name = project_event.data.ref.replace(/^refs\/heads\//, "");
 
                             background.notify({
-                                project:      project,
+                                project:       project,
                                 project_event: project_event,
                                 internal: {
                                     target_id:  display_id,
@@ -130,10 +130,10 @@ var background = {
                             target_id:    project_event.target_id
                         }, function(internal){
                             background.notify({
-                                project:      project,
+                                project:       project,
                                 project_event: project_event,
-                                internal:     internal,
-                                message:      "[" + target_type + "] #" + internal.target_id + " " + project_event.target_title +  " " + project_event.action_name,
+                                internal:      internal,
+                                message:       "[" + target_type + "] #" + internal.target_id + " " + project_event.target_title +  " " + project_event.action_name,
                                 current_time:  new Date()
                             });
                             event_count++;

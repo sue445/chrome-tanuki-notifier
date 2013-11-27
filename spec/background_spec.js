@@ -31,11 +31,11 @@ describe("background", function() {
 
             // exercise
             background.notify({
-                project:      project,
+                project:       project,
                 project_event: project_event,
-                internal:     internal,
+                internal:      internal,
                 current_time:  current_time,
-                message:      message
+                message:       message
             });
         });
 
@@ -76,8 +76,8 @@ describe("background", function() {
 
             var params = {
                 notification_id: notification_id,
-                title:          project.name,
-                message:        message
+                title:           project.name,
+                message:         message
             };
             expect(background.createNotification).toHaveBeenCalledWith(params);
         });
