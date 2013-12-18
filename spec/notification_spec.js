@@ -1,4 +1,4 @@
-describe("background", function() {
+describe("notification", function() {
     describe("#notify", function() {
         var project;
         var project_event;
@@ -8,8 +8,8 @@ describe("background", function() {
 
         beforeEach(function() {
             // setup
-            spyOn(background, "incNotificationCount");
-            spyOn(background, "createNotification");
+            spyOn(notification, "incNotificationCount");
+            spyOn(notification, "createNotification");
 
             project = {
                 name: "MyProject"
@@ -30,7 +30,7 @@ describe("background", function() {
             message = "some message";
 
             // exercise
-            background.notify({
+            notification.notify({
                 project:       project,
                 project_event: project_event,
                 internal:      internal,
@@ -44,7 +44,7 @@ describe("background", function() {
         });
 
         it("should called incNotificationCount", function() {
-            expect(background.incNotificationCount).toHaveBeenCalled();
+            expect(notification.incNotificationCount).toHaveBeenCalled();
         });
 
         it("should saved 1 notified history", function() {
@@ -79,7 +79,7 @@ describe("background", function() {
                 title:           project.name,
                 message:         message
             };
-            expect(background.createNotification).toHaveBeenCalledWith(params);
+            expect(notification.createNotification).toHaveBeenCalledWith(params);
         });
     });
 });
