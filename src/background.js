@@ -1,4 +1,5 @@
-(function($){
+var background = (function(){
+    // public methods
     function fetch(){
         $.each(config.getActiveProjects(), function(project_id, project){
             gitlab.getProjectEvents(project_id).done(function(project_events){
@@ -19,7 +20,7 @@
 
                 if(isSameEvent(latest, recent_hash)){
                     // not changed
-                   return;
+                    return;
                 }
 
                 config.setRecentEvent(project_id, latest);
@@ -83,6 +84,12 @@
         });
     }
 
+    return {
+        fetch: fetch
+    };
+
+    // private methods
+
     function getCommitMessage(project_event){
         if(!project_event.data || !project_event.data.commits || project_event.data.commits.length == 0){
             return null;
@@ -141,7 +148,9 @@
         // invalid commit id is "0000000000000000000000...."
         return util.toInt(commit_id) != 0;
     }
+}());
 
+(function($){
     $(document).ready(function(){
         if(!chrome){
             return;
@@ -164,12 +173,12 @@
 
         // startup
         chrome.browserAction.setBadgeText({text: ""});
-        fetch();
+        background.fetch();
 
         setInterval(function(){
             chrome.browserAction.getBadgeText({}, function(badgeText){
                 notification.notification_count = util.toInt(badgeText);
-                fetch();
+                background.fetch();
             });
         }, config.getPollingSecond() * 1000);
     });
