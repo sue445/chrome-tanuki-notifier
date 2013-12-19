@@ -16,7 +16,7 @@
         $("#projects tr.project").each(function(){
             var project_id = parseInt($(this).attr("id"));
 
-            var project = {name: $("#" + project_id + " td.name").text(), events: {}}
+            var project = {name: $("#" + project_id + " td.name").text(), events: {}};
             $.each(gitlab.events(), function(index, event){
                 project.events[event] = util.isChecked("#" + project_id + " td." + event + " input:checkbox");
             });
@@ -57,12 +57,12 @@
                     $("<a/>").attr({href: project_url}).text(project.path_with_namespace)
                 ).appendTo(tr);
 
-                var project = config.getProject(project.id);
+                var project_option = config.getProject(project.id);
                 var events = gitlab.events();
 
                 for(var i = 0; i < events.length; i++){
                     var event = events[i];
-                    var checked = project.events[event] || false;
+                    var checked = project_option.events[event] || false;
 
                     var label = $("<label/>").addClass("checkbox-inline");
                     $("<input/>").attr({type: "checkbox", checked: checked}).appendTo(label);
