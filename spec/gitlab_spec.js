@@ -11,7 +11,6 @@ describe("gitlab", function() {
     });
 
     describe("getProjects", function() {
-        var testResponse;
         var projectCallback;
 
         beforeEach(function() {
