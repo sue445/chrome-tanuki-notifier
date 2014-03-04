@@ -24,16 +24,16 @@ Open extension option -> Clear cache
 
 ## Screenshots
 ### Option
-![Option](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230251_original.png)
+![Option](https://f.cloud.github.com/assets/608755/2323217/05597dc2-a3ba-11e3-8d25-1564c5f44746.png)
 
 ### Notification
 ![Notification](https://f.cloud.github.com/assets/608755/1415698/52d15d24-3f18-11e3-8a77-9d5b6fbece3e.png)
 ![Notification](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230723.png)
 
 ### Popup
-![Popup](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230722.png)
+![Popup](https://f.cloud.github.com/assets/608755/2323269/84543b94-a3ba-11e3-9e72-67c6ff9a3dc9.png)
 
 ## Test Suite
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
 
-[![endorse](https://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
+[![endorse](httpgs://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
