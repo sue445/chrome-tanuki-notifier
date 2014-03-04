@@ -3,11 +3,31 @@ body {
     overflow-x: hidden;
 }
 
+#notifyHistories {
+    margin: 0;
+    padding: 5px;
+}
 #notifyHistories li{
+    border-radius: 5px;
     list-style-type: none;
-    padding-left: 18px;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 25px;
+}
+
+#notifyHistories > li:nth-child(2n) {
+    background-color: #eeeeee;
+}
+
+#notifyHistories > li:nth-child(2n+1) {
+    background-color: #f7f7f7;
 }
 
 #notifyHistories li.new{
-    background: url(../img/new-icon.gif) no-repeat 0 1px;
+    background-image: url(../img/new-icon.gif);
+    background-position: left 9px;
+    background-repeat: no-repeat;
+}
+.eventLink {
+    display: block;
+    margin-top: 5px;
 }
