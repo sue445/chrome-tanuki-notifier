@@ -1,6 +1,13 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.3...master)
 
+## 1.0.3 (2014/03/05)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.2...1.0.3)
+
+### enhancements
+* Update popup styles to have make lines more readable
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/24 (thx. @brunosabot)
+
 ## 1.0.2 (2013/11/26)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.1...1.0.2)
 
