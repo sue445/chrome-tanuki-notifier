@@ -31,6 +31,11 @@
             var project_url = config.getGitlabPath() + project_event.project_name;
 
             $("<span/>").text(" ").appendTo(li);
+            $("<span/>").addClass("label").addClass(actionLabels[project_event.action_name]).text(project_event.action_name).appendTo(li);
+            $("<span/>").text(" ").appendTo(li);
+            $("<abbr/>").addClass("timeago").attr({title: project_event.notified_at}).appendTo(li);
+
+            $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: project_url, target: "_blank"}).text("["+ project_event.project_name +"]").appendTo(li);
             $("<span/>").text(" ").appendTo(li);
 
@@ -44,10 +49,6 @@
                 }
             }
             $("<a/>").attr({href: project_event.target_url, target: "_blank"}).addClass("eventLink").text(message).appendTo(li);
-            $("<span/>").text(" ").appendTo(li);
-            $("<span/>").addClass("label").addClass(actionLabels[project_event.action_name]).text(project_event.action_name).appendTo(li);
-            $("<span/>").text(" ").appendTo(li);
-            $("<abbr/>").addClass("timeago").attr({title: project_event.notified_at}).appendTo(li);
 
             li.appendTo($("#notifyHistories"));
         });
