@@ -89,6 +89,21 @@
         restoreOptions();
         refreshProjects();
 
+        $(".select-all").click(function (event) {
+            var index = $(event.target).closest('th').prevAll().length;
+            $('.project').each(function () {
+                $(this).children().eq(index).find('input[type="checkbox"]').prop('checked', true);
+            });
+            event.preventDefault();
+        });
+        $(".select-none").click(function (event) {
+            var index = $(event.target).closest('th').prevAll().length;
+            $('.project').each(function () {
+                $(this).children().eq(index).find('input[type="checkbox"]').prop('checked', false);
+            });
+            event.preventDefault();
+        });
+
         $("button.save").click(function(){
             saveOptions();
         });
