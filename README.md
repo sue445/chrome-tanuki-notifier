@@ -24,7 +24,7 @@ Open extension option -> Clear cache
 
 ## Screenshots
 ### Option
-![Option](https://f.cloud.github.com/assets/608755/2323217/05597dc2-a3ba-11e3-8d25-1564c5f44746.png)
+![Option](https://f.cloud.github.com/assets/608755/2360199/2d6eb9b2-a621-11e3-8985-fc8959811236.png)
 
 ### Notification
 ![Notification](https://f.cloud.github.com/assets/608755/1415698/52d15d24-3f18-11e3-8a77-9d5b6fbece3e.png)
