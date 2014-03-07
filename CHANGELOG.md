@@ -1,5 +1,5 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.3...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.4...master)
 
 ## 1.0.4 (2014/03/08)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.3...1.0.4)
