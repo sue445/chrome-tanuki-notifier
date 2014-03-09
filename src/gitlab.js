@@ -14,6 +14,9 @@ var gitlab= (function(){
     }
 
     function getProjectEvents(project_id){
+        // Get project events
+        // GET /projects/:id/events
+        // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-project-events
         return $.ajax({
             url: config.getApiPath() + "projects/" + project_id + "/events",
             data: {
@@ -37,6 +40,17 @@ var gitlab= (function(){
     function getEventInternalId(args, callback){
         util.checkArgs(args, ["project_name", "target_type", "target_id"]);
 
+        // Single issue
+        // GET /projects/:id/issues/:issue_id
+        // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/issues.md#single-issue
+        //   or
+        // Get single MR
+        // GET /projects/:id/merge_request/:merge_request_id
+        // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/merge_requests.md#get-single-mr
+        //   or
+        // Get single milestone
+        // GET /projects/:id/milestones/:milestone_id
+        // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
         $.ajax({
             url: config.getApiPath() + "projects/" + encodeURIComponent(args.project_name) + "/" + eventPath[args.target_type].api + "/" + args.target_id,
             type: "GET",
@@ -70,6 +84,9 @@ var gitlab= (function(){
 
     // private methods
     function getProjectsBase(projectCallback, df, page){
+        // List projects
+        // GET /projects
+        // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects
         $.ajax({
             url: config.getApiPath() + "projects",
             data: {
