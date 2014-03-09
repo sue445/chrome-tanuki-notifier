@@ -33,6 +33,18 @@ Open extension option -> Clear cache
 ### Popup
 ![Popup](https://f.cloud.github.com/assets/608755/2323269/84543b94-a3ba-11e3-9e72-67c6ff9a3dc9.png)
 
+## Dependency Gitlab API
+* `GET /projects`
+  * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects
+* `GET /projects/:id/events`
+  * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-project-events
+* `GET /projects/:id/events`
+  * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/issues.md#single-issue
+* `GET /projects/:id/merge_request/:merge_request_id`
+  * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/merge_requests.md#get-single-mr
+* `GET /projects/:id/milestones/:milestone_id`
+  * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
+
 ## Test Suite
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
 
