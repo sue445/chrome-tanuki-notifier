@@ -38,7 +38,7 @@ Open extension option -> Clear cache
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects
 * `GET /projects/:id/events`
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-project-events
-* `GET /projects/:id/events`
+* `GET /projects/:id/issues/:issue_id`
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/issues.md#single-issue
 * `GET /projects/:id/merge_request/:merge_request_id`
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/merge_requests.md#get-single-mr
