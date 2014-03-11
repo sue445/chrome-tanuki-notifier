@@ -3,8 +3,8 @@
 Notify Gitlab Project events (Commit, Issue, MergeRequest and Milestone)
 
 ## Require
-* Gitlab >= 5.3.0
- * but 6.1.0 is not supported
+* Gitlab API 5.3.0+ and 6.0.x and 6.2.0+
+  * **only 6.1.0** is not supported
 
 ## Usage
 1. Install this extension
