@@ -1,5 +1,12 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.4...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.5...master)
+
+## 1.0.5 (2014/05/01)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.4...1.0.5)
+
+### enhancements
+* Add cache clear button on popup
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/30
 
 ## 1.0.4 (2014/03/08)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.3...1.0.4)
