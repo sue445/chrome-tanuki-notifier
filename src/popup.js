@@ -54,6 +54,11 @@
         });
 
         $("abbr.timeago").timeago();
+
+        $("button.clear").click(function(){
+            config.clearCache();
+            $("#notifyHistories").empty();
+        });
     });
 
 })(jQuery);
