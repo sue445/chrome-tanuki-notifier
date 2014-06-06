@@ -59,6 +59,12 @@
             config.clearCache();
             $("#notifyHistories").empty();
         });
+
+        $("button.goto").click(function() {
+            if (localStorage.gitlabPath) {
+                window.open(localStorage.gitlabPath);
+            }
+        });
     });
 
 })(jQuery);
