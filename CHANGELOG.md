@@ -1,5 +1,12 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.5...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.6...master)
+
+## 1.0.6 (2014/06/07)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.5...1.0.6)
+
+### enhancements
+* Select All/none repository events on the options
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/31 (thx. @brunosabot)
 
 ## 1.0.5 (2014/05/01)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.4...1.0.5)
