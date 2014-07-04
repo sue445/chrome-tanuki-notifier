@@ -100,7 +100,9 @@ var config= (function(){
         localStorage["maxEventCount"]        = args.maxEventCount;
         localStorage["maxNotificationCount"] = args.maxNotificationCount;
         localStorage["newMarkMinute"]        = args.newMarkMinute;
-        localStorage["projects"]             = JSON.stringify(args.projects);
+        if (Object.keys(args.projects).length > 0) {
+            localStorage["projects"]             = JSON.stringify(args.projects);
+        }
     }
 
     return {
