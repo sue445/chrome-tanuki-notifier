@@ -73,10 +73,18 @@
     <span class="status"></span>
 
     <h2>Repository Events</h2>
-    <button id="load_repository" class="btn btn-default">
-        <span class="glyphicon glyphicon-refresh"></span>
-        Refresh Repository List
-    </button>
+    <form class="form-inline" role="form">
+        <div class="form-group col-xs-4">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                <input class="form-control" type="text" id="search_repository" placeholder="Project name"/>
+            </div>
+        </div>
+        <button id="load_repository" class="btn btn-default">
+            <span class="glyphicon glyphicon-refresh"></span>
+            Refresh Repository List
+        </button>
+    </form>
 
     <table class="table table-striped table-hover">
         <thead>

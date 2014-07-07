@@ -86,6 +86,21 @@
         }
     }
 
+    function searchProjects(searchKey){
+        var trList = $('tr', '#projects');
+        var keys = searchKey.split(" ");
+        $.each(trList, function () {
+            $(this).hide();
+            projectName = $('td:first-child', $(this)).text();
+            for (var i = 0, l = keys.length; i < l; i++) {
+                var r = new RegExp(keys[i], 'i');
+                if (projectName.match(r)) {
+                    $(this).show();
+                }
+            }
+        });
+    }
+
     function clearCache(){
         config.clearCache();
         showStatus("Cache cleared");
@@ -126,6 +141,14 @@
         $("#load_repository").click(function(){
             saveOptions();
             refreshProjects();
+        });
+
+        $('#search_repository').keyup(function () {
+            var searchKey = this.value;
+            if (searchKey.match(/ $/)) {
+                return true;
+            }
+            searchProjects(searchKey);
         });
     });
 })(jQuery);
