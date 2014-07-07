@@ -71,15 +71,15 @@
                     $("<td/>").addClass(event).append(label).appendTo(tr);
                 }
 
-                var ok = $('<a/>').attr({href:'#', class:'line-select-all'}).text('All').click(function (event) {
+                var lineSelectAll = $('<a/>').attr({href:'#', class:'line-select-all'}).text('All').click(function (event) {
                     $(event.target).closest('tr').find('input[type="checkbox"]').prop('checked', true);
                     event.preventDefault();
                 });
-                var ko = $('<a/>').attr({href:'#', class:'line-select-all'}).text('None').click(function (event) {
+                var lineSelectNone = $('<a/>').attr({href:'#', class:'line-select-none'}).text('None').click(function (event) {
                     $(event.target).closest('tr').find('input[type="checkbox"]').prop('checked', false);
                     event.preventDefault();
                 });
-                $('<td>').text(' / ').prepend(ok).append(ko).appendTo(tr);
+                $('<td>').text(' / ').prepend(lineSelectAll).append(lineSelectNone).appendTo(tr);
 
                 tr.appendTo( $("#projects") );
             });
