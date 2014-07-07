@@ -91,7 +91,7 @@
         var keys = searchKey.split(" ");
         $.each(trList, function () {
             $(this).hide();
-            projectName = $('td:first-child', $(this)).text();
+            var projectName = $('td:first-child', $(this)).text();
             for (var i = 0, l = keys.length; i < l; i++) {
                 var r = new RegExp(keys[i], 'i');
                 if (projectName.match(r)) {
