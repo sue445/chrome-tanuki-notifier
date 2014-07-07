@@ -88,14 +88,14 @@
 
     function searchProjects(searchKey){
         var trList = $('tr', '#projects');
-        var keys = searchKey.split(" ");
+        var keys = searchKey.split(' ');
         $.each(trList, function () {
-            $(this).hide();
+            $(this).show();
             var projectName = $('td:first-child', $(this)).text();
             for (var i = 0, l = keys.length; i < l; i++) {
                 var r = new RegExp(keys[i], 'i');
-                if (projectName.match(r)) {
-                    $(this).show();
+                if (!projectName.match(r)) {
+                    $(this).hide();
                 }
             }
         });
@@ -144,10 +144,7 @@
         });
 
         $('#search_repository').keyup(function () {
-            var searchKey = this.value;
-            if (searchKey.match(/ $/)) {
-                return true;
-            }
+            var searchKey = this.value.replace(/\s+$/g, '');
             searchProjects(searchKey);
         });
     });
