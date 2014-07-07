@@ -67,9 +67,19 @@
                     var label = $("<label/>").addClass("checkbox-inline");
                     $("<input/>").attr({type: "checkbox", checked: checked}).appendTo(label);
                     util.createEventIcon(event).appendTo(label);
-                    $("<span/>").text(event).appendTo(label);
+                    $("<span/>").text(' ' + event).appendTo(label);
                     $("<td/>").addClass(event).append(label).appendTo(tr);
                 }
+
+                var lineSelectAll = $('<a/>').attr({href:'#', class:'line-select-all'}).text('All').click(function (event) {
+                    $(event.target).closest('tr').find('input[type="checkbox"]').prop('checked', true);
+                    event.preventDefault();
+                });
+                var lineSelectNone = $('<a/>').attr({href:'#', class:'line-select-none'}).text('None').click(function (event) {
+                    $(event.target).closest('tr').find('input[type="checkbox"]').prop('checked', false);
+                    event.preventDefault();
+                });
+                $('<td>').text(' / ').prepend(lineSelectAll).append(lineSelectNone).appendTo(tr);
 
                 tr.appendTo( $("#projects") );
             });

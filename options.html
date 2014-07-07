@@ -9,41 +9,58 @@
 <body>
 
 <div class="container">
-    <h1>Gitlab Setting</h1>
-    <dl class="dl-horizontal">
-        <dt>Gitlab Path</dt>
-        <dd>
-            <input type="text" id="gitlabPath" size="60" />
-        </dd>
-        <dt>Gitlab API Path</dt>
-        <dd>
-            <input type="text" id="apiPath" size="60" />
-        </dd>
-        <dt>Private token</dt>
-        <dd>
-            <input type="password" id="privateToken" size="60" />
-        </dd>
-    </dl>
+    <h2>Gitlab Setting</h2>
 
-    <h1>Notification Setting</h1>
-    <dl class="dl-horizontal">
-        <dt>Polling interval</dt>
-        <dd>
-            <input type="text" id="pollingSecond" size="3" /> second(s) <strong>(if change this, please restart chrome)</strong>
-        </dd>
-        <dt>Display event count</dt>
-        <dd>
-            show <input type="text" id="maxEventCount" size="3" /> events
-        </dd>
-        <dt>Notification count</dt>
-        <dd>
-            notify <input type="text" id="maxNotificationCount" size="3" /> events/project
-        </dd>
-        <dt>Mark as new event</dt>
-        <dd>
-            mark <img src="img/new-icon.gif"/> if within <input type="text" id="newMarkMinute" size="3" /> minute(s) after being notified
-        </dd>
-    </dl>
+    <div class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="gitlabPath" class="col-sm-3 control-label">Gitlab Path</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="gitlabPath">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="apiPath" class="col-sm-3 control-label">Gitlab API Path</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="apiPath">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="privateToken" class="col-sm-3 control-label">Private token</label>
+            <div class="col-sm-5">
+                <input type="password" class="form-control" id="privateToken">
+            </div>
+        </div>
+    </div>
+
+    <h2>Notification Setting</h2>
+    <div class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="pollingSecond" class="col-sm-3 control-label">Polling interval</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="pollingSecond">
+                <span class="help-block">Polling interval, in seconds. (Need chrome to restart)</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="maxEventCount" class="col-sm-3 control-label">Notification to show</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="maxEventCount">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="maxNotificationCount" class="col-sm-3 control-label">Notification per project</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="maxNotificationCount">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="newMarkMinute" class="col-sm-3 control-label">Mark event as new</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="newMarkMinute">
+                <span class="help-block">The event will be set as <img src="img/new-icon.gif"/> for the given amount of minutes</span>
+            </div>
+        </div>
+    </div>
 
     <button class="save btn btn-primary">
         <span class="glyphicon glyphicon-save"></span>
@@ -55,7 +72,7 @@
     </button>
     <span class="status"></span>
 
-    <h1>Repository Events</h1>
+    <h2>Repository Events</h2>
     <button id="load_repository" class="btn btn-default">
         <span class="glyphicon glyphicon-refresh"></span>
         Refresh Repository List
@@ -64,19 +81,21 @@
     <table class="table table-striped table-hover">
         <thead>
             <th>Project name</th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th></th>
         </thead>
         <tbody id="projects">
         </tbody>
         <tfoot>
             <th>Project name</th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
-            <th><a href="#" class="select-all">All</a>&nbsp;/&nbsp;<a href="#" class="select-none">none</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th><a href="#" class="select-all">All</a> / <a href="#" class="select-none">None</a></th>
+            <th></th>
         </tfoot>
     </table>
 
