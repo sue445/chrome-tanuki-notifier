@@ -1,5 +1,13 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.6...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.7...master)
+
+## 1.0.7 (2014/07/08)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.8...1.0.7)
+
+* Improve option page rendering
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/34 (thx. @brunosabot)
+* Add incremental repository search
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/35 (thx. @yaeda)
 
 ## 1.0.6 (2014/06/07)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.5...1.0.6)
