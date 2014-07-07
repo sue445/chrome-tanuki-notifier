@@ -2,7 +2,7 @@
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.7...master)
 
 ## 1.0.7 (2014/07/08)
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.8...1.0.7)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.6...1.0.7)
 
 * Improve option page rendering
   * https://github.com/sue445/chrome-gitlab-notifier/pull/34 (thx. @brunosabot)
