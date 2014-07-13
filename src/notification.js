@@ -45,7 +45,7 @@ var notification = {
                 message:  message,
                 priority: 0
             },
-            function(notification_id){
+            function(){
                 // do nothing
             }
         );

@@ -41,7 +41,7 @@ var background = (function(){
 
                     var project = config.getProject(project_id);
 
-                    if(target_type == "Commit" && project_event.data){
+                    if(target_type === "Commit" && project_event.data){
                         var commit_message = getCommitMessage(project_event);
                         var display_id = getCommitTargetId(project_event);
                         var target_url = getCommitTargetUrl(project_id, project_event);
@@ -62,7 +62,7 @@ var background = (function(){
                             event_count++;
                         }
 
-                    } else if(target_type == "Issue" || target_type == "MergeRequest" || target_type == "Milestone"){
+                    } else if(target_type === "Issue" || target_type === "MergeRequest" || target_type === "Milestone"){
                         // Issue, MergeRequest, Milestone
                         gitlab.getEventInternalId({
                             project_name: project.name,
@@ -109,7 +109,7 @@ var background = (function(){
     function isSameEvent(event, recent_hash){
         event = event || {};
 
-        return util.calcHash(event) == recent_hash;
+        return util.calcHash(event) === recent_hash;
     }
 
     function isNotifyTargetEvent(project_id, target_type){
@@ -146,7 +146,7 @@ var background = (function(){
 
     function isValidCommitId(commit_id){
         // invalid commit id is "0000000000000000000000...."
-        return util.toInt(commit_id) != 0;
+        return util.toInt(commit_id) !== 0;
     }
 }());
 
@@ -158,15 +158,15 @@ var background = (function(){
 
         chrome.notifications.onClicked.addListener(function(notification_id){
             // close notification popup
-            chrome.notifications.clear(notification_id, function(wasCleared){
+            chrome.notifications.clear(notification_id, function(){
                 // open gitlab event page (Issue, MergeRequest, Milestone)
                 var notification = JSON.parse(notification_id);
                 chrome.tabs.create({url: notification.target_url});
             });
         });
 
-        chrome.notifications.onClosed.addListener(function(notification_id, byUser){
-            chrome.notifications.clear(notification_id, function(wasCleared){
+        chrome.notifications.onClosed.addListener(function(notification_id){
+            chrome.notifications.clear(notification_id, function(){
                 // do nothing
             });
         });
