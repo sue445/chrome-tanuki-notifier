@@ -1,19 +1,19 @@
 var config= (function(){
     // public methods
     function getGitlabPath(){
-        return localStorage["gitlabPath"] || "http://example.com/";
+        return localStorage.gitlabPath || "http://example.com/";
     }
 
     function getApiPath(){
-        return localStorage["apiPath"] || "http://example.com/api/v3/";
+        return localStorage.apiPath || "http://example.com/api/v3/";
     }
 
     function getPrivateToken(){
-        return localStorage["privateToken"] || "";
+        return localStorage.privateToken || "";
     }
 
     function getPollingSecond(){
-        return localStorage["pollingSecond"] || 60;
+        return localStorage.pollingSecond || 60;
     }
 
     function getProject(project_id){
@@ -23,7 +23,7 @@ var config= (function(){
     }
 
     function getProjects(){
-        return JSON.parse(localStorage["projects"] || "{}");
+        return JSON.parse(localStorage.projects || "{}");
     }
 
     function getActiveProjects(){
@@ -37,15 +37,15 @@ var config= (function(){
     }
 
     function getMaxEventCount(){
-        return localStorage["maxEventCount"] || 100;
+        return localStorage.maxEventCount || 100;
     }
 
     function getMaxNotificationCount(){
-        return localStorage["maxNotificationCount"] || 10;
+        return localStorage.maxNotificationCount || 10;
     }
 
     function getNewMarkMinute(){
-        return localStorage["newMarkMinute"] || 10;
+        return localStorage.newMarkMinute || 10;
     }
 
     function setRecentEvent(project_id, recent_event){
@@ -63,7 +63,7 @@ var config= (function(){
     }
 
     function getNotifiedHistories(){
-        return JSON.parse(localStorage["notifiedHistories"] || "[]");
+        return JSON.parse(localStorage.notifiedHistories || "[]");
     }
 
     function addNotifiedHistories(newHistories){
@@ -81,7 +81,7 @@ var config= (function(){
             notified_histories.pop();
         }
 
-        localStorage["notifiedHistories"] = JSON.stringify(notified_histories);
+        localStorage.notifiedHistories = JSON.stringify(notified_histories);
     }
 
     function clearCache(){
@@ -93,15 +93,15 @@ var config= (function(){
     function save(args){
         util.checkArgs(args, ["gitlabPath", "privateToken", "privateToken", "pollingSecond", "maxEventCount", "maxNotificationCount", "newMarkMinute", "projects"]);
 
-        localStorage["gitlabPath"]           = args.gitlabPath;
-        localStorage["apiPath"]              = args.apiPath;
-        localStorage["privateToken"]         = args.privateToken;
-        localStorage["pollingSecond"]        = args.pollingSecond;
-        localStorage["maxEventCount"]        = args.maxEventCount;
-        localStorage["maxNotificationCount"] = args.maxNotificationCount;
-        localStorage["newMarkMinute"]        = args.newMarkMinute;
+        localStorage.gitlabPath           = args.gitlabPath;
+        localStorage.apiPath              = args.apiPath;
+        localStorage.privateToken         = args.privateToken;
+        localStorage.pollingSecond        = args.pollingSecond;
+        localStorage.maxEventCount        = args.maxEventCount;
+        localStorage.maxNotificationCount = args.maxNotificationCount;
+        localStorage.newMarkMinute        = args.newMarkMinute;
         if (Object.keys(args.projects).length > 0) {
-            localStorage["projects"]             = JSON.stringify(args.projects);
+            localStorage.projects             = JSON.stringify(args.projects);
         }
     }
 
@@ -126,11 +126,11 @@ var config= (function(){
 
     // private methods
     function getRecentEventHashes(){
-        return JSON.parse(localStorage["recentEventHashes"] || "{}");
+        return JSON.parse(localStorage.recentEventHashes || "{}");
     }
 
     function setRecentEventHashes(recentEventHashes){
-        localStorage["recentEventHashes"] = JSON.stringify(recentEventHashes);
+        localStorage.recentEventHashes = JSON.stringify(recentEventHashes);
     }
 
     function isActive(project_events){
