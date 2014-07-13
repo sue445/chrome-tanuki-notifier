@@ -101,7 +101,7 @@ var config= (function(){
         localStorage.maxNotificationCount = args.maxNotificationCount;
         localStorage.newMarkMinute        = args.newMarkMinute;
         if (Object.keys(args.projects).length > 0) {
-            localStorage.projects             = JSON.stringify(args.projects);
+            localStorage.projects         = JSON.stringify(args.projects);
         }
     }
 
