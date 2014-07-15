@@ -15,13 +15,13 @@ var util = (function(){
     }
 
     function createEventIcon(target_type){
-        if(!target_type || target_type == "Commit"){
+        if(!target_type || target_type === "Commit"){
             return $("<i/>").addClass("icon-upload-alt").attr({title: "Commit"});
-        } else if(target_type == "Issue"){
+        } else if(target_type === "Issue"){
             return $("<i/>").addClass("icon-exclamation-sign").attr({title: "Issue"});
-        } else if(target_type == "MergeRequest"){
+        } else if(target_type === "MergeRequest"){
             return $("<i/>").addClass("icon-check").attr({title: "MergeRequest"});
-        } else if(target_type == "Milestone"){
+        } else if(target_type === "Milestone"){
             return $("<i/>").addClass("icon-calendar").attr({title: "Milestone"});
         }
 

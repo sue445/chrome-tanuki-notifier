@@ -42,7 +42,7 @@
             var message = project_event.message;
             if(!message){
                 // for previous version cache
-                if(project_event.target_type == "Commit"){
+                if(project_event.target_type === "Commit"){
                     message = project_event.target_title;
                 } else{
                     message = "#" + project_event.target_id + " " + project_event.target_title;

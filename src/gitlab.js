@@ -59,7 +59,7 @@ var gitlab= (function(){
                 "PRIVATE-TOKEN" : config.getPrivateToken()
             }
         }).then(function(res){
-                var id = res.iid || res.id
+                var id = res.iid || res.id;
                 var url = config.getGitlabPath() + args.project_name + "/" + eventPath[args.target_type].page + "/" + id;
                 callback({target_id: id, target_url: url});
             });
