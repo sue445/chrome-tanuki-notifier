@@ -1,6 +1,7 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.7...master)
 
+* Upgrade Twitter bootstrap: 3.0.0 -> 3.0.2
 * Show progress bar when option projects loading
   * https://github.com/sue445/chrome-gitlab-notifier/pull/39
 
