@@ -45,6 +45,7 @@
     }
 
     function refreshProjects(){
+        $("#progress_bar").show();
         $("#projects").empty();
 
         if(config.getPrivateToken().length > 0){
@@ -82,6 +83,7 @@
                 $('<td>').text(' / ').prepend(lineSelectAll).append(lineSelectNone).appendTo(tr);
 
                 tr.appendTo( $("#projects") );
+                $("#progress_bar").hide();
             });
         }
     }
