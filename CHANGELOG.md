@@ -1,6 +1,8 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.8...master)
 
+* Rename app name for [Branding Guidelines](https://developer.chrome.com/webstore/branding)
+
 ## 1.0.8 (2014/07/16)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.7...1.0.8)
 
