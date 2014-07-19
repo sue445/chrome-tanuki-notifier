@@ -50,4 +50,4 @@ Open extension option -> Clear cache
 ## Test Suite
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
 
-[![endorse](httpgs://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
+[![endorse](https://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
