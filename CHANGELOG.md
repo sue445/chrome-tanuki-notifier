@@ -1,6 +1,9 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.0...master)
 
+* Use event timestamp when Gitlab 6.8.0+
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/42
+
 ## 1.1.0 (2014/07/19)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.8...1.1.0)
 
