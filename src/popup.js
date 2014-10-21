@@ -37,7 +37,12 @@
 
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: project_url, target: "_blank"}).text("["+ project_event.project_name +"]").appendTo(li);
-            $("<span/>").text(" ").appendTo(li);
+            // add 'remove' button, set id as project_event._id
+            $("<span/>").addClass("pull-right glyphicon glyphicon-remove remove-btn")
+                .attr({
+                    'id'   : project_event._id,
+                    'title': 'Remove this notification'
+                }).appendTo(li);
 
             var message = project_event.message;
             if(!message){
@@ -54,6 +59,11 @@
         });
 
         $("abbr.timeago").timeago();
+
+        $("span.remove-btn").click(function(){
+            config.removeNotifiedHistory(this.id);
+            $(this).parent().remove();
+        });
 
         $("button.clear").click(function(){
             config.clearCache();
