@@ -19,6 +19,8 @@ var notification = {
             message:         message
         });
 
+        // use current timestamp as project_event_id
+        project_event._id          = new Date(current_time).getTime();
         project_event.project_name = project.name;
         project_event.target_id    = internal.target_id;
         project_event.target_url   = internal.target_url;
