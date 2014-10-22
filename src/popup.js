@@ -37,10 +37,10 @@
 
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: project_url, target: "_blank"}).text("["+ project_event.project_name +"]").appendTo(li);
-            // add 'remove' button, set id as project_event._id
-            $("<span/>").addClass("pull-right glyphicon glyphicon-remove remove-btn")
+            // add 'remove' button
+            $("<span/>").addClass("remove-btn pull-right glyphicon glyphicon-remove")
                 .attr({
-                    'id'   : project_event._id,
+                    'data-notification-id': project_event._id,
                     'title': 'Remove this notification'
                 }).appendTo(li);
 
@@ -61,8 +61,12 @@
         $("abbr.timeago").timeago();
 
         $("span.remove-btn").click(function(){
-            config.removeNotifiedHistory(this.id);
-            $(this).parent().remove();
+            var $target = $(this);
+            // remove with slide animation
+            $target.parent().slideUp("fast", function(){
+              $(this).remove();
+            });
+            config.removeNotifiedHistory($target.attr('data-notification-id'));
         });
 
         $("button.clear").click(function(){
