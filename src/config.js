@@ -92,6 +92,7 @@ var config= (function(){
         $.each(notified_histories, function(index, project_event){
             if(project_event._id == _id)  {
                 notified_histories.splice(index, 1);
+                return false; // break $.each loop
             }
         });
 
