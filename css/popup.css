@@ -30,6 +30,15 @@ body {
     background-position: left 9px;
     background-repeat: no-repeat;
 }
+
+#notifyHistories span.remove-btn{
+    opacity: 0.5;
+}
+
+#notifyHistories span.remove-btn:hover{
+    opacity: 1;
+}
+
 .eventLink {
     display: block;
     margin-top: 5px;

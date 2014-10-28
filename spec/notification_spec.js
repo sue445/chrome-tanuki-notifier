@@ -50,7 +50,13 @@ describe("notification", function() {
         it("should saved 1 notified history", function() {
             expect(config.getNotifiedHistories().length).toEqual(1);
 
+            var notification_id = JSON.stringify({
+                target_url: internal.target_url,
+                message:    message
+            });
+
             var expected = {
+                _id:          util.calcHash(notification_id);
                 target_type:  project_event.target_type,
                 target_title: project_event.target_title,
                 action_name:  project_event.action_name,

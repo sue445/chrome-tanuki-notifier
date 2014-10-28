@@ -84,6 +84,22 @@ var config= (function(){
         localStorage.notifiedHistories = JSON.stringify(notified_histories);
     }
 
+    // remove target history with given '_id'
+    function removeNotifiedHistory(_id){
+        var notified_histories = getNotifiedHistories();
+
+        // remove target history
+        $.each(notified_histories, function(index, project_event){
+            if(project_event._id == _id)  {
+                notified_histories.splice(index, 1);
+                return false; // break $.each loop
+            }
+        });
+
+        // save histories
+        localStorage.notifiedHistories = JSON.stringify(notified_histories);
+    }
+
     function clearCache(){
         localStorage.removeItem("notifiedHistories");
         localStorage.removeItem("recentEvents");
@@ -120,6 +136,7 @@ var config= (function(){
         getRecentEventHash:      getRecentEventHash,
         getNotifiedHistories:    getNotifiedHistories,
         addNotifiedHistories:    addNotifiedHistories,
+        removeNotifiedHistory:   removeNotifiedHistory,
         clearCache:              clearCache,
         save:                    save
     };

@@ -19,6 +19,8 @@ var notification = {
             message:         message
         });
 
+        // use hash of notification_id as unique id
+        project_event._id          = util.calcHash(notification_id);
         project_event.project_name = project.name;
         project_event.target_id    = internal.target_id;
         project_event.target_url   = internal.target_url;
