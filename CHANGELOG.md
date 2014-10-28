@@ -1,8 +1,13 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.1...master)
+
+## 1.1.1 (2014/10/29)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.0...1.1.1)
 
 * Use event timestamp when GitLab 6.8.0+
   * https://github.com/sue445/chrome-gitlab-notifier/issues/42
+* Add feature to remove certain notification 
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/45 (thx. @edwardwang1105)
 
 ## 1.1.0 (2014/07/19)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.8...1.1.0)
