@@ -8,6 +8,8 @@
   * https://github.com/sue445/chrome-gitlab-notifier/issues/42
 * Add feature to remove certain notification 
   * https://github.com/sue445/chrome-gitlab-notifier/pull/45 (thx. @edwardwang1105)
+* strict capitalization: Gitlab -> GitLab
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/46 (thx. @bbodenmiller)
 
 ## 1.1.0 (2014/07/19)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.0.8...1.1.0)
