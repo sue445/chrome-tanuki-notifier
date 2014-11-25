@@ -51,3 +51,7 @@ Open extension option -> Clear cache
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
 
 [![endorse](https://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sue445/chrome-gitlab-notifier/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
