@@ -40,12 +40,19 @@ var util = (function(){
         return MD5_hexhash(JSON.stringify(obj));
     }
 
+    function addTrailingSlash(url){
+        if (typeof url !== "string") return url;
+        if (url === "" || url.match(/\/$/)) return url;
+        return url + '/';
+    }
+
     return {
         checkArgs:       checkArgs,
         createEventIcon: createEventIcon,
         isChecked:       isChecked,
         toInt:           toInt,
-        calcHash:        calcHash
+        calcHash:        calcHash,
+        addTrailingSlash: addTrailingSlash
     };
 
     // private methods
