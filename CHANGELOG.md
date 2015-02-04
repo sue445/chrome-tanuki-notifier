@@ -1,5 +1,11 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.1...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.2...master)
+
+## 1.1.2 (2015/02/04)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.1...1.1.2)
+
+* Add trailing slash to gitlabPath and apiPath on save settings
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/51
 
 ## 1.1.1 (2014/10/29)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.0...1.1.1)
