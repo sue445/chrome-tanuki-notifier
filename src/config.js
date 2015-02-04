@@ -109,8 +109,8 @@ var config= (function(){
     function save(args){
         util.checkArgs(args, ["gitlabPath", "privateToken", "privateToken", "pollingSecond", "maxEventCount", "maxNotificationCount", "newMarkMinute", "projects"]);
 
-        localStorage.gitlabPath           = args.gitlabPath;
-        localStorage.apiPath              = args.apiPath;
+        localStorage.gitlabPath           = util.addTrailingSlash(args.gitlabPath);
+        localStorage.apiPath              = util.addTrailingSlash(args.apiPath);
         localStorage.privateToken         = args.privateToken;
         localStorage.pollingSecond        = args.pollingSecond;
         localStorage.maxEventCount        = args.maxEventCount;
