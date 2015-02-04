@@ -43,7 +43,7 @@ var util = (function(){
     function addTrailingSlash(url){
         if (typeof url !== "string") return url;
         if (url === "" || url.match(/\/$/)) return url;
-        return url += '/';
+        return url + '/';
     }
 
     return {
