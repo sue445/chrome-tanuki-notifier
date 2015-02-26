@@ -2,7 +2,8 @@
     var actionLabels = {
         "opened"   : "label-warning",
         "closed"   : "label-danger",
-        "accepted" : "label-success"
+        "accepted" : "label-success",
+        "pushed to": "label-info"
     };
 
     $(document).ready(function(){
