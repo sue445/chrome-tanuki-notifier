@@ -16,7 +16,11 @@
         $("#projects tr.project").each(function(){
             var project_id = parseInt($(this).attr("id"));
 
-            var project = {name: $("#" + project_id + " td.name").text(), events: {}};
+            var project = {
+                name:       $("#" + project_id + " td.name").text(),
+                avatar_url: $("#" + project_id).attr("data_avatar_url"),
+                events:     {}
+            };
             $.each(gitlab.events(), function(index, event){
                 project.events[event] = util.isChecked("#" + project_id + " td." + event + " input:checkbox");
             });
@@ -50,7 +54,7 @@
 
         if(config.getPrivateToken().length > 0){
             gitlab.getProjects(function(project){
-                var tr = $("<tr/>").attr({id: project.id}).addClass("project");
+                var tr = $("<tr/>").attr({id: project.id, data_avatar_url: project.avatar_url}).addClass("project");
 
                 var project_url = config.getGitlabPath() + project.path_with_namespace;
 
