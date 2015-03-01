@@ -22,6 +22,18 @@ var config= (function(){
         return projects[project_id] || {name: "", events: {}};
     }
 
+    function getProjectByName(project_name){
+        var result = {};
+        $.each(getProjects(), function(project_id, project){
+            if(project_name == project.name){
+                result = project;
+                // break $.each loop
+                return false;
+            }
+        });
+        return result;
+    }
+
     function getProjects(){
         return JSON.parse(localStorage.projects || "{}");
     }
@@ -127,6 +139,7 @@ var config= (function(){
         getPrivateToken:         getPrivateToken,
         getPollingSecond:        getPollingSecond,
         getProject:              getProject,
+        getProjectByName:        getProjectByName,
         getProjects:             getProjects,
         getActiveProjects:       getActiveProjects,
         getMaxEventCount:        getMaxEventCount,

@@ -31,6 +31,12 @@ body {
     background-repeat: no-repeat;
 }
 
+#notifyHistories li .icon{
+    width: 48px;
+    height: 48px;
+    margin-right: 5px;
+}
+
 #notifyHistories span.remove-btn{
     opacity: 0.5;
 }

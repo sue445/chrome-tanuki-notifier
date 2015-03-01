@@ -21,11 +21,16 @@
         var current_time = new Date();
         var new_milli_seconds = config.getNewMarkMinute() * 60 * 1000;
         $.each(config.getNotifiedHistories(), function(index, project_event){
+            var project = config.getProjectByName(project_event.project_name);
             var li = $("<li/>");
 
             if(current_time.getTime() - new_milli_seconds < (new Date(project_event.notified_at)).getTime()){
                 li.addClass("new");
             }
+
+            var avatar_url = project.avatar_url || "img/gitlab-icon.png";
+            var icon = $("<img/>").addClass("icon img-rounded").attr({src: avatar_url, align: "left"});
+            icon.appendTo(li);
 
             util.createEventIcon(project_event.target_type).appendTo(li);
 
