@@ -54,9 +54,12 @@
 
                 var project_url = config.getGitlabPath() + project.path_with_namespace;
 
-                $("<td/>").addClass("name").append(
-                    $("<a/>").attr({href: project_url}).text(project.path_with_namespace)
-                ).appendTo(tr);
+                var span = $("<span/>");
+                if(project.archived){
+                    $("<span/>").addClass("glyphicon glyphicon-eye-close").appendTo(span);
+                }
+                $("<a/>").attr({href: project_url}).text(project.path_with_namespace).appendTo(span);
+                $("<td/>").addClass("name").append(span).appendTo(tr);
 
                 var project_option = config.getProject(project.id);
                 var events = gitlab.events();
