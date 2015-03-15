@@ -87,11 +87,14 @@ var gitlab= (function(){
         // List projects
         // GET /projects
         // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects
+        // NOTE: order_by and sort are supported by v7.7.0+. If no options, order_by created_at DESC
         $.ajax({
             url: config.getApiPath() + "projects",
             data: {
                 page: page,
-                per_page: per_page
+                per_page: per_page,
+                order_by: "name",
+                sort:     "asc"
             },
             type: "GET",
             dataType: "json",

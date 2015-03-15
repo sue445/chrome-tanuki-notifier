@@ -1,6 +1,11 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.2...master)
 
+* Tweak projects list at option page
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/55
+  * Sort by project name (for GitLab v7.7.0+)
+  * Add project archived icon
+
 ## 1.1.3 (2015/03/01)
 
 * Add the 'pushed to' label to the popup window (thx. @brunosabot)
