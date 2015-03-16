@@ -1,11 +1,14 @@
-.name a {
-  margin-left: 24px;
+.name .icon {
+    margin-left: 24px;
+    margin-right: 5px;
+    width: 24px;
+    height: 24px;
 }
 .project .glyphicon-eye-close {
   vertical-align: middle;
 }
-.project .glyphicon-eye-close + a {
-  margin: 0 0 0 8px;
+.project .glyphicon-eye-close + .icon {
+  margin: 0 8px 0 8px;
   vertical-align: middle;
 }
 .table .projects-name {

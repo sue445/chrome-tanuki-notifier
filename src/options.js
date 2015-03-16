@@ -62,6 +62,10 @@
                 if(project.archived){
                     $("<span/>").addClass("glyphicon glyphicon-eye-close").appendTo(span);
                 }
+
+                var avatar_url = project.avatar_url || "img/gitlab-icon.png";
+                $("<img/>").addClass("icon img-rounded").attr({src: avatar_url}).appendTo(span);
+
                 $("<a/>").attr({href: project_url}).text(project.path_with_namespace).appendTo(span);
                 $("<td/>").addClass("name").append(span).appendTo(tr);
 
