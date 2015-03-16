@@ -1,0 +1,13 @@
+.name a {
+  margin-left: 24px;
+}
+.project .glyphicon-eye-close {
+  vertical-align: middle;
+}
+.project .glyphicon-eye-close + a {
+  margin: 0 0 0 8px;
+  vertical-align: middle;
+}
+.table .projects-name {
+  padding-left: 32px;
+}
