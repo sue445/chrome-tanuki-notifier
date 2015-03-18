@@ -15,6 +15,7 @@ body {
     list-style-type: none;
     margin-bottom: 5px;
     padding: 5px 5px 5px 25px;
+    min-height: 58px;
 }
 
 #notifyHistories > li:nth-child(2n) {
@@ -34,7 +35,8 @@ body {
 #notifyHistories li .icon{
     width: 48px;
     height: 48px;
-    margin-right: 5px;
+    margin-right: 10px;
+    margin-left: -15px;
 }
 
 #notifyHistories span.remove-btn{
