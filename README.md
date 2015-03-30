@@ -24,16 +24,16 @@ Open extension option -> Clear cache
 
 ## Screenshots
 ### Option
-![option](https://cloud.githubusercontent.com/assets/608755/3497049/33ab01d8-05e8-11e4-9a16-1c8245e97271.png)
-![option](https://cloud.githubusercontent.com/assets/608755/3497073/6cbf8098-05e8-11e4-8dad-74d689b89d8a.png)
+![option1](doc/option1.png)
+![option2](doc/option2.png)
 
 
 ### Notification
-![Notification](https://f.cloud.github.com/assets/608755/1415698/52d15d24-3f18-11e3-8a77-9d5b6fbece3e.png)
-![Notification](http://cdn-ak.f.st-hatena.com/images/fotolife/s/sue445/20131126/20131126230723.png)
+![notification1](doc/notification1.png)
+![notification2](doc/notification2.png)
 
 ### Popup
-![Popup](https://f.cloud.github.com/assets/608755/2323269/84543b94-a3ba-11e3-9e72-67c6ff9a3dc9.png)
+![popup1](doc/popup.png)
 
 ## Dependency GitLab API
 * `GET /projects`
