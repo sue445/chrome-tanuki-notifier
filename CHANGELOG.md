@@ -1,5 +1,5 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.2...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.3...master)
 
 * Tweak projects list at option page
   * https://github.com/sue445/chrome-gitlab-notifier/pull/55
@@ -7,6 +7,7 @@
   * Add project archived icon
 
 ## 1.1.3 (2015/03/01)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.1.2...1.1.3)
 
 * Add the 'pushed to' label to the popup window (thx. @brunosabot)
   * https://github.com/sue445/chrome-gitlab-notifier/pull/52
