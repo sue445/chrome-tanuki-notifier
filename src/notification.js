@@ -14,6 +14,7 @@ var notification = {
         });
 
         this.createNotification({
+            avatar_url:      project.avatar_url,
             notification_id: notification_id,
             title:           project.name,
             message:         message
@@ -42,7 +43,7 @@ var notification = {
             notification_id,
             {
                 type:     "basic",
-                iconUrl:  "img/gitlab-icon.png",
+                iconUrl:  args.avatar_url || "img/gitlab-icon.png",
                 title:    title,
                 message:  message,
                 priority: 0
