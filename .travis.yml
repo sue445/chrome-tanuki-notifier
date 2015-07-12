@@ -8,3 +8,4 @@ after_success:
 env:
   global:
     - secure: "TAIbJjQH7vzK96MQRpWNYyzSm9OeKaLemgddPz8RTgxQEtwvXy3svvPC+4YHyjYPleQrdfyk9PB1QhZ5qq6OgInXgSvfm34zEItN7Fue9wnMUuiJJcq4zqpYX1uRuBKmkIUGB1iI9bevWyHyhIVD1IhF9GkGuTWuw6JpA5k9yn8="
+sudo: false
