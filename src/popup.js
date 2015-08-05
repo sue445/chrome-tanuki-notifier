@@ -28,7 +28,7 @@
                 li.addClass("new");
             }
 
-            var avatar_url = project.avatar_url || "img/gitlab-icon.png";
+            var avatar_url = project.avatar_url || "img/gitlab_logo_128.png";
             var icon = $("<img/>").addClass("icon img-rounded").attr({src: avatar_url, align: "left"});
             icon.appendTo(li);
 

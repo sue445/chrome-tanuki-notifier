@@ -43,7 +43,7 @@ var notification = {
             notification_id,
             {
                 type:     "basic",
-                iconUrl:  args.avatar_url || "img/gitlab-icon.png",
+                iconUrl:  args.avatar_url || "img/gitlab_logo_128.png",
                 title:    title,
                 message:  message,
                 priority: 0
