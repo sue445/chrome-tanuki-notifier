@@ -1,5 +1,8 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.2.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.2.1...master)
+
+## 1.2.1 (2015/08/06)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.2.0...1.2.1)
 
 * old icon -> new icon
   * https://github.com/sue445/chrome-gitlab-notifier/pull/66
