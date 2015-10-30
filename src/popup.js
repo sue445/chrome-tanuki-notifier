@@ -32,6 +32,36 @@
             var icon = $("<img/>").addClass("icon img-rounded").attr({src: avatar_url, align: "left"});
             icon.appendTo(li);
 
+            var author_avatar = $("<img/>").addClass("icon img-circle pull-left").attr({src: "#"});
+            author_avatar.appendTo(li);
+            $.ajax({
+                url: config.getApiPath() + "users",
+                data: {
+                    search: project_event.author_email
+                },
+                type: "GET",
+                dataType: "json",
+                timeout: config.getPollingSecond() * 1000,
+                headers: {
+                    "PRIVATE-TOKEN" : config.getPrivateToken()
+                }
+            }).done(function(users) {
+                if (users.length < 1) {
+                    return;
+                }
+                var user = users[0];
+                author_avatar.attr("src", user.avatar_url);
+                author_avatar.on('load', function() {
+                    if(!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                        // FIXME: Do something in case problem loading user avatar?
+                    } else {
+                        // FIXME: Do something when img is successfully loaded?
+                    }
+                });
+            }).fail(function(){
+                // FIXME: Any fallback / error handling needed?
+            });
+
             util.createEventIcon(project_event.target_type).appendTo(li);
 
             var project_url = config.getGitlabPath() + project_event.project_name;
