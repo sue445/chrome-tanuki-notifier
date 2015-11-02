@@ -76,7 +76,8 @@ var background = (function(){
                                 project_event: project_event,
                                 internal:      internal,
                                 message:       "[" + target_type + "] #" + internal.target_id + " " + project_event.target_title +  " " + project_event.action_name,
-                                current_time:  project_event.created_at || new Date()
+                                current_time:  project_event.created_at || new Date(),
+                                author_id:     project_event.author_id
                             });
                             event_count++;
                         });
