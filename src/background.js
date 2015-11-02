@@ -59,7 +59,7 @@ var background = (function(){
                                 },
                                 message:      "[" + branch_name + "] " + "@" + project_event.data.user_name + " " + display_id + " " + commit_message + " (" + project_event.data.total_commits_count + " commits)",
                                 current_time: project_event.created_at || new Date(),
-                                author_email: project_event.data.user_email
+                                author_id:    project_event.author_id
                             });
                             event_count++;
                         }
