@@ -3,7 +3,8 @@
         "opened"   : "label-warning",
         "closed"   : "label-danger",
         "accepted" : "label-success",
-        "pushed to": "label-info"
+        "pushed to": "label-info",
+        "pushed new": "label-info"
     };
 
     $(document).ready(function(){
