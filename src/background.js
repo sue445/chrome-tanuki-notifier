@@ -21,6 +21,7 @@ var background = (function(){
                 if(isSameEvent(latest, recent_hash)){
                     // not changed
                     return;
+                
                 }
 
                 config.setRecentEvent(project_id, latest);
@@ -57,7 +58,8 @@ var background = (function(){
                                     target_url: target_url
                                 },
                                 message:      "[" + branch_name + "] " + "@" + project_event.data.user_name + " " + display_id + " " + commit_message + " (" + project_event.data.total_commits_count + " commits)",
-                                current_time:  project_event.created_at || new Date()
+                                current_time: project_event.created_at || new Date(),
+                                author_id:    project_event.author_id
                             });
                             event_count++;
                         }
@@ -74,7 +76,8 @@ var background = (function(){
                                 project_event: project_event,
                                 internal:      internal,
                                 message:       "[" + target_type + "] #" + internal.target_id + " " + project_event.target_title +  " " + project_event.action_name,
-                                current_time:  project_event.created_at || new Date()
+                                current_time:  project_event.created_at || new Date(),
+                                author_id:     project_event.author_id
                             });
                             event_count++;
                         });

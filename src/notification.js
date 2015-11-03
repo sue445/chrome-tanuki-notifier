@@ -5,6 +5,7 @@ var notification = {
         var internal      = args.internal;
         var current_time  = args.current_time;
         var message       = args.message;
+        var author_id     = args.author_id || '';
 
         util.checkArgs(args, ["project", "project_event", "internal", "current_time", "message"]);
 
@@ -27,6 +28,7 @@ var notification = {
         project_event.target_url   = internal.target_url;
         project_event.notified_at  = current_time;
         project_event.message      = message;
+        project_event.author_id    = author_id;
         config.addNotifiedHistories([project_event]);
 
         this.incNotificationCount();
