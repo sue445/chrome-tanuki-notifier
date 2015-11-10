@@ -14,7 +14,9 @@ body {
     border-radius: 5px;
     list-style-type: none;
     margin-bottom: 5px;
-    padding: 5px 5px 5px 25px;
+    padding: 5px 5px 5px 78px;
+    position: relative;
+    min-height: 78px;
 }
 
 #notifyHistories > li:nth-child(2n) {
@@ -26,15 +28,23 @@ body {
 }
 
 #notifyHistories li.new{
-    background-image: url(../img/new-icon.gif);
-    background-position: left 9px;
-    background-repeat: no-repeat;
+    font-weight: bold;
 }
 
 #notifyHistories li .icon{
     width: 48px;
     height: 48px;
     margin-right: 5px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+#notifyHistories li .icon-avatar{
+    width: 30px;
+    height: 30px;
+    top: 38px;
+    left: 38px;
 }
 
 #notifyHistories span.remove-btn{
