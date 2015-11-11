@@ -36,7 +36,7 @@
             // Only input avatar if we found the user and the user has an
             // avatar.
             if (project_event.author_id) {
-                var author_avatar = $("<img/>").addClass("icon img-circle pull-left").attr({src: "#"});
+                var author_avatar = $("<img/>").addClass("icon img-circle pull-left icon-avatar").attr({src: "#"});
                 author_avatar.appendTo(li);
                 $.ajax({
                     url: config.getApiPath() + "users/" + project_event.author_id,
@@ -67,7 +67,7 @@
             $("<span/>").text(" ").appendTo(li);
             $("<span/>").addClass("label").addClass(actionLabels[project_event.action_name]).text(project_event.action_name).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
-            $("<abbr/>").addClass("timeago").attr({title: project_event.notified_at}).appendTo(li);
+            $("<abbr/>").addClass("timeago").attr({title: (new Date(project_event.notified_at)).toLocaleString()}).appendTo(li);
 
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: project_url, target: "_blank"}).text("["+ project_event.project_name +"]").appendTo(li);
