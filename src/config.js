@@ -116,6 +116,7 @@ var config= (function(){
         localStorage.removeItem("notifiedHistories");
         localStorage.removeItem("recentEvents");
         localStorage.removeItem("recentEventHashes");
+        localStorage.removeItem("avatarCache");
     }
 
     function save(args){
