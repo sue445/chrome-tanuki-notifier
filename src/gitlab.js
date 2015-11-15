@@ -65,6 +65,23 @@ var gitlab= (function(){
             });
     }
 
+    function getUserAvatarUrl(user_id, callback){
+        // Single user
+        // GET /users/:id
+        // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/users.md#single-user
+        $.ajax({
+            url: config.getApiPath() + "users/" + user_id,
+            type: "GET",
+            dataType: "json",
+            timeout: 1000,
+            headers: {
+                "PRIVATE-TOKEN" : config.getPrivateToken()
+            }
+        }).done(function(user) {
+            callback(user.avatar_url);
+        });
+    }
+
     function events(){
         return [
             "Commit",   // target_type == null
@@ -79,6 +96,7 @@ var gitlab= (function(){
         getProjectEvents:    getProjectEvents,
         getEventInternalUrl: getEventInternalUrl,
         getEventInternalId:  getEventInternalId,
+        getUserAvatarUrl:    getUserAvatarUrl,
         events:              events
     };
 
