@@ -48,6 +48,13 @@ Open extension option -> Clear cache
 * `GET /projects/:id/milestones/:milestone_id`
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
 
+## FAQ
+### Hot to use on [GitLab.com](https://gitlab.com/) ?
+Input these to option
+
+* GitLab Path : `https://gitlab.com/`
+* GitLab API Path : `https://gitlab.com/api/v3/`
+
 ## Test Suite
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
 
