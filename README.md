@@ -47,6 +47,8 @@ Open extension option -> Clear cache
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/merge_requests.md#get-single-mr
 * `GET /projects/:id/milestones/:milestone_id`
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
+* `GET /users/:id`
+  * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/users.md#single-user
 
 ## FAQ
 ### Hot to use on [GitLab.com](https://gitlab.com/) ?
