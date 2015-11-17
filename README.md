@@ -47,6 +47,15 @@ Open extension option -> Clear cache
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/merge_requests.md#get-single-mr
 * `GET /projects/:id/milestones/:milestone_id`
   * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
+* `GET /users/:id`
+  * https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/users.md#single-user
+
+## FAQ
+### Hot to use on [GitLab.com](https://gitlab.com/) ?
+Input these to option
+
+* GitLab Path : `https://gitlab.com/`
+* GitLab API Path : `https://gitlab.com/api/v3/`
 
 ## Test Suite
 http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html

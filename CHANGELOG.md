@@ -1,5 +1,16 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.2.1...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.3.0...master)
+
+## 1.3.0 (2015/11/18)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.2.1...1.3.0)
+
+* Display event user avatar in popup (thx. @asbjorn)
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/68
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/69
+* Add the right label color for 'pushed new' (thx. @brunosabot)
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/70
+* Design improvements for the popup (thx. @brunosabot)
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/71
 
 ## 1.2.1 (2015/08/06)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.2.0...1.2.1)
