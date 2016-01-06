@@ -57,7 +57,7 @@
             $("<span/>").text(" ").appendTo(li);
             $("<span/>").addClass("label").addClass(actionLabels[project_event.action_name]).text(project_event.action_name).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
-            $("<abbr/>").addClass("timeago").attr({title: (new Date(project_event.notified_at)).toLocaleString()}).appendTo(li);
+            $("<abbr/>").addClass("timeago").attr({title: (new Date(project_event.notified_at)).toLocaleString(), datetime: project_event.notified_at}).appendTo(li);
 
             $("<span/>").text(" ").appendTo(li);
             $("<a/>").attr({href: project_url, target: "_blank"}).text("["+ project_event.project_name +"]").appendTo(li);
