@@ -58,7 +58,9 @@ Input these to option
 * GitLab API Path : `https://gitlab.com/api/v3/`
 
 ## Test Suite
-http://sue445.github.io/chrome-gitlab-notifier/spec/SpecRunner.html
+```
+open spec/SpecRunner.html
+```
 
 [![endorse](https://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
 
