@@ -3,3 +3,7 @@ branches:
   only:
     - master
 sudo: false
+notifications:
+  email: false
+  slack:
+    secure: Tk760Pg/S6sDXlW3dz0U0TfvpIzUkxKJerdQCUP3PxFPVATyLr9i2d03IIVE7WfddbI8lXHgF+GhBMSYK9QawvpXd413W+VDEH3pyxex6Be+PqHE1bpvUDIb/k8AN55TXZ8SvX0KIhllxJ7gifsaxv8eOkXDGHb1+a6pwI8WfNQ=
