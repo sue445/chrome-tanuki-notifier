@@ -1,6 +1,10 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.3.0...master)
 
+* Bugfix. invalid timeago format by any locale
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/75
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/77
+
 ## 1.3.0 (2015/11/18)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.2.1...1.3.0)
 
