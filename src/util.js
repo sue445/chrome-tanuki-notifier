@@ -23,6 +23,8 @@ var util = (function(){
             return $("<i/>").addClass("icon-check").attr({title: "MergeRequest"});
         } else if(target_type === "Milestone"){
             return $("<i/>").addClass("icon-calendar").attr({title: "Milestone"});
+        } else if(target_type === "Note"){
+            return $("<i/>").addClass("icon-comment").attr({title: "Note"});
         }
 
         return $("<span/>");

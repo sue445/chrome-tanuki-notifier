@@ -35,7 +35,12 @@ var background = (function(){
 
                     var target_type = project_event.target_type || "Commit";
 
-                    if(!isNotifyTargetEvent(project_id, target_type)){
+                    var comment_target_type;
+                    if(target_type == "Note" && project_event.action_name == "commented on"){
+                        comment_target_type = project_event.note.noteable_type;
+                    }
+
+                    if(!isNotifyTargetEvent(project_id, target_type) && !isNotifyTargetEvent(project_id, comment_target_type)){
                         // continue loop
                         return;
                     }
@@ -76,6 +81,24 @@ var background = (function(){
                                 project_event: project_event,
                                 internal:      internal,
                                 message:       "[" + target_type + "] #" + internal.target_id + " " + project_event.target_title +  " " + project_event.action_name,
+                                current_time:  project_event.created_at || new Date(),
+                                author_id:     project_event.author_id
+                            });
+                            event_count++;
+                        });
+                    } else if(target_type == "Note"){
+                        // Issue, MergeRequest (Comment)
+                        gitlab.getEventInternalId({
+                            project_name: project.name,
+                            target_type:  project_event.note.noteable_type,
+                            target_id:    project_event.note.noteable_id
+                        }, function(internal){
+                            internal.target_url = internal.target_url + "#note_" + project_event.note.id;
+                            notification.notify({
+                                project:       project,
+                                project_event: project_event,
+                                internal:      internal,
+                                message:       "[" + project_event.note.noteable_type + "] #" + internal.target_id + " " + project_event.note.body +  " " + project_event.action_name,
                                 current_time:  project_event.created_at || new Date(),
                                 author_id:     project_event.author_id
                             });
