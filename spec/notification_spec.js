@@ -56,7 +56,7 @@ describe("notification", function() {
             });
 
             var expected = {
-                _id:          util.calcHash(notification_id);
+                _id:          util.calcHash(notification_id),
                 target_type:  project_event.target_type,
                 target_title: project_event.target_title,
                 action_name:  project_event.action_name,
