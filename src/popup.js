@@ -59,7 +59,7 @@
             $("<span/>").addClass("label").addClass(actionLabels[project_event.action_name]).text(project_event.action_name).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
             $("<abbr/>").addClass("timeago").attr({
-                title: (new Date(project_event.notified_at)).toLocaleString(),
+                title: new Date(project_event.notified_at),
                 datetime: project_event.notified_at
             }).appendTo(li);
 
