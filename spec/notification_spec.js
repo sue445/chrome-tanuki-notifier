@@ -5,6 +5,7 @@ describe("notification", function() {
         var internal;
         var current_time;
         var message;
+        var author_id;
 
         beforeEach(function() {
             // setup
@@ -28,6 +29,7 @@ describe("notification", function() {
 
             current_time = new Date();
             message = "some message";
+            author_id = 1;
 
             // exercise
             notification.notify({
@@ -35,7 +37,8 @@ describe("notification", function() {
                 project_event: project_event,
                 internal:      internal,
                 current_time:  current_time,
-                message:       message
+                message:       message,
+                author_id:     author_id
             });
         });
 
@@ -56,14 +59,15 @@ describe("notification", function() {
             });
 
             var expected = {
-                _id:          util.calcHash(notification_id);
+                _id:          util.calcHash(notification_id),
                 target_type:  project_event.target_type,
                 target_title: project_event.target_title,
                 action_name:  project_event.action_name,
                 project_name: project.name,
                 target_id:    internal.target_id,
                 target_url:   internal.target_url,
-                message:      message
+                message:      message,
+                author_id:    author_id
             };
 
             var actual = config.getNotifiedHistories()[0];
