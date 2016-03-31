@@ -112,6 +112,19 @@ var config= (function(){
         localStorage.notifiedHistories = JSON.stringify(notified_histories);
     }
 
+    function findNotificationHistory(_id) {
+        var notified_histories = getNotifiedHistories();
+
+        var history = null;
+        $.each(notified_histories, function(index, project_event){
+            if(project_event._id == _id)  {
+                history = project_event;
+                return false; // break $.each loop
+            }
+        });
+        return history;
+    }
+
     function clearCache(){
         localStorage.removeItem("notifiedHistories");
         localStorage.removeItem("recentEvents");
@@ -151,6 +164,7 @@ var config= (function(){
         getNotifiedHistories:    getNotifiedHistories,
         addNotifiedHistories:    addNotifiedHistories,
         removeNotifiedHistory:   removeNotifiedHistory,
+        findNotificationHistory: findNotificationHistory,
         clearCache:              clearCache,
         save:                    save
     };

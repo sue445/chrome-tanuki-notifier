@@ -14,6 +14,14 @@ var notification = {
             message:      message
         });
 
+        var _id = util.calcHash(notification_id);
+        var notifiedEvent = config.findNotificationHistory(_id);
+
+        if (notifiedEvent){
+            // Don't notify same event
+            return;
+        }
+
         this.createNotification({
             avatar_url:      project.avatar_url,
             notification_id: notification_id,
@@ -22,7 +30,7 @@ var notification = {
         });
 
         // use hash of notification_id as unique id
-        project_event._id          = util.calcHash(notification_id);
+        project_event._id          = _id;
         project_event.project_name = project.name;
         project_event.target_id    = internal.target_id;
         project_event.target_url   = internal.target_url;
