@@ -58,7 +58,7 @@
             $("<span/>").text(" ").appendTo(li);
             $("<span/>").addClass("label").addClass(actionLabels[project_event.action_name]).text(project_event.action_name).appendTo(li);
             $("<span/>").text(" ").appendTo(li);
-            $("<abbr/>").addClass("timeago").attr({
+            $("<time/>").addClass("timeago").attr({
                 title: (new Date(project_event.notified_at)).toLocaleString(),
                 datetime: project_event.notified_at
             }).appendTo(li);
@@ -86,7 +86,7 @@
             li.appendTo($("#notifyHistories"));
         });
 
-        $("abbr.timeago").timeago();
+        $("time.timeago").timeago();
 
         $("span.remove-btn").click(function(){
             var $target = $(this);
