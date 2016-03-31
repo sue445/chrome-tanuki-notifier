@@ -1,6 +1,17 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.0...master)
 
+## 1.4.1 (2016/03/31)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.0...1.4.1)
+
+* Bugfix. invalid timeago format by any locale (revenge)
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/75
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/83
+* Fix: don't notify same event 
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/80
+* Syntax Error In spec 
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/81
+
 ## 1.4.0 (2016/01/09)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.3.0...1.4.0)
 
