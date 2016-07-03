@@ -130,6 +130,7 @@ var config= (function(){
         localStorage.removeItem("recentEvents");
         localStorage.removeItem("recentEventHashes");
         localStorage.removeItem("avatarCache");
+        localStorage.removeItem("notificationCache");
     }
 
     function save(args){
