@@ -1,6 +1,10 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.1...master)
 
+* Fix. notify same events many times
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/85
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/86
+
 ## 1.4.1 (2016/03/31)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.0...1.4.1)
 

@@ -17,7 +17,9 @@ describe("notification", function() {
             };
 
             project_event = {
+                project_id:   1,
                 target_type:  "Issue",
+                target_id:    1,
                 target_title: "MyIssue",
                 action_name:  "opened"
             };
@@ -44,6 +46,7 @@ describe("notification", function() {
 
         afterEach(function() {
             localStorage.removeItem("notifiedHistories");
+            localStorage.removeItem("notificationCache");
         });
 
         it("should called incNotificationCount", function() {
@@ -59,7 +62,8 @@ describe("notification", function() {
             });
 
             var expected = {
-                _id:          util.calcHash(notification_id),
+                _id:          notification_cache.cacheKey(project_event),
+                project_id:   project_event.project_id,
                 target_type:  project_event.target_type,
                 target_title: project_event.target_title,
                 action_name:  project_event.action_name,
@@ -79,13 +83,8 @@ describe("notification", function() {
         });
 
         it("should called createNotification", function() {
-            var notification_id = JSON.stringify({
-                target_url: internal.target_url,
-                message:    message
-            });
-
             var params = {
-                notification_id: notification_id,
+                notification_id: notification_cache.cacheKey(project_event),
                 title:           project.name,
                 message:         message
             };

@@ -9,18 +9,15 @@ var notification = {
 
         util.checkArgs(args, ["project", "project_event", "internal", "current_time", "message"]);
 
-        var notification_id =  JSON.stringify({
-            target_url:   internal.target_url,
-            message:      message
-        });
-
-        var _id = util.calcHash(notification_id);
-        var notifiedEvent = config.findNotificationHistory(_id);
+        var notifiedEvent = notification_cache.isNotified(project_event);
 
         if (notifiedEvent){
             // Don't notify same event
             return;
         }
+
+        notification_cache.add(project_event);
+        var notification_id = notification_cache.cacheKey(project_event);
 
         this.createNotification({
             avatar_url:      project.avatar_url,
@@ -30,7 +27,7 @@ var notification = {
         });
 
         // use hash of notification_id as unique id
-        project_event._id          = _id;
+        project_event._id          = notification_id;
         project_event.project_name = project.name;
         project_event.target_id    = internal.target_id;
         project_event.target_url   = internal.target_url;
