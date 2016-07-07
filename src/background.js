@@ -74,7 +74,8 @@ var background = (function(){
                         gitlab.getEventInternalId({
                             project_name: project.name,
                             target_type:  target_type,
-                            target_id:    project_event.target_id
+                            target_id:    project_event.target_id,
+                            project_id:   project_event.project_id, 
                         }, function(internal){
                             notification.notify({
                                 project:       project,
