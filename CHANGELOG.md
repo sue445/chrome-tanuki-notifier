@@ -1,5 +1,9 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.1...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.3...master)
+
+## 1.4.3 (2016/07/08)
+* Fix API call with project_name
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/87
 
 ## 1.4.2 (2016/07/06)
 * Fix. notify same events many times
