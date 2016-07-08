@@ -1,6 +1,6 @@
 {
   "name": "chrome-gitlab-notifier",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "GitLab Notifier for Google Chrome™ ",
   "main": "index.js",
   "scripts": {
