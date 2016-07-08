@@ -46,7 +46,7 @@ describe("gitlab", function() {
         describe("when contains iid", function(){
             beforeEach(function() {
                 $.mockjax({
-                    url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
+                    url: 'http://example.com/api/v3/projects/12/issues/42',
                     responseText: stub.project_issue_v6
                 });
             });
@@ -54,7 +54,7 @@ describe("gitlab", function() {
             it("should get internal id url", function(){
                 var called = false;
 
-                gitlab.getEventInternalUrl({project_name: "gitlab/gitlabhq", target_type: "Issue", target_id: "42"}, function(url){
+                gitlab.getEventInternalUrl({project_name: "gitlab/gitlabhq", target_type: "Issue", target_id: "42", project_id: "12"}, function(url){
                     expect(url).toEqual("http://example.com/gitlab/gitlabhq/issues/3");
                     called = true;
                 });
@@ -72,7 +72,7 @@ describe("gitlab", function() {
         describe("when not contains iid", function(){
             beforeEach(function() {
                 $.mockjax({
-                    url: 'http://example.com/api/v3/projects/gitlab%2Fgitlabhq/issues/42',
+                    url: 'http://example.com/api/v3/projects/12/issues/42',
                     responseText: stub.project_issue_v5
                 });
             });
@@ -80,7 +80,7 @@ describe("gitlab", function() {
             it("should get global id url", function(){
                 var called = false;
 
-                gitlab.getEventInternalUrl({project_name: "gitlab/gitlabhq", target_type: "Issue", target_id: "42"}, function(url){
+                gitlab.getEventInternalUrl({project_name: "gitlab/gitlabhq", target_type: "Issue", target_id: "42", project_id: "12"}, function(url){
                     expect(url).toEqual("http://example.com/gitlab/gitlabhq/issues/42");
                     called = true;
                 });

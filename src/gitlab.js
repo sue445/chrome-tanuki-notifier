@@ -38,7 +38,7 @@ var gitlab= (function(){
     }
 
     function getEventInternalId(args, callback){
-        util.checkArgs(args, ["project_name", "target_type", "target_id"]);
+        util.checkArgs(args, ["project_name", "target_type", "target_id", "project_id"]);
 
         // Single issue
         // GET /projects/:id/issues/:issue_id
@@ -52,7 +52,7 @@ var gitlab= (function(){
         // GET /projects/:id/milestones/:milestone_id
         // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
         $.ajax({
-            url: config.getApiPath() + "projects/" + encodeURIComponent(args.project_name) + "/" + eventPath[args.target_type].api + "/" + args.target_id,
+            url: config.getApiPath() + "projects/" + args.project_id + "/" + eventPath[args.target_type].api + "/" + args.target_id,
             type: "GET",
             dataType: "json",
             headers: {
