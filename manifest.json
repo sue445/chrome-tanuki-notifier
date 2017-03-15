@@ -1,31 +1,31 @@
 {
-    "manifest_version": 2,
+  "manifest_version": 2,
 
-    "name": "GitLab Notifier for Google Chrome™",
-    "description": "Notify GitLab events (Commit, Issue, MergeRequest and Milestone)",
-    "version": "1.4.3",
+  "name": "GitLab Notifier for Google Chrome™",
+  "description": "Notify GitLab events (Commit, Issue, MergeRequest and Milestone)",
+  "version": "1.4.3",
 
-    "icons": {
-        "16"  : "img/gitlab_logo_16.png",
-        "48"  : "img/gitlab_logo_48.png",
-        "128" : "img/gitlab_logo_128.png"
-    },
+  "icons": {
+    "16": "img/gitlab_logo_16.png",
+    "48": "img/gitlab_logo_48.png",
+    "128": "img/gitlab_logo_128.png"
+  },
 
-    "permissions": [
-        "background",
-        "notifications",
-        "http://*/",
-        "https://*/"
-    ],
+  "permissions": [
+    "background",
+    "notifications",
+    "http://*/",
+    "https://*/"
+  ],
 
-    "options_page": "options.html",
+  "options_page": "options.html",
 
-    "background": {
-        "page" : "background.html"
-    },
+  "background": {
+    "page": "background.html"
+  },
 
-    "browser_action": {
-        "default_icon": "img/gitlab_logo_128.png",
-        "default_popup": "popup.html"
-    }
+  "browser_action": {
+    "default_icon": "img/gitlab_logo_128.png",
+    "default_popup": "popup.html"
+  }
 }
