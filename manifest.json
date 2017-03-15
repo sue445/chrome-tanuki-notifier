@@ -18,7 +18,13 @@
     "https://*/"
   ],
 
-  "options_page": "options.html",
+  "sandbox":{
+    "pages":[
+      "app/options.html"
+    ]
+  },
+
+  "options_page": "app/options.html",
 
   "background": {
     "page": "background.html"
