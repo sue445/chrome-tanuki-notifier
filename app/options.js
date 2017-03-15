@@ -81,24 +81,35 @@ Vue.component('project', {
   }
 });
 
-new Vue({
-  el: '#app',
-  data: {
-    // TODO: dummy
-    gitlabPath: 'https://gitlab.com/',
-    apiPath: "https://gitlab.com/api/v3/",
-    privateToken: "xxxxxxxxx",
-    pollingSecond: 10,
-    maxEventCount: 100,
-    maxNotificationCount: 10,
-    newMarkMinute: 10,
-    projects: [
-      {
-        id: 1, avatar_url: "https://gitlab.com/uploads/project/avatar/219579/image.jpg",
-        project_url: "https://gitlab.com/sue445/example", path_with_namespace: "sue445/example", archived: false,
-        events: {Commit: true, Issue: true, MergeRequest: true, Milestone: true}
-      }
-    ],
+window.onload = function() {
+  var data = {
+    gitlabPath: config.getGitlabPath(),
+    apiPath: config.getApiPath(),
+    privateToken: config.getPrivateToken(),
+    pollingSecond: config.getPollingSecond(),
+    maxEventCount: config.getMaxEventCount(),
+    maxNotificationCount: config.getMaxNotificationCount(),
+    newMarkMinute: config.getNewMarkMinute(),
+    projects: [],
     search_key: ""
-  }
-});
+  };
+
+  new Vue({
+    el: '#app',
+    data: data
+  });
+
+  gitlab.getProjects(function (project) {
+    var project_option = config.getProject(project.id);
+    var events = project_option || {};
+
+    data.projects.push({
+      id: project.id,
+      avatar_url: project.avatar_url,
+      project_url: config.getGitlabPath() + project.path_with_namespace,
+      path_with_namespace: project.path_with_namespace,
+      archived: project.archived,
+      events: events
+    })
+  });
+};
