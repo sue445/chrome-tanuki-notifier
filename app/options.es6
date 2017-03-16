@@ -52,10 +52,10 @@ Vue.component('project', {
     </tr>\
   ',
   computed: {
-    match_search_key: function () {
-      var keys = this.search_key.split(" ");
+    match_search_key: () => {
+      const keys = this.search_key.split(" ");
       for (var i = 0, l = keys.length; i < l; i++) {
-        var r = new RegExp(keys[i], 'i');
+        const r = new RegExp(keys[i], 'i');
         if (!this.path_with_namespace.match(r)) {
           return false;
         }
@@ -64,15 +64,15 @@ Vue.component('project', {
     }
   },
   methods: {
-    select_all: function (event) {
+    select_all: (event) => {
       this.select_events(true);
       event.preventDefault();
     },
-    select_none: function (event) {
+    select_none: (event) => {
       this.select_events(false);
       event.preventDefault();
     },
-    select_events: function (checked) {
+    select_events: (checked) => {
       this.events.Commit = checked;
       this.events.Issue = checked;
       this.events.MergeRequest = checked;
@@ -81,8 +81,8 @@ Vue.component('project', {
   }
 });
 
-window.onload = function() {
-  var data = {
+window.onload = () => {
+  const data = {
     gitlabPath: config.getGitlabPath(),
     apiPath: config.getApiPath(),
     privateToken: config.getPrivateToken(),
@@ -91,7 +91,7 @@ window.onload = function() {
     maxNotificationCount: config.getMaxNotificationCount(),
     newMarkMinute: config.getNewMarkMinute(),
     projects: [],
-    search_key: ""
+    search_key: "",
   };
 
   new Vue({
@@ -99,9 +99,9 @@ window.onload = function() {
     data: data
   });
 
-  gitlab.getProjects(function (project) {
-    var project_option = config.getProject(project.id);
-    var events = project_option || {};
+  gitlab.getProjects((project) => {
+    const project_option = config.getProject(project.id);
+    const events = project_option || {};
 
     data.projects.push({
       id: project.id,
