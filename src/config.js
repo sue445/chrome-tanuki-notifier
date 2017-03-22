@@ -78,6 +78,11 @@ var config= (function(){
         return JSON.parse(localStorage.notifiedHistories || "[]");
     }
 
+    function setNotifiedHistories(histories){
+        histories = histories || [];
+        localStorage.notifiedHistories = JSON.stringify(histories);
+    }
+
     function addNotifiedHistories(newHistories){
         // newHistories = [newest ... oldest]
         // notifiedHistories = [newest ... oldest]
@@ -163,6 +168,7 @@ var config= (function(){
         setRecentEvent:          setRecentEvent,
         getRecentEventHash:      getRecentEventHash,
         getNotifiedHistories:    getNotifiedHistories,
+        setNotifiedHistories:    setNotifiedHistories,
         addNotifiedHistories:    addNotifiedHistories,
         removeNotifiedHistory:   removeNotifiedHistory,
         findNotificationHistory: findNotificationHistory,

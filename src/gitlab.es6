@@ -58,4 +58,36 @@ class GitLab {
       return Promise.reject()
     });
   }
+
+  loadAvatarUrls(user_ids) {
+    this.avatar_urls = {};
+    user_ids.forEach((user_id) => {
+      const cached_avatar_url = avatar_cache.get(user_id);
+      if (cached_avatar_url) {
+        this.avatar_urls[user_id] = cached_avatar_url;
+        return;
+      }
+
+      this.getUserAvatarUrl(user_id).then((user) => {
+        avatar_cache.set(user_id, user.avatar_url);
+        this.avatar_urls[user_id] = user.avatar_url;
+      })
+    });
+  }
+
+  getUserAvatarUrl(user_id) {
+    // Single user
+    // GET /users/:id
+    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/users.md#single-user
+    return m.request({
+      url: `${this.api_path}/users/:user_id`,
+      method: "GET",
+      data: {
+        user_id: user_id
+      },
+      headers: {
+        "PRIVATE-TOKEN": this.private_token
+      }
+    })
+  }
 }
