@@ -1,11 +1,11 @@
 var config= (function(){
     // public methods
     function getGitlabPath(){
-        return localStorage.gitlabPath || "http://example.com/";
+        return localStorage.gitlabPath;
     }
 
     function getApiPath(){
-        return localStorage.apiPath || "http://example.com/api/v3/";
+        return localStorage.apiPath;
     }
 
     function getPrivateToken(){

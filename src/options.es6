@@ -7,7 +7,7 @@ app.view = () => {
       m(".form-group", [
         m("label.col-sm-3.control-label[for='gitlab_path']", "GitLab Path"),
         m(".col-sm-5", [
-          m("input.form-control[id='gitlab_path'][type='text']", {
+          m("input.form-control[id='gitlab_path'][placeholder='http://example.com/'][type='text']", {
             value: this.gitlab_path,
             oninput: m.withAttr("value", (value) => { this.gitlab_path = value })
           })
@@ -16,7 +16,7 @@ app.view = () => {
       m(".form-group", [
         m("label.col-sm-3.control-label[for='api_path']", "GitLab API Path"),
         m(".col-sm-5", [
-          m("input.form-control[id='api_path'][type='text']", {
+          m("input.form-control[id='api_path'][placeholder='http://example.com/api/v3/'][type='text']", {
             value: this.api_path,
             oninput: m.withAttr("value", (value) => { this.api_path = value })
           })
