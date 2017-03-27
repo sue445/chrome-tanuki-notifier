@@ -1,4 +1,9 @@
-script: phantomjs spec/lib/run-jasmine.js spec/SpecRunner.html
+language: node_js
+node_js:
+  - "7"
+script:
+  - phantomjs spec/lib/run-jasmine.js spec/SpecRunner.html
+  - npm test
 branches:
   only:
     - master

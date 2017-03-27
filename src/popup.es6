@@ -1,6 +1,14 @@
+try {
+  var m = require("mithril");
+  var timeago = require("../lib/timeago");
+} catch (e){
+}
+
 const app = {};
 
-app.view = () => {
+app.view = function(vnode) {
+  const state = vnode.state;
+
   const current_time = new Date();
   const action_labels = {
     "opened": "label-warning",
@@ -11,12 +19,39 @@ app.view = () => {
     "commented on": "label-info"
   };
 
+  const getProjectByName = (project_name) => {
+    return Object.entries(state.projects).map((element) => {
+      return element[1]
+    }).find((project) => {
+      return project_name == project.name
+    })
+  };
+
+  const eventIcon = (target_type) => {
+    target_type = target_type || "Commit";
+
+    switch (target_type) {
+      case "Commit":
+        return m("i.icon-upload-alt", {title: target_type});
+      case "Issue":
+        return m("i.icon-exclamation-sign", {title: target_type});
+      case "MergeRequest":
+        return m("i.icon-check", {title: target_type});
+      case "Milestone":
+        return m("i.icon-calendar", {title: target_type});
+      case "Note":
+        return m("i.icon-comment", {title: target_type});
+      default:
+        return m("span")
+    }
+  };
+
   return m("div", [
     m("nav.navbar.navbar-default[role='navigation']", [
       m(".navbar-header", [
         m("button.clear.btn.btn-danger", {
           onclick: () => {
-            this.histories = [];
+            state.histories = [];
             config.clearCache();
           }
         }, [
@@ -25,8 +60,8 @@ app.view = () => {
         ]),
         m("button.goto.btn.btn-primary", {
           onclick: () => {
-            if(this.gitlabPath){
-              window.open(this.gitlabPath);
+            if(state.gitlabPath){
+              window.open(state.gitlabPath);
             }
           }
         }, [
@@ -35,13 +70,13 @@ app.view = () => {
         ])
       ]),
     ]),
-    m("ul[id='notifyHistories']", this.histories.map((project_event) => {
-      const project = app.getProjectByName(project_event.project_name);
+    m("ul[id='notifyHistories']", state.histories.map((project_event) => {
+      const project = getProjectByName(project_event.project_name);
       const avatar_url = project.avatar_url || "img/gitlab_logo_128.png";
-      const project_url = this.gitlabPath + project_event.project_name;
+      const project_url = state.gitlabPath + project_event.project_name;
 
       let li_class = null;
-      if (current_time.getTime() - new_milli_seconds < (new Date(project_event.notified_at)).getTime()) {
+      if (current_time.getTime() - state.new_milli_seconds < (new Date(project_event.notified_at)).getTime()) {
         li_class = "new";
       }
 
@@ -58,14 +93,14 @@ app.view = () => {
       let author_avatar;
       if(project_event.author_id){
         author_avatar = m("img.icon.img-circle.pull-left.icon-avatar", {
-          src: this.gitlab.avatar_urls[project_event.author_id],
+          src: state.gitlab.avatar_urls[project_event.author_id],
         })
       }
 
       return m("li", {class: li_class}, [
         m("img.icon.img-rounded", {src: avatar_url, align: "left"}),
         author_avatar,
-        app.eventIcon(project_event.target_type),
+        eventIcon(project_event.target_type),
         m("span", " "),
         m("span.label", {class: action_labels[project_event.action_name]}, project_event.action_name),
         m("span", " "),
@@ -78,10 +113,10 @@ app.view = () => {
         m("span.remove-btn.pull-right.glyphicon.glyphicon-remove", {
           title: 'Remove this notification',
           onclick: (event) => {
-            this.histories = this.histories.filter((project_event2) => {
+            state.histories = state.histories.filter((project_event2) => {
               return project_event._id != project_event2._id;
             });
-            config.setNotifiedHistories(this.histories);
+            config.setNotifiedHistories(state.histories);
           }
         }),
         m("a.eventLink", {href: project_event.target_url, target: "_blank"}, message),
@@ -90,56 +125,7 @@ app.view = () => {
   ])
 };
 
-app.getProjectByName = (project_name) => {
-  return Object.entries(this.projects).map((element) => {
-    return element[1]
-  }).find((project) => {
-    return project_name == project.name
-  })
-};
-
-app.eventIcon = (target_type) => {
-  target_type = target_type || "Commit";
-
-  switch (target_type) {
-    case "Commit":
-      return m("i.icon-upload-alt", {title: target_type});
-    case "Issue":
-      return m("i.icon-exclamation-sign", {title: target_type});
-    case "MergeRequest":
-      return m("i.icon-check", {title: target_type});
-    case "Milestone":
-      return m("i.icon-calendar", {title: target_type});
-    case "Note":
-      return m("i.icon-comment", {title: target_type});
-    default:
-      return m("span")
-  }
-};
-
-window.onload = () => {
-  // remove notification count when show popup
-  // because) can not use both chrome.browserAction.onClicked and popup
-  // https://developer.chrome.com/extensions/browserAction.html#event-onClicked
-  chrome.browserAction.setBadgeText({text: ""});
-
-  m.mount(document.getElementById("app"), {
-    oninit: () => {
-      this.projects = config.getProjects();
-      this.new_milli_seconds = config.getNewMarkMinute() * 60 * 1000;
-      this.histories = config.getNotifiedHistories();
-      this.gitlabPath = config.getGitlabPath();
-
-      const author_ids = this.histories.map((project_event) => {
-        return project_event.author_id
-      }).filter((author_id) => {
-        return author_id
-      });
-      const unique_author_ids = Array.from(new Set(author_ids));
-
-      this.gitlab = GitLab.createFromConfig();
-      this.gitlab.loadAvatarUrls(unique_author_ids);
-    },
-    view: app.view
-  })
-};
+try {
+  module.exports = app;
+} catch (e){
+}
