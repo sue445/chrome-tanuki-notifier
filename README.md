@@ -11,10 +11,10 @@ Notify GitLab Project events (Commit, Issue, MergeRequest and Milestone)
 1. Install this extension
 2. Open extension option
 3. Input these
-  * GitLab Path
-  * GitLab API Path
-  * Private token
-     * GitLab -> Edit Profile -> Account
+    * GitLab Path
+    * GitLab API Path
+    * Private token
+        * GitLab -> Edit Profile -> Account
 4. Refresh Repository List
 5. Check events
 6. Save
