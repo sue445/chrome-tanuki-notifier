@@ -1,11 +1,11 @@
 var config= (function(){
     // public methods
     function getGitlabPath(){
-        return localStorage.gitlabPath || "http://example.com/";
+        return localStorage.gitlabPath;
     }
 
     function getApiPath(){
-        return localStorage.apiPath || "http://example.com/api/v3/";
+        return localStorage.apiPath;
     }
 
     function getPrivateToken(){
@@ -76,6 +76,11 @@ var config= (function(){
 
     function getNotifiedHistories(){
         return JSON.parse(localStorage.notifiedHistories || "[]");
+    }
+
+    function setNotifiedHistories(histories){
+        histories = histories || [];
+        localStorage.notifiedHistories = JSON.stringify(histories);
     }
 
     function addNotifiedHistories(newHistories){
@@ -163,6 +168,7 @@ var config= (function(){
         setRecentEvent:          setRecentEvent,
         getRecentEventHash:      getRecentEventHash,
         getNotifiedHistories:    getNotifiedHistories,
+        setNotifiedHistories:    setNotifiedHistories,
         addNotifiedHistories:    addNotifiedHistories,
         removeNotifiedHistory:   removeNotifiedHistory,
         findNotificationHistory: findNotificationHistory,
