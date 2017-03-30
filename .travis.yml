@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "7"
+cache: yarn
 script:
   - phantomjs spec/lib/run-jasmine.js spec/SpecRunner.html
   - npm test
