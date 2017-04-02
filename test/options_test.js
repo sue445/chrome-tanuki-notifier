@@ -3,6 +3,7 @@ global.document = window.document;
 
 const assert = require("power-assert");
 const Options = require("../src/options.es6");
+const projects = require("./stub/projects.json");
 
 describe("Options", () => {
   it("works", () => {
@@ -19,19 +20,7 @@ describe("Options", () => {
         search_key: "",
         status_message: "",
         gitlab: {
-          projects: [
-            {
-              path_with_namespace: "diaspora/diaspora-client",
-              archived: false,
-              avatar_url: "http://example.com/uploads/project/avatar/4/uploads/avatar.png",
-              events: {
-                Commit: true,
-                Issue: true,
-                MergeRequest: true,
-                Milestone: true
-              }
-            }
-          ]
+          projects: projects
         }
       }
     });
