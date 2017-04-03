@@ -52,7 +52,7 @@ app.view = function(vnode) {
         m("button.clear.btn.btn-danger", {
           onclick: () => {
             state.histories = [];
-            config.clearCache();
+            state.clearConfigCache();
           }
         }, [
           m("span.glyphicon.glyphicon-trash"),
@@ -116,7 +116,7 @@ app.view = function(vnode) {
             state.histories = state.histories.filter((project_event2) => {
               return project_event._id != project_event2._id;
             });
-            config.setNotifiedHistories(state.histories);
+            state.saveNotifiedHistories(state.histories);
           }
         }),
         m("a.eventLink", {href: project_event.target_url, target: "_blank"}, message),
