@@ -20,7 +20,8 @@ var notification_cache = (function(){
             event.project_id,
             event.target_type,
             event.target_id,
-            event.action_name
+            event.action_name,
+            event.created_at,
         ];
 
         return array.join("_");

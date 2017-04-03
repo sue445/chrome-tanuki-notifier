@@ -43,9 +43,12 @@ class Config {
     this.storage.projects = JSON.stringify(value);
   }
 
-  get activeProjects(){
-    return this.projects.filter((project) => {
+  get activeProjectIds(){
+    return Object.entries(this.projects).filter((element) => {
+      const project = element[1];
       return project.events.Commit || project.events.Issue || project.events.MergeRequest || project.events.Milestone;
+    }).map((element) => {
+      return element[0];
     });
   }
 
@@ -167,4 +170,9 @@ class Config {
       this.projects = args.projects;
     }
   }
+}
+
+try {
+  module.exports = Config;
+} catch (e){
 }

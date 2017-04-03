@@ -4,6 +4,7 @@ class GitLab {
     const api_path = args.api_path || "";
     this.api_path = api_path.replace(/\/+$/, "");
 
+    this.gitlab_path = args.gitlab_path;
     this.private_token = args.private_token;
     this.polling_second = args.polling_second;
     this.per_page = args.per_page || 100;
@@ -13,6 +14,7 @@ class GitLab {
   static createFromConfig(config) {
     return new GitLab({
       api_path: config.apiPath,
+      gitlab_path: config.gitlabPath,
       private_token: config.privateToken,
       polling_second: config.pollingSecond,
     })
@@ -100,5 +102,78 @@ class GitLab {
         "PRIVATE-TOKEN": this.private_token
       }
     })
+  }
+
+  getProjectEvents(project_id){
+    // Get project events
+    // GET /projects/:id/events
+    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-project-events
+    return m.request({
+      url: `${this.api_path}/projects/:project_id/events`,
+      method: "GET",
+      data: {
+        project_id: project_id,
+        per_page: this.per_page
+      },
+      headers: {
+        "PRIVATE-TOKEN": this.private_token
+      }
+    });
+  }
+
+  getEventInternalId(args){
+    // Single issue
+    // GET /projects/:id/issues/:issue_id
+    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/issues.md#single-issue
+    //   or
+    // Get single MR
+    // GET /projects/:id/merge_request/:merge_request_id
+    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/merge_requests.md#get-single-mr
+    //   or
+    // Get single milestone
+    // GET /projects/:id/milestones/:milestone_id
+    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
+
+    let api_url;
+    switch(args.target_type) {
+      case "Issue":
+        api_url = `${this.api_path}/projects/:project_id/issues/:target_id`;
+        break;
+      case "MergeRequest":
+        api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
+        break;
+      case "Milestone":
+        api_url = `${this.api_path}/projects/:project_id/milestones/:target_id`;
+        break;
+    }
+
+    return m.request({
+      url: api_url,
+      method: "GET",
+      data: {
+        project_id: args.project_id,
+        target_id: args.target_id
+      },
+      headers: {
+        "PRIVATE-TOKEN": this.private_token
+      }
+    }).then((res) => {
+      const id = res.iid || res.id;
+
+      let url;
+      switch(args.target_type) {
+        case "Issue":
+          url = `${this.gitlab_path}/${args.project_name}/issues/${id}`;
+          break;
+        case "MergeRequest":
+          url = `${this.gitlab_path}/${args.project_name}/merge_requests/${id}`;
+          break;
+        case "Milestone":
+          url = `${this.gitlab_path}/${args.project_name}/milestones/${id}`;
+          break;
+      }
+
+      return Promise.resolve({target_id: id, target_url: url})
+    });
   }
 }
