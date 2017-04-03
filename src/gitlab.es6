@@ -1,7 +1,8 @@
 class GitLab {
   constructor(args = {}) {
     // remove end of "/"
-    this.api_path = args.api_path.replace(/\/+$/, "");
+    const api_path = args.api_path || "";
+    this.api_path = api_path.replace(/\/+$/, "");
 
     this.private_token = args.private_token;
     this.polling_second = args.polling_second;
@@ -9,17 +10,22 @@ class GitLab {
     this.projects = null;
   }
 
-  static createFromConfig() {
+  static createFromConfig(config) {
     return new GitLab({
-      api_path: config.getApiPath(),
-      private_token: config.getPrivateToken(),
-      polling_second: config.getPollingSecond(),
+      api_path: config.apiPath,
+      private_token: config.privateToken,
+      polling_second: config.pollingSecond,
     })
   }
 
   loadProjects() {
-    this.projects = null;
-    return this.loadProjectsBase(1, [])
+    if (this.api_path.length > 0){
+      this.projects = null;
+      return this.loadProjectsBase(1, [])
+    } else {
+      this.projects = [];
+      return Promise.resolve(this.projects);
+    }
   }
 
   loadProjectsBase(page, all_projects) {
@@ -61,6 +67,11 @@ class GitLab {
 
   loadAvatarUrls(user_ids) {
     this.avatar_urls = {};
+
+    if(this.api_path.length == 0){
+      return;
+    }
+
     user_ids.forEach((user_id) => {
       const cached_avatar_url = avatar_cache.get(user_id);
       if (cached_avatar_url) {

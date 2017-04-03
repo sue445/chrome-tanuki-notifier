@@ -36,16 +36,7 @@ app.view = function(vnode) {
       });
     }
 
-    config.save({
-      gitlabPath:           state.gitlab_path,
-      apiPath:              state.api_path,
-      privateToken:         state.private_token,
-      pollingSecond:        state.polling_second,
-      maxEventCount:        state.max_event_count,
-      maxNotificationCount: state.max_notification_count,
-      newMarkMinute:        state.new_mark_minute,
-      projects:             projects
-    });
+    state.saveConfig(state, projects);
 
     showStatus("Options Saved.");
     event.preventDefault();
@@ -66,7 +57,7 @@ app.view = function(vnode) {
   };
 
   const clearCache = (event) => {
-    config.clearCache();
+    state.clearConfigCache();
     showStatus("Cache cleared");
     event.preventDefault();
   };
@@ -271,7 +262,7 @@ app.view = function(vnode) {
       ]),
       m("button.btn.btn-default", {
         onclick: (event) => {
-          state.gitlab = GitLab.createFromConfig();
+          state.reloadGitLabFromConfig();
           state.gitlab.loadProjects();
           event.preventDefault();
         }
