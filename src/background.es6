@@ -13,29 +13,8 @@ class Background {
           return;
         }
 
-        const latest = project_events[0];
-        const recent_hash = this.config.getRecentEventHash(project_id);
-
-        if(!recent_hash){
-          this.config.setRecentEvent(project_id, latest);
-
-          // Not show notification when first running
-          return;
-        }
-
-        if(this.isSameEvent(latest, recent_hash)){
-          // not changed
-          return;
-        }
-
-        this.config.setRecentEvent(project_id, latest);
-
         let event_count = 0;
         project_events.forEach((project_event) => {
-          if(this.isSameEvent(project_event, recent_hash)){
-            return;
-          }
-
           if(event_count >= this.config.maxNotificationCount){
             return;
           }
@@ -142,11 +121,6 @@ class Background {
     }).find((first_line) => {
       return first_line.length > 0;
     });
-  }
-
-  isSameEvent(event, recent_hash){
-    event = event || {};
-    return util.calcHash(event) === recent_hash;
   }
 
   isNotifyTargetEvent(project_id, target_type){

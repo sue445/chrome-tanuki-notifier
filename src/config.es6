@@ -81,28 +81,6 @@ class Config {
     this.storage.newMarkMinute = value;
   }
 
-  setRecentEvent(project_id, recent_event){
-    const recentEventHashes = this.recentEventHashes;
-    recentEventHashes[project_id] = {
-      hash: util.calcHash(recent_event),
-      created_at: new Date()
-    };
-    this.recentEventHashes = recentEventHashes
-  }
-
-  getRecentEventHash(project_id){
-    const obj = this.recentEventHashes[project_id];
-    return obj ? obj.hash : null;
-  }
-
-  get recentEventHashes(){
-    return JSON.parse(this.storage.recentEventHashes || "{}");
-  }
-
-  set recentEventHashes(recentEventHashes){
-    this.storage.recentEventHashes = JSON.stringify(recentEventHashes);
-  }
-
   get notifiedHistories(){
     return JSON.parse(this.storage.notifiedHistories || "[]");
   }
