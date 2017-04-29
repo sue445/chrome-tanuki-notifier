@@ -71,7 +71,7 @@ class Background {
     case "Issue":
     case "MergeRequest":
     case "Milestone":
-        // Issue, MergeRequest, Milestone
+      // Issue, MergeRequest, Milestone
       return this.gitlab.getEventInternalId({
         project_name: project.name,
         target_type:  target_type,
@@ -89,7 +89,7 @@ class Background {
       });
 
     case "Note":
-        // Issue, MergeRequest (Comment)
+      // Issue, MergeRequest (Comment)
       return this.gitlab.getEventInternalId({
         project_name: project.name,
         target_type:  project_event.note.noteable_type,
