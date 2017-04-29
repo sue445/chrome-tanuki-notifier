@@ -112,7 +112,7 @@ app.view = function(vnode) {
         m("a", {href: project_url, target: "_blank"}, `[${project_event.project_name}]`),
         m("span.remove-btn.pull-right.glyphicon.glyphicon-remove", {
           title: "Remove this notification",
-          onclick: (event) => {
+          onclick: (_event) => {
             state.histories = state.histories.filter((project_event2) => {
               return project_event._id != project_event2._id;
             });

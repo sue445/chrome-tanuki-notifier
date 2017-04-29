@@ -31,7 +31,7 @@ describe("Background", () => {
     config.activeProjectIds = () => {
       return project_ids;
     };
-    config.getProject = (project_id) => {
+    config.getProject = (_project_id) => {
       return project;
     };
 
@@ -135,7 +135,7 @@ describe("Background", () => {
         target_url = `http://example.com/sue445/example/issues/${target_id}`;
 
         background.gitlab = {
-          getEventInternalId: (args) => {
+          getEventInternalId: (_args) => {
             return Promise.resolve({target_id: target_id, target_url: target_url});
           },
         };
@@ -189,7 +189,7 @@ describe("Background", () => {
         target_url = `http://example.com/sue445/example/issues/${target_id}`;
 
         background.gitlab = {
-          getEventInternalId: (args) => {
+          getEventInternalId: (_args) => {
             return Promise.resolve({target_id: target_id, target_url: target_url});
           },
         };

@@ -179,3 +179,8 @@ class GitLab {
     });
   }
 }
+
+try {
+  module.exports = GitLab;
+} catch (e){
+}
