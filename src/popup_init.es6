@@ -20,7 +20,7 @@ window.onload = function() {
       });
       const unique_author_ids = Array.from(new Set(author_ids));
 
-      this.gitlab = GitLab.createFromConfig(config);
+      this.gitlab = GitLab.createFromConfig(config, localStorage);
       this.gitlab.loadAvatarUrls(unique_author_ids);
 
       this.clearConfigCache = function () {

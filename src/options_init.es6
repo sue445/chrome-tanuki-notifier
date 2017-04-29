@@ -13,7 +13,7 @@ window.onload = function() {
       this.config_projects = config.projects;
       this.search_key = "";
       this.status_message = "";
-      this.gitlab = GitLab.createFromConfig(config);
+      this.gitlab = GitLab.createFromConfig(config, localStorage);
       this.gitlab.loadProjects();
 
       this.clearConfigCache = function () {
@@ -34,7 +34,7 @@ window.onload = function() {
       };
 
       this.reloadGitLabFromConfig = () => {
-        this.gitlab = GitLab.createFromConfig(config);
+        this.gitlab = GitLab.createFromConfig(config, localStorage);
       };
     },
     view: app.view

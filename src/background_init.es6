@@ -29,6 +29,7 @@ window.onload = function() {
   const background = new Background({
     config: config,
     notification: notification,
+    storage: localStorage,
   });
   background.fetch();
 
