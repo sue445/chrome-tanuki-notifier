@@ -1,5 +1,5 @@
 const assert = require("power-assert");
-const AvatarCache = require("../src/avatar_cache.es6");
+const AvatarCache = require("../src/avatar_cache.js");
 
 describe("AvatarCache", () => {
   const one_day = 1000 * 60 * 60 * 24;

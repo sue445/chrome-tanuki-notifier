@@ -2,10 +2,10 @@ global.window = require("mithril/test-utils/browserMock.js")();
 global.document = window.document;
 
 const assert = require("power-assert");
-const Background = require("../src/background.es6");
-const Config = require("../src/config.es6");
-const Notification = require("../src/notification.es6");
-const NotificationCache = require("../src/notification_cache.es6");
+const Background = require("../src/background.js");
+const Config = require("../src/config.js");
+const Notification = require("../src/notification.js");
+const NotificationCache = require("../src/notification_cache.js");
 
 describe("Background", () => {
   let background, config, storage, notification, notification_cache, project_ids, project, chrome;

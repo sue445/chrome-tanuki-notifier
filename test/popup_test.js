@@ -2,7 +2,7 @@ global.window = require("mithril/test-utils/browserMock.js")();
 global.document = window.document;
 
 const assert = require("power-assert");
-const Popup = require("../src/popup.es6");
+const Popup = require("../src/popup.js");
 
 describe("Popup", () => {
   it("works", () => {

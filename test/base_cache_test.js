@@ -1,5 +1,5 @@
 const assert = require("power-assert");
-const BaseCache = require("../src/base_cache.es6");
+const BaseCache = require("../src/base_cache.js");
 
 describe("BaseCache", () => {
   let storage, cache, storage_key;
