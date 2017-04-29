@@ -2,7 +2,7 @@ global.window = require("mithril/test-utils/browserMock.js")();
 global.document = window.document;
 
 const assert = require("power-assert");
-const Options = require("../src/options.es6");
+const Options = require("../src/options.js");
 const projects = require("./stub/projects.json");
 
 describe("Options", () => {

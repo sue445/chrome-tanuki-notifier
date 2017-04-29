@@ -1,5 +1,5 @@
 const assert = require("power-assert");
-const NotificationCache = require("../src/notification_cache.es6");
+const NotificationCache = require("../src/notification_cache.js");
 
 describe("NotificationCache", () => {
   let storage, cache;

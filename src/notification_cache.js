@@ -1,5 +1,5 @@
 try {
-  BaseCache = require("./base_cache.es6");
+  BaseCache = require("./base_cache.js");
 } catch (e){
 }
 

@@ -3,8 +3,8 @@ global.document = window.document;
 
 const assert = require("power-assert");
 const sinon = require("sinon");
-const Notification = require("../src/notification.es6");
-const NotificationCache = require("../src/notification_cache.es6");
+const Notification = require("../src/notification.js");
+const NotificationCache = require("../src/notification_cache.js");
 
 describe("Notification", () => {
   let notification, config, notification_cache, chrome, strage, histories;
