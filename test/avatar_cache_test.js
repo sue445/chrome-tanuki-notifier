@@ -15,8 +15,8 @@ describe("AvatarCache", () => {
   describe("#get()", () => {
     context("Not found in cache", () => {
       it("should return null", () => {
-        assert(cache.get("key") == null)
-      })
+        assert(cache.get("key") == null);
+      });
     });
 
     context("cache is not expired", () => {
@@ -32,8 +32,8 @@ describe("AvatarCache", () => {
       });
 
       it("should return avatar_url", () => {
-        assert(cache.get("key") == avatar_url)
-      })
+        assert(cache.get("key") == avatar_url);
+      });
     });
 
     context("cache is expired", () => {
@@ -49,8 +49,8 @@ describe("AvatarCache", () => {
       });
 
       it("should return null", () => {
-        assert(cache.get("key") == null)
-      })
+        assert(cache.get("key") == null);
+      });
     });
-  })
+  });
 });

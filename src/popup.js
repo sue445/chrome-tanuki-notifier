@@ -21,28 +21,28 @@ app.view = function(vnode) {
 
   const getProjectByName = (project_name) => {
     return Object.entries(state.projects).map((element) => {
-      return element[1]
+      return element[1];
     }).find((project) => {
-      return project_name == project.name
-    })
+      return project_name == project.name;
+    });
   };
 
   const eventIcon = (target_type) => {
     target_type = target_type || "Commit";
 
     switch (target_type) {
-      case "Commit":
-        return m("i.icon-upload-alt", {title: target_type});
-      case "Issue":
-        return m("i.icon-exclamation-sign", {title: target_type});
-      case "MergeRequest":
-        return m("i.icon-check", {title: target_type});
-      case "Milestone":
-        return m("i.icon-calendar", {title: target_type});
-      case "Note":
-        return m("i.icon-comment", {title: target_type});
-      default:
-        return m("span")
+    case "Commit":
+      return m("i.icon-upload-alt", {title: target_type});
+    case "Issue":
+      return m("i.icon-exclamation-sign", {title: target_type});
+    case "MergeRequest":
+      return m("i.icon-check", {title: target_type});
+    case "Milestone":
+      return m("i.icon-calendar", {title: target_type});
+    case "Note":
+      return m("i.icon-comment", {title: target_type});
+    default:
+      return m("span");
     }
   };
 
@@ -94,7 +94,7 @@ app.view = function(vnode) {
       if(project_event.author_id){
         author_avatar = m("img.icon.img-circle.pull-left.icon-avatar", {
           src: state.gitlab.avatar_urls[project_event.author_id],
-        })
+        });
       }
 
       return m("li", {class: li_class}, [
@@ -111,7 +111,7 @@ app.view = function(vnode) {
         m("span", " "),
         m("a", {href: project_url, target: "_blank"}, `[${project_event.project_name}]`),
         m("span.remove-btn.pull-right.glyphicon.glyphicon-remove", {
-          title: 'Remove this notification',
+          title: "Remove this notification",
           onclick: (event) => {
             state.histories = state.histories.filter((project_event2) => {
               return project_event._id != project_event2._id;
@@ -120,9 +120,9 @@ app.view = function(vnode) {
           }
         }),
         m("a.eventLink", {href: project_event.target_url, target: "_blank"}, message),
-      ])
+      ]);
     }))
-  ])
+  ]);
 };
 
 try {

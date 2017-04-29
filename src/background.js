@@ -43,70 +43,70 @@ class Background {
     const project = this.config.getProject(project_id);
 
     switch (target_type){
-      case "Commit":
-        if(!project_event.data){
-          return;
-        }
+    case "Commit":
+      if(!project_event.data){
+        return;
+      }
 
-        const commit_message = this.getCommitMessage(project_event);
-        const display_id = this.getCommitTargetId(project_event);
-        const target_url = this.getCommitTargetUrl(project_id, project_event);
+      const commit_message = this.getCommitMessage(project_event);
+      const display_id = this.getCommitTargetId(project_event);
+      const target_url = this.getCommitTargetUrl(project_id, project_event);
 
-        if(target_url && commit_message){
-          const branch_name = project_event.data.ref.replace(/^refs\/heads\//, "");
+      if(target_url && commit_message){
+        const branch_name = project_event.data.ref.replace(/^refs\/heads\//, "");
 
-          this.notification.notify({
-            project:       project,
-            project_event: project_event,
-            internal: {
-              target_id:  display_id,
-              target_url: target_url
-            },
-            message:      `[${branch_name}] @${project_event.data.user_name} ${display_id} ${commit_message} (${project_event.data.total_commits_count} commits)`,
-            current_time: project_event.created_at || new Date(),
-            author_id:    project_event.author_id
-          });
-        }
-        break;
-      case "Issue":
-      case "MergeRequest":
-      case "Milestone":
+        this.notification.notify({
+          project:       project,
+          project_event: project_event,
+          internal: {
+            target_id:  display_id,
+            target_url: target_url
+          },
+          message:      `[${branch_name}] @${project_event.data.user_name} ${display_id} ${commit_message} (${project_event.data.total_commits_count} commits)`,
+          current_time: project_event.created_at || new Date(),
+          author_id:    project_event.author_id
+        });
+      }
+      break;
+    case "Issue":
+    case "MergeRequest":
+    case "Milestone":
         // Issue, MergeRequest, Milestone
-        return this.gitlab.getEventInternalId({
-          project_name: project.name,
-          target_type:  target_type,
-          target_id:    project_event.target_id,
-          project_id:   project_event.project_id,
-        }).then((internal) => {
-          this.notification.notify({
-            project:       project,
-            project_event: project_event,
-            internal:      internal,
-            message:       `[${target_type}] #${internal.target_id} ${project_event.target_title} ${project_event.action_name}`,
-            current_time:  project_event.created_at || new Date(),
-            author_id:     project_event.author_id
-          });
+      return this.gitlab.getEventInternalId({
+        project_name: project.name,
+        target_type:  target_type,
+        target_id:    project_event.target_id,
+        project_id:   project_event.project_id,
+      }).then((internal) => {
+        this.notification.notify({
+          project:       project,
+          project_event: project_event,
+          internal:      internal,
+          message:       `[${target_type}] #${internal.target_id} ${project_event.target_title} ${project_event.action_name}`,
+          current_time:  project_event.created_at || new Date(),
+          author_id:     project_event.author_id
         });
+      });
 
-      case "Note":
+    case "Note":
         // Issue, MergeRequest (Comment)
-        return this.gitlab.getEventInternalId({
-          project_name: project.name,
-          target_type:  project_event.note.noteable_type,
-          target_id:    project_event.note.noteable_id,
-          project_id:   project_event.project_id,
-        }).then((internal) => {
-          internal.target_url = `${internal.target_url}#note_${project_event.note.id}`;
+      return this.gitlab.getEventInternalId({
+        project_name: project.name,
+        target_type:  project_event.note.noteable_type,
+        target_id:    project_event.note.noteable_id,
+        project_id:   project_event.project_id,
+      }).then((internal) => {
+        internal.target_url = `${internal.target_url}#note_${project_event.note.id}`;
 
-          this.notification.notify({
-            project:       project,
-            project_event: project_event,
-            internal:      internal,
-            message:       `[${project_event.note.noteable_type}] #${internal.target_id} ${project_event.note.body} ${project_event.action_name}`,
-            current_time:  project_event.created_at || new Date(),
-            author_id:     project_event.author_id
-          });
+        this.notification.notify({
+          project:       project,
+          project_event: project_event,
+          internal:      internal,
+          message:       `[${project_event.note.noteable_type}] #${internal.target_id} ${project_event.note.body} ${project_event.action_name}`,
+          current_time:  project_event.created_at || new Date(),
+          author_id:     project_event.author_id
         });
+      });
     }
   }
 

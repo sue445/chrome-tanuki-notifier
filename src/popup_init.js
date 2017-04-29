@@ -14,9 +14,9 @@ window.onload = function() {
       this.gitlabPath = config.gitlabPath;
 
       const author_ids = this.histories.map((project_event) => {
-        return project_event.author_id
+        return project_event.author_id;
       }).filter((author_id) => {
-        return author_id
+        return author_id;
       });
       const unique_author_ids = Array.from(new Set(author_ids));
 

@@ -123,7 +123,7 @@ describe("Background", () => {
         };
 
         background.notifyProjectEvent(project_id, project_event);
-        assert(notify_count == 1)
+        assert(notify_count == 1);
       });
     });
 

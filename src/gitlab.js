@@ -19,13 +19,13 @@ class GitLab {
       private_token: config.privateToken,
       polling_second: config.pollingSecond,
       avatar_cache: new AvatarCache(storage),
-    })
+    });
   }
 
   loadProjects() {
     if (this.api_path.length > 0){
       this.projects = null;
-      return this.loadProjectsBase(1, [])
+      return this.loadProjectsBase(1, []);
     } else {
       this.projects = [];
       return Promise.resolve(this.projects);
@@ -55,17 +55,17 @@ class GitLab {
       if (projects.length < this.per_page) {
         // final page
         this.projects = all_projects;
-        return Promise.resolve(all_projects)
+        return Promise.resolve(all_projects);
       } else {
         // paging
-        return this.loadProjectsBase(page + 1, all_projects)
+        return this.loadProjectsBase(page + 1, all_projects);
       }
     }).catch((e) => {
       if(!this.projects) {
         this.projects = [];
       }
       alert(e);
-      return Promise.reject()
+      return Promise.reject();
     });
   }
 
@@ -86,7 +86,7 @@ class GitLab {
       this.getUserAvatarUrl(user_id).then((user) => {
         this.avatar_cache.set(user_id, user.avatar_url);
         this.avatar_urls[user_id] = user.avatar_url;
-      })
+      });
     });
   }
 
@@ -103,7 +103,7 @@ class GitLab {
       headers: {
         "PRIVATE-TOKEN": this.private_token
       }
-    })
+    });
   }
 
   getProjectEvents(project_id){
@@ -138,15 +138,15 @@ class GitLab {
 
     let api_url;
     switch(args.target_type) {
-      case "Issue":
-        api_url = `${this.api_path}/projects/:project_id/issues/:target_id`;
-        break;
-      case "MergeRequest":
-        api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
-        break;
-      case "Milestone":
-        api_url = `${this.api_path}/projects/:project_id/milestones/:target_id`;
-        break;
+    case "Issue":
+      api_url = `${this.api_path}/projects/:project_id/issues/:target_id`;
+      break;
+    case "MergeRequest":
+      api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
+      break;
+    case "Milestone":
+      api_url = `${this.api_path}/projects/:project_id/milestones/:target_id`;
+      break;
     }
 
     return m.request({
@@ -164,18 +164,18 @@ class GitLab {
 
       let url;
       switch(args.target_type) {
-        case "Issue":
-          url = `${this.gitlab_path}/${args.project_name}/issues/${id}`;
-          break;
-        case "MergeRequest":
-          url = `${this.gitlab_path}/${args.project_name}/merge_requests/${id}`;
-          break;
-        case "Milestone":
-          url = `${this.gitlab_path}/${args.project_name}/milestones/${id}`;
-          break;
+      case "Issue":
+        url = `${this.gitlab_path}/${args.project_name}/issues/${id}`;
+        break;
+      case "MergeRequest":
+        url = `${this.gitlab_path}/${args.project_name}/merge_requests/${id}`;
+        break;
+      case "Milestone":
+        url = `${this.gitlab_path}/${args.project_name}/milestones/${id}`;
+        break;
       }
 
-      return Promise.resolve({target_id: id, target_url: url})
+      return Promise.resolve({target_id: id, target_url: url});
     });
   }
 }
