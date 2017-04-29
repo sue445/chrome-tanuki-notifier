@@ -12,8 +12,8 @@ app.view = function(vnode) {
     const keys = state.search_key.split(" ");
     return keys.every((key) => {
       const r = new RegExp(key, "i");
-      return project.path_with_namespace.match(r)
-    })
+      return project.path_with_namespace.match(r);
+    });
   };
 
   const projectEvents = (project) => {
@@ -32,7 +32,7 @@ app.view = function(vnode) {
           name:       project.path_with_namespace,
           avatar_url: project.avatar_url,
           events:     project.events
-        }
+        };
       });
     }
 
@@ -45,11 +45,11 @@ app.view = function(vnode) {
   const selectProject = (event, project_event, checked) => {
     if(!state.gitlab.projects) {
       event.preventDefault();
-      return
+      return;
     }
 
     state.gitlab.projects.filter((project) =>{
-      return matchSearchKey(project)
+      return matchSearchKey(project);
     }).forEach((project) => {
       project.events[project_event] = checked;
     });
@@ -80,22 +80,22 @@ app.view = function(vnode) {
             ])
           ])
         ])
-      ])
+      ]);
     }
 
     return state.gitlab.projects.filter((project) =>{
-      return matchSearchKey(project)
+      return matchSearchKey(project);
     }).map((project) => {
       project.events = project.events || projectEvents(project);
 
       const names = [];
       if (project.archived){
-        names.push(m("span.glyphicon.glyphicon-eye-close"))
+        names.push(m("span.glyphicon.glyphicon-eye-close"));
       }
       if(project.avatar_url) {
-        names.push(m("img.icon.img-rounded", {src: project.avatar_url}))
+        names.push(m("img.icon.img-rounded", {src: project.avatar_url}));
       } else {
-        names.push(m("img.icon.img-rounded[src='../img/gitlab_logo_128.png']"))
+        names.push(m("img.icon.img-rounded[src='../img/gitlab_logo_128.png']"));
       }
       names.push(m("a", {href: state.gitlab_path + project.path_with_namespace}, project.path_with_namespace));
 
@@ -113,7 +113,7 @@ app.view = function(vnode) {
           m("label.checkbox-inline", [
             m("input[type='checkbox']", {
               checked: project.events.Commit,
-              onclick: m.withAttr("checked", (value) => { project.events.Commit = value } ),
+              onclick: m.withAttr("checked", (value) => { project.events.Commit = value; } ),
             }),
             m("i.icon-upload-alt[title='Commit']"),
             "Commit",
@@ -123,7 +123,7 @@ app.view = function(vnode) {
           m("label.checkbox-inline", [
             m("input[type='checkbox']", {
               checked: project.events.Issue ,
-              onclick: m.withAttr("checked", (value) => { project.events.Issue = value } ),
+              onclick: m.withAttr("checked", (value) => { project.events.Issue = value; } ),
             }),
             m("i.icon-exclamation-sign[title='Issue']"),
             "Issue",
@@ -133,7 +133,7 @@ app.view = function(vnode) {
           m("label.checkbox-inline", [
             m("input[type='checkbox']", {
               checked: project.events.MergeRequest ,
-              onclick: m.withAttr("checked", (value) => { project.events.MergeRequest = value } ),
+              onclick: m.withAttr("checked", (value) => { project.events.MergeRequest = value; } ),
             }),
             m("i.icon-check[title='MergeRequest']"),
             "MergeRequest",
@@ -143,7 +143,7 @@ app.view = function(vnode) {
           m("label.checkbox-inline", [
             m("input[type='checkbox']", {
               checked: project.events.Milestone ,
-              onclick: m.withAttr("checked", (value) => { project.events.Milestone = value } ),
+              onclick: m.withAttr("checked", (value) => { project.events.Milestone = value; } ),
             }),
             m("i.icon-calendar[title='Milestone']"),
             "Milestone",
@@ -151,15 +151,15 @@ app.view = function(vnode) {
         ]),
         m("td", [
           m("a.line-select-all[href='#']", {
-            onclick: (event) => { select_events(event, true )}
+            onclick: (event) => { select_events(event, true );}
           }, "All"),
           " / ",
           m("a.line-select-none[href='#']", {
-            onclick: (event) => { select_events(event, false )}
+            onclick: (event) => { select_events(event, false );}
           }, "None"),
         ]),
-      ])
-    })
+      ]);
+    });
   };
 
   return m("div", [
@@ -170,7 +170,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='gitlab_path'][placeholder='http://example.com/'][type='text']", {
             value: state.gitlab_path,
-            oninput: m.withAttr("value", (value) => { state.gitlab_path = value })
+            oninput: m.withAttr("value", (value) => { state.gitlab_path = value; })
           })
         ])
       ]),
@@ -179,7 +179,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='api_path'][placeholder='http://example.com/api/v3/'][type='text']", {
             value: state.api_path,
-            oninput: m.withAttr("value", (value) => { state.api_path = value })
+            oninput: m.withAttr("value", (value) => { state.api_path = value; })
           })
         ])
       ]),
@@ -188,7 +188,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='private_token'][type='password']", {
             value: state.private_token,
-            oninput: m.withAttr("value", (value) => { state.private_token = value })
+            oninput: m.withAttr("value", (value) => { state.private_token = value; })
           })
         ])
       ])
@@ -200,7 +200,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='polling_second'][type='text']", {
             value: state.polling_second,
-            oninput: m.withAttr("value", (value) => { state.polling_second = value })
+            oninput: m.withAttr("value", (value) => { state.polling_second = value; })
           }),
           m("span.help-block", "Polling interval, in seconds. (Need chrome to restart)")
         ])
@@ -210,7 +210,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='max_event_count'][type='text']", {
             value: state.max_event_count,
-            oninput: m.withAttr("value", (value) => { state.max_event_count = value })
+            oninput: m.withAttr("value", (value) => { state.max_event_count = value; })
           })
         ])
       ]),
@@ -219,7 +219,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='max_notification_count'][type='text']", {
             value: state.max_notification_count,
-            oninput: m.withAttr("value", (value) => { state.max_notification_count = value })
+            oninput: m.withAttr("value", (value) => { state.max_notification_count = value; })
           })
         ])
       ]),
@@ -228,7 +228,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='new_mark_minute'][type='text']", {
             value: state.new_mark_minute,
-            oninput: m.withAttr("value", (value) => { state.new_mark_minute = value })
+            oninput: m.withAttr("value", (value) => { state.new_mark_minute = value; })
           }),
           m("span.help-block", [
             "The event will be set as ",
@@ -255,7 +255,7 @@ app.view = function(vnode) {
             m("span.glyphicon.glyphicon-search")
           ]),
           m("input.form-control[id='search_repository'][placeholder='Project name'][type='text']", {
-            oninput: m.withAttr("value", (value) => { state.search_key = value }),
+            oninput: m.withAttr("value", (value) => { state.search_key = value; }),
             value: state.search_key,
           })
         ])
@@ -276,24 +276,24 @@ app.view = function(vnode) {
         m("tr", [
           m("th.projects-name", "Project name"),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false); } }, "None")
           ]),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false); } }, "None")
           ]),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false); } }, "None")
           ]),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false); } }, "None")
           ]),
           m("th")
         ])
@@ -303,24 +303,24 @@ app.view = function(vnode) {
         m("tr", [
           m("th.projects-name", "Project name"),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false); } }, "None")
           ]),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false); } }, "None")
           ]),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false); } }, "None")
           ]),
           m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true) } }, "All"),
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true); } }, "All"),
             " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false) } }, "None")
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false); } }, "None")
           ]),
           m("th")
         ])
@@ -335,7 +335,7 @@ app.view = function(vnode) {
       "Clear cache"
     ]),
     m("span.status", state.status_message),
-  ])
+  ]);
 };
 
 try {

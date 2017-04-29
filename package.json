@@ -1,6 +1,8 @@
 {
   "name": "chrome-gitlab-notifier",
   "scripts": {
+    "lint": "eslint src/*.js test/*.js",
+    "lint-fix": "eslint --fix src/*.js test/*.js",
     "test": "mocha --require intelli-espower-loader"
   },
   "directories": {
@@ -13,6 +15,7 @@
     "mithril": "^1.0.1"
   },
   "devDependencies": {
+    "eslint": "^3.19.0",
     "intelli-espower-loader": "^1.0.1",
     "mocha": "^3.2.0",
     "power-assert": "^1.4.2",

@@ -19,13 +19,13 @@ class GitLab {
       private_token: config.privateToken,
       polling_second: config.pollingSecond,
       avatar_cache: new AvatarCache(storage),
-    })
+    });
   }
 
   loadProjects() {
     if (this.api_path.length > 0){
       this.projects = null;
-      return this.loadProjectsBase(1, [])
+      return this.loadProjectsBase(1, []);
     } else {
       this.projects = [];
       return Promise.resolve(this.projects);
@@ -55,17 +55,17 @@ class GitLab {
       if (projects.length < this.per_page) {
         // final page
         this.projects = all_projects;
-        return Promise.resolve(all_projects)
+        return Promise.resolve(all_projects);
       } else {
         // paging
-        return this.loadProjectsBase(page + 1, all_projects)
+        return this.loadProjectsBase(page + 1, all_projects);
       }
     }).catch((e) => {
       if(!this.projects) {
         this.projects = [];
       }
       alert(e);
-      return Promise.reject()
+      return Promise.reject();
     });
   }
 
@@ -86,7 +86,7 @@ class GitLab {
       this.getUserAvatarUrl(user_id).then((user) => {
         this.avatar_cache.set(user_id, user.avatar_url);
         this.avatar_urls[user_id] = user.avatar_url;
-      })
+      });
     });
   }
 
@@ -103,7 +103,7 @@ class GitLab {
       headers: {
         "PRIVATE-TOKEN": this.private_token
       }
-    })
+    });
   }
 
   getProjectEvents(project_id){
@@ -175,7 +175,12 @@ class GitLab {
           break;
       }
 
-      return Promise.resolve({target_id: id, target_url: url})
+      return Promise.resolve({target_id: id, target_url: url});
     });
   }
+}
+
+try {
+  module.exports = GitLab;
+} catch (e){
 }

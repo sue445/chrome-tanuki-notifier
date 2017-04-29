@@ -12,7 +12,7 @@ class Notification {
     const internal      = args.internal;
     const current_time  = args.current_time;
     const message       = args.message;
-    const author_id     = args.author_id || '';
+    const author_id     = args.author_id || "";
 
     const notifiedEvent = this.notification_cache.isNotified(project_event);
 

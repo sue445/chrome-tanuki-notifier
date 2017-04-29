@@ -43,7 +43,7 @@ class Background {
     const project = this.config.getProject(project_id);
 
     switch (target_type){
-      case "Commit":
+      case "Commit": {
         if(!project_event.data){
           return;
         }
@@ -68,9 +68,10 @@ class Background {
           });
         }
         break;
+      }
       case "Issue":
       case "MergeRequest":
-      case "Milestone":
+      case "Milestone": {
         // Issue, MergeRequest, Milestone
         return this.gitlab.getEventInternalId({
           project_name: project.name,
@@ -87,8 +88,9 @@ class Background {
             author_id:     project_event.author_id
           });
         });
+      }
 
-      case "Note":
+      case "Note": {
         // Issue, MergeRequest (Comment)
         return this.gitlab.getEventInternalId({
           project_name: project.name,
@@ -107,6 +109,7 @@ class Background {
             author_id:     project_event.author_id
           });
         });
+      }
     }
   }
 
