@@ -9,14 +9,16 @@ class GitLab {
     this.polling_second = args.polling_second;
     this.per_page = args.per_page || 100;
     this.projects = null;
+    this.avatar_cache = args.avatar_cache;
   }
 
-  static createFromConfig(config) {
+  static createFromConfig(config, storage) {
     return new GitLab({
       api_path: config.apiPath,
       gitlab_path: config.gitlabPath,
       private_token: config.privateToken,
       polling_second: config.pollingSecond,
+      avatar_cache: new AvatarCache(storage),
     })
   }
 
@@ -75,14 +77,14 @@ class GitLab {
     }
 
     user_ids.forEach((user_id) => {
-      const cached_avatar_url = avatar_cache.get(user_id);
+      const cached_avatar_url = this.avatar_cache.get(user_id);
       if (cached_avatar_url) {
         this.avatar_urls[user_id] = cached_avatar_url;
         return;
       }
 
       this.getUserAvatarUrl(user_id).then((user) => {
-        avatar_cache.set(user_id, user.avatar_url);
+        this.avatar_cache.set(user_id, user.avatar_url);
         this.avatar_urls[user_id] = user.avatar_url;
       })
     });

@@ -1,19 +1,23 @@
-class NotificationCache {
+try {
+  BaseCache = require("./base_cache.es6");
+} catch (e){
+}
+
+class NotificationCache extends BaseCache{
   constructor(storage){
-    this.storage = storage || {};
-    this.storage_key = "notificationCache"
+    super(storage, "notificationCache");
   }
 
   add(event) {
     const key = this.cacheKey(event);
-    const cache = this.load();
+    const cache = super.load();
     cache[key] = true;
     this.save(cache);
   }
 
   isNotified(event) {
     const key = this.cacheKey(event);
-    const cache = this.load();
+    const cache = super.load();
     return cache[key];
   }
 
@@ -27,14 +31,6 @@ class NotificationCache {
     ];
 
     return array.join("_");
-  }
-
-  load(){
-    return JSON.parse(this.storage[this.storage_key] || "{}");
-  }
-
-  save(cache) {
-    this.storage[this.storage_key] = JSON.stringify(cache);
   }
 }
 

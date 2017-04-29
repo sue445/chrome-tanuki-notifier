@@ -2,10 +2,11 @@ class Background {
   constructor(args){
     this.config = args.config;
     this.notification = args.notification;
+    this.storage = args.storage;
   }
 
   fetch(){
-    this.gitlab = GitLab.createFromConfig(this.config);
+    this.gitlab = GitLab.createFromConfig(this.config, this.storage);
     this.config.activeProjectIds.forEach((project_id) => {
       this.gitlab.getProjectEvents(project_id).then((project_events) => {
         // latest check
