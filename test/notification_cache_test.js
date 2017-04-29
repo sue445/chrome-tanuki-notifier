@@ -1,6 +1,3 @@
-// global.window = require("mithril/test-utils/browserMock.js")();
-// global.document = window.document;
-
 const assert = require("power-assert");
 const NotificationCache = require("../src/notification_cache.es6");
 
@@ -10,32 +7,6 @@ describe("NotificationCache", () => {
   beforeEach(() => {
     storage = {};
     cache = new NotificationCache(storage);
-  });
-
-  describe("#save()", () => {
-    it("should save as json", () => {
-      const data = {key1: true, key2: true};
-      cache.save(data);
-      assert(storage["notificationCache"] == '{"key1":true,"key2":true}');
-    });
-  });
-
-  describe("#load()", () => {
-    context("When not exists data", () => {
-      it("should load as hash", () => {
-        assert.deepEqual(cache.load(), {});
-      });
-    });
-
-    context("When exists cache", () => {
-      beforeEach(() => {
-        storage["notificationCache"] = '{"key1":true,"key2":true}';
-      });
-
-      it("should load as hash", () => {
-        assert.deepEqual(cache.load(), {key1: true, key2: true});
-      });
-    });
   });
 
   describe("#cacheKey()", () => {
