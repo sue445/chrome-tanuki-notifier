@@ -43,9 +43,12 @@ class Config {
     this.storage.projects = JSON.stringify(value);
   }
 
-  get activeProjects(){
-    return this.projects.filter((project) => {
+  get activeProjectIds(){
+    return Object.entries(this.projects).filter((element) => {
+      const project = element[1];
       return project.events.Commit || project.events.Issue || project.events.MergeRequest || project.events.Milestone;
+    }).map((element) => {
+      return element[0];
     });
   }
 
@@ -76,28 +79,6 @@ class Config {
 
   set newMarkMinute(value){
     this.storage.newMarkMinute = value;
-  }
-
-  setRecentEvent(project_id, recent_event){
-    const recentEventHashes = this.recentEventHashes;
-    recentEventHashes[project_id] = {
-      hash: util.calcHash(recent_event),
-      created_at: new Date()
-    };
-    this.recentEventHashes = recentEventHashes
-  }
-
-  getRecentEventHash(project_id){
-    const obj = this.recentEventHashes[project_id];
-    return obj ? obj.hash : null;
-  }
-
-  get recentEventHashes(){
-    return JSON.parse(this.storage.recentEventHashes || "{}");
-  }
-
-  set recentEventHashes(recentEventHashes){
-    this.storage.recentEventHashes = JSON.stringify(recentEventHashes);
   }
 
   get notifiedHistories(){
@@ -167,4 +148,9 @@ class Config {
       this.projects = args.projects;
     }
   }
+}
+
+try {
+  module.exports = Config;
+} catch (e){
 }
