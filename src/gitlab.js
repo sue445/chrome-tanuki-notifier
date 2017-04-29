@@ -138,15 +138,15 @@ class GitLab {
 
     let api_url;
     switch(args.target_type) {
-    case "Issue":
-      api_url = `${this.api_path}/projects/:project_id/issues/:target_id`;
-      break;
-    case "MergeRequest":
-      api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
-      break;
-    case "Milestone":
-      api_url = `${this.api_path}/projects/:project_id/milestones/:target_id`;
-      break;
+      case "Issue":
+        api_url = `${this.api_path}/projects/:project_id/issues/:target_id`;
+        break;
+      case "MergeRequest":
+        api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
+        break;
+      case "Milestone":
+        api_url = `${this.api_path}/projects/:project_id/milestones/:target_id`;
+        break;
     }
 
     return m.request({
@@ -164,15 +164,15 @@ class GitLab {
 
       let url;
       switch(args.target_type) {
-      case "Issue":
-        url = `${this.gitlab_path}/${args.project_name}/issues/${id}`;
-        break;
-      case "MergeRequest":
-        url = `${this.gitlab_path}/${args.project_name}/merge_requests/${id}`;
-        break;
-      case "Milestone":
-        url = `${this.gitlab_path}/${args.project_name}/milestones/${id}`;
-        break;
+        case "Issue":
+          url = `${this.gitlab_path}/${args.project_name}/issues/${id}`;
+          break;
+        case "MergeRequest":
+          url = `${this.gitlab_path}/${args.project_name}/merge_requests/${id}`;
+          break;
+        case "Milestone":
+          url = `${this.gitlab_path}/${args.project_name}/milestones/${id}`;
+          break;
       }
 
       return Promise.resolve({target_id: id, target_url: url});

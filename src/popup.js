@@ -31,18 +31,18 @@ app.view = function(vnode) {
     target_type = target_type || "Commit";
 
     switch (target_type) {
-    case "Commit":
-      return m("i.icon-upload-alt", {title: target_type});
-    case "Issue":
-      return m("i.icon-exclamation-sign", {title: target_type});
-    case "MergeRequest":
-      return m("i.icon-check", {title: target_type});
-    case "Milestone":
-      return m("i.icon-calendar", {title: target_type});
-    case "Note":
-      return m("i.icon-comment", {title: target_type});
-    default:
-      return m("span");
+      case "Commit":
+        return m("i.icon-upload-alt", {title: target_type});
+      case "Issue":
+        return m("i.icon-exclamation-sign", {title: target_type});
+      case "MergeRequest":
+        return m("i.icon-check", {title: target_type});
+      case "Milestone":
+        return m("i.icon-calendar", {title: target_type});
+      case "Note":
+        return m("i.icon-comment", {title: target_type});
+      default:
+        return m("span");
     }
   };
 
