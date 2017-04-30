@@ -13,6 +13,8 @@
   * Use mocha instead of jasmine
   * Use eslint instead of jslint
   * Write test codes
+* Truncate comment to 200 characters or less
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/108
 * Add yarn
 * bootstrap v3.2.0 -> v3.3.7
 * jquery v2.0.3 -> v3.2.1
