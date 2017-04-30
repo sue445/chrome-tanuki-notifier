@@ -252,4 +252,22 @@ describe("Background", () => {
       });
     });
   });
+
+  describe("#truncate()", () => {
+    const truncate_length = 50;
+
+    context("message <= 200 characters", () => {
+      it("should return same message", () => {
+        const message = "12345678901234567890123456789012345678901234567890";
+        assert(background.truncate(message, truncate_length) == message);
+      });
+    });
+
+    context("message > 50 characters", () => {
+      it("should return truncated message", () => {
+        const message = "123456789012345678901234567890123456789012345678901";
+        assert(background.truncate(message, truncate_length) == "12345678901234567890123456789012345678901234567890...");
+      });
+    });
+  });
 });
