@@ -163,6 +163,14 @@ class Background {
     // invalid commit id is "0000000000000000000000...."
     return !commit_id.match(/^0+$/);
   }
+
+  truncate(message, truncate_length) {
+    message = message || "";
+    if(message.length > truncate_length) {
+      return message.substring(0, truncate_length) + "...";
+    }
+    return message;
+  }
 }
 
 try {
