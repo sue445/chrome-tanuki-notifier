@@ -163,7 +163,10 @@ app.view = function(vnode) {
   };
 
   return m("div", [
-    m("h2", "GitLab Setting"),
+    m("h2", [
+      m("i.fa.fa-gitlab[aria-hidden='true']"),
+      "GitLab Setting",
+    ]),
     m(".form-horizontal[role='form']", [
       m(".form-group", [
         m("label.col-sm-3.control-label[for='gitlab_path']", "GitLab Path"),

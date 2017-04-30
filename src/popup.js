@@ -65,7 +65,7 @@ app.view = function(vnode) {
             }
           }
         }, [
-          m("span.glyphicon.glyphicon-link"),
+          m("i.fa.fa-gitlab[aria-hidden='true']"),
           "Go to GitLab"
         ])
       ]),
