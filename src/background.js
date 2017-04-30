@@ -100,11 +100,12 @@ class Background {
         }).then((internal) => {
           internal.target_url = `${internal.target_url}#note_${project_event.note.id}`;
 
+          const note_body = this.truncate(project_event.note.body, 200);
           this.notification.notify({
             project:       project,
             project_event: project_event,
             internal:      internal,
-            message:       `[${project_event.note.noteable_type}] #${internal.target_id} ${project_event.note.body} ${project_event.action_name}`,
+            message:       `[${project_event.note.noteable_type}] #${internal.target_id} ${note_body} ${project_event.action_name}`,
             current_time:  project_event.created_at || new Date(),
             author_id:     project_event.author_id
           });
