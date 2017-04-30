@@ -1,5 +1,26 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.3...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.0.0...master)
+
+## 2.0.0
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.3...2.0.0)
+
+* https://github.com/sue445/chrome-gitlab-notifier/pull/105
+* https://github.com/sue445/chrome-gitlab-notifier/milestone/1?closed=1
+
+### Enhancements
+* **Rewrite all codes :muscle:**
+  * Use mithril.js instead of jquery
+  * Use mocha instead of jasmine
+  * Use eslint instead of jslint
+  * Write test codes
+* Add yarn
+* bootstrap v3.2.0 -> v3.3.7
+* jquery v2.0.3 -> v3.2.1
+* font-awesome v3.1.0 -> v4.7.0
+
+### Bugfix
+* Fixed: Toggle all/none on Repository Events doesn't consider the filter
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/67
 
 ## 1.4.3 (2016/07/08)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.2...1.4.3)
