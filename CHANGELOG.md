@@ -8,7 +8,7 @@
 * https://github.com/sue445/chrome-gitlab-notifier/milestone/1?closed=1
 
 ### Enhancements
-* **Rewrite all codes :muscle:**
+* **Rewrite all codes using ES6 :muscle:**
   * Use mithril.js instead of jquery
   * Use mocha instead of jasmine
   * Use eslint instead of jslint
