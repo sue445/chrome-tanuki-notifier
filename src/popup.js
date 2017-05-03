@@ -34,7 +34,7 @@ app.view = function(vnode) {
       case "Commit":
         return m("i.fa.fa-upload", {title: target_type});
       case "Issue":
-        return m("i.fa.fa-exclamation", {title: target_type});
+        return m("i.fa.fa-exclamation-circle", {title: target_type});
       case "MergeRequest":
         return m("i.fa.fa-check-square-o", {title: target_type});
       case "Milestone":

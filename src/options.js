@@ -125,7 +125,7 @@ app.view = function(vnode) {
               checked: project.events.Issue ,
               onclick: m.withAttr("checked", (value) => { project.events.Issue = value; } ),
             }),
-            m("i.fa.fa-exclamation[title='Issue' aria-hidden='true']"),
+            m("i.fa.fa-exclamation-circle[title='Issue' aria-hidden='true']"),
             "Issue",
           ]),
         ]),
