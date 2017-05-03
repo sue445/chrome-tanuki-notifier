@@ -1,7 +1,14 @@
-script: phantomjs spec/lib/run-jasmine.js spec/SpecRunner.html
+language: node_js
+node_js:
+  - "7"
+cache: yarn
+script:
+  - npm test
+  - npm run lint
 branches:
   only:
     - master
+    - develop-2.0
 sudo: false
 notifications:
   email: false

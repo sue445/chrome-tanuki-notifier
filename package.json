@@ -1,0 +1,25 @@
+{
+  "name": "chrome-gitlab-notifier",
+  "scripts": {
+    "lint": "eslint src/*.js test/*.js",
+    "lint-fix": "eslint --fix src/*.js test/*.js",
+    "test": "mocha --require intelli-espower-loader"
+  },
+  "directories": {
+    "test": "test/"
+  },
+  "repository": "https://github.com/sue445/chrome-gitlab-notifier.git",
+  "author": "sue445",
+  "license": "MIT",
+  "dependencies": {
+    "mithril": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^3.2.0",
+    "power-assert": "^1.4.2",
+    "sinon": "^2.1.0"
+  },
+  "version": "2.0.0"
+}

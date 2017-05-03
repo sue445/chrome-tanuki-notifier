@@ -1,164 +1,347 @@
-(function($){
-    // Restores select box state to saved value from localStorage.
-    function restoreOptions() {
-        $("#gitlabPath").val(config.getGitlabPath());
-        $("#apiPath").val(config.getApiPath());
-        $("#privateToken").val(config.getPrivateToken());
-        $("#pollingSecond").val(config.getPollingSecond());
-        $("#maxEventCount").val(config.getMaxEventCount());
-        $("#maxNotificationCount").val(config.getMaxNotificationCount());
-        $("#newMarkMinute").val(config.getNewMarkMinute());
-    }
+try {
+  var m = require("mithril");
+} catch (e){
+}
 
-    // Saves options to localStorage.
-    function saveOptions(){
-        var projects = {};
-        $("#projects tr.project").each(function(){
-            var project_id = parseInt($(this).attr("id"));
+const app = {};
 
-            var project = {
-                name:       $("#" + project_id + " td.name").text(),
-                avatar_url: $("#" + project_id).attr("data_avatar_url"),
-                events:     {}
-            };
-            $.each(gitlab.events(), function(index, event){
-                project.events[event] = util.isChecked("#" + project_id + " td." + event + " input:checkbox");
-            });
-            projects[project_id] = project;
-        });
+app.view = function(vnode) {
+  const state = vnode.state;
 
-        config.save({
-            gitlabPath:           $("#gitlabPath").val(),
-            apiPath:              $("#apiPath").val(),
-            privateToken:         $("#privateToken").val(),
-            pollingSecond:        $("#pollingSecond").val(),
-            maxEventCount:        $("#maxEventCount").val(),
-            maxNotificationCount: $("#maxNotificationCount").val(),
-            newMarkMinute:        $("#newMarkMinute").val(),
-            projects:             projects
-        });
-
-        showStatus("Options Saved.");
-    }
-
-    function showStatus(status){
-        $("span.status").text(status);
-        setTimeout(function() {
-            $("span.status").text("");
-        }, 750);
-    }
-
-    function refreshProjects(){
-        $("#progress_bar").show();
-        $("#projects").empty();
-
-        if(config.getPrivateToken().length > 0){
-            gitlab.getProjects(function(project){
-                var tr = $("<tr/>").attr({id: project.id, data_avatar_url: project.avatar_url}).addClass("project");
-
-                var project_url = config.getGitlabPath() + project.path_with_namespace;
-
-                var span = $("<span/>");
-                if(project.archived){
-                    $("<span/>").addClass("glyphicon glyphicon-eye-close").appendTo(span);
-                }
-
-                var avatar_url = project.avatar_url || "img/gitlab_logo_128.png";
-                $("<img/>").addClass("icon img-rounded").attr({src: avatar_url}).appendTo(span);
-
-                $("<a/>").attr({href: project_url}).text(project.path_with_namespace).appendTo(span);
-                $("<td/>").addClass("name").append(span).appendTo(tr);
-
-                var project_option = config.getProject(project.id);
-                var events = gitlab.events();
-
-                for(var i = 0; i < events.length; i++){
-                    var event = events[i];
-                    var checked = project_option.events[event] || false;
-
-                    var label = $("<label/>").addClass("checkbox-inline");
-                    $("<input/>").attr({type: "checkbox", checked: checked}).appendTo(label);
-                    util.createEventIcon(event).appendTo(label);
-                    $("<span/>").text(' ' + event).appendTo(label);
-                    $("<td/>").addClass(event).append(label).appendTo(tr);
-                }
-
-                var lineSelectAll = $('<a/>').attr({href:'#', class:'line-select-all'}).text('All').click(function (event) {
-                    $(event.target).closest('tr').find('input[type="checkbox"]').prop('checked', true);
-                    event.preventDefault();
-                });
-                var lineSelectNone = $('<a/>').attr({href:'#', class:'line-select-none'}).text('None').click(function (event) {
-                    $(event.target).closest('tr').find('input[type="checkbox"]').prop('checked', false);
-                    event.preventDefault();
-                });
-                $('<td>').text(' / ').prepend(lineSelectAll).append(lineSelectNone).appendTo(tr);
-
-                tr.appendTo( $("#projects") );
-                $("#progress_bar").hide();
-            });
-        }
-    }
-
-    function searchProjects(searchKey){
-        var trList = $('tr', '#projects');
-        var keys = searchKey.split(' ');
-        $.each(trList, function () {
-            $(this).show();
-            var projectName = $('td:first-child', $(this)).text();
-            for (var i = 0, l = keys.length; i < l; i++) {
-                var r = new RegExp(keys[i], 'i');
-                if (!projectName.match(r)) {
-                    $(this).hide();
-                }
-            }
-        });
-    }
-
-    function clearCache(){
-        config.clearCache();
-        showStatus("Cache cleared");
-    }
-
-    $(document).ready(function(){
-        if(!chrome){
-            return;
-        }
-
-        restoreOptions();
-        refreshProjects();
-
-        $(".select-all").click(function (event) {
-            var index = $(event.target).closest('th').prevAll().length;
-            $('.project').each(function () {
-                $(this).children().eq(index).find('input[type="checkbox"]').prop('checked', true);
-            });
-            event.preventDefault();
-        });
-        $(".select-none").click(function (event) {
-            var index = $(event.target).closest('th').prevAll().length;
-            $('.project').each(function () {
-                $(this).children().eq(index).find('input[type="checkbox"]').prop('checked', false);
-            });
-            event.preventDefault();
-        });
-
-        $("button.save").click(function(){
-            saveOptions();
-        });
-
-        $("button.clear").click(function(){
-            clearCache();
-            refreshProjects();
-        });
-
-        $("#load_repository").click(function(){
-            saveOptions();
-            refreshProjects();
-        });
-
-        $('#search_repository').keyup(function () {
-            var searchKey = this.value.replace(/\s+$/g, '');
-            searchProjects(searchKey);
-        });
+  const matchSearchKey = (project) => {
+    const keys = state.search_key.split(" ");
+    return keys.every((key) => {
+      const r = new RegExp(key, "i");
+      return project.path_with_namespace.match(r);
     });
-})(jQuery);
+  };
+
+  const projectEvents = (project) => {
+    const project_id = parseInt(project.id);
+    const config_project = state.config_projects[project_id] || {};
+    return config_project.events || {};
+  };
+
+  const saveOptions = (event) => {
+    const projects = {};
+
+    if(state.gitlab.projects){
+      state.gitlab.projects.forEach((project) => {
+        const project_id = parseInt(project.id);
+        projects[project_id] = {
+          name:       project.path_with_namespace,
+          avatar_url: project.avatar_url,
+          events:     project.events
+        };
+      });
+    }
+
+    state.saveConfig(state, projects);
+
+    showStatus("Options Saved.");
+    event.preventDefault();
+  };
+
+  const selectProject = (event, project_event, checked) => {
+    if(!state.gitlab.projects) {
+      event.preventDefault();
+      return;
+    }
+
+    state.gitlab.projects.filter((project) =>{
+      return matchSearchKey(project);
+    }).forEach((project) => {
+      project.events[project_event] = checked;
+    });
+    event.preventDefault();
+  };
+
+  const clearCache = (event) => {
+    state.clearConfigCache();
+    showStatus("Cache cleared");
+    event.preventDefault();
+  };
+
+  const showStatus = (message) => {
+    state.status_message = message;
+    setTimeout(() => {
+      state.status_message = "";
+      m.redraw();
+    }, 750);
+  };
+
+  const projects = () => {
+    if(!state.gitlab.projects) {
+      return m("tr", [
+        m("td[colspan='6']", [
+          m(".progress", [
+            m(".progress-bar.progress-bar-striped.active[aria-valuemax='100'][aria-valuemin='0'][aria-valuenow='100'][role='progressbar']", {style: {"width": "100%"}}, [
+              m("span.sr-only", "Now Loading")
+            ])
+          ])
+        ])
+      ]);
+    }
+
+    return state.gitlab.projects.filter((project) =>{
+      return matchSearchKey(project);
+    }).map((project) => {
+      project.events = project.events || projectEvents(project);
+
+      const names = [];
+      if (project.archived){
+        names.push(m("span.glyphicon.glyphicon-eye-close"));
+      }
+      if(project.avatar_url) {
+        names.push(m("img.icon.img-rounded", {src: project.avatar_url}));
+      } else {
+        names.push(m("img.icon.img-rounded[src='../img/gitlab_logo_128.png']"));
+      }
+      names.push(m("a", {href: state.gitlab_path + project.path_with_namespace}, project.path_with_namespace));
+
+      const select_events = (event, checked) => {
+        project.events.Commit = checked;
+        project.events.Issue = checked;
+        project.events.MergeRequest = checked;
+        project.events.Milestone = checked;
+        event.preventDefault();
+      };
+
+      return m("tr", [
+        m("td.name", names),
+        m("td.Commit", [
+          m("label.checkbox-inline", [
+            m("input[type='checkbox']", {
+              checked: project.events.Commit,
+              onclick: m.withAttr("checked", (value) => { project.events.Commit = value; } ),
+            }),
+            m("i.fa.fa-upload[title='Commit' aria-hidden='true']"),
+            "Commit",
+          ]),
+        ]),
+        m("td.Issue", [
+          m("label.checkbox-inline", [
+            m("input[type='checkbox']", {
+              checked: project.events.Issue ,
+              onclick: m.withAttr("checked", (value) => { project.events.Issue = value; } ),
+            }),
+            m("i.fa.fa-exclamation-circle[title='Issue' aria-hidden='true']"),
+            "Issue",
+          ]),
+        ]),
+        m("td.MergeRequest", [
+          m("label.checkbox-inline", [
+            m("input[type='checkbox']", {
+              checked: project.events.MergeRequest ,
+              onclick: m.withAttr("checked", (value) => { project.events.MergeRequest = value; } ),
+            }),
+            m("i.fa.fa-check-square-o[title='MergeRequest' aria-hidden='true']"),
+            "MergeRequest",
+          ]),
+        ]),
+        m("td.Milestone", [
+          m("label.checkbox-inline", [
+            m("input[type='checkbox']", {
+              checked: project.events.Milestone ,
+              onclick: m.withAttr("checked", (value) => { project.events.Milestone = value; } ),
+            }),
+            m("i.fa.fa-calendar[title='Milestone' aria-hidden='true']"),
+            "Milestone",
+          ]),
+        ]),
+        m("td", [
+          m("a.line-select-all[href='#']", {
+            onclick: (event) => { select_events(event, true );}
+          }, "All"),
+          " / ",
+          m("a.line-select-none[href='#']", {
+            onclick: (event) => { select_events(event, false );}
+          }, "None"),
+        ]),
+      ]);
+    });
+  };
+
+  return m("div", [
+    m("h2", [
+      m("i.fa.fa-gitlab[aria-hidden='true']"),
+      "GitLab Setting",
+    ]),
+    m(".form-horizontal[role='form']", [
+      m(".form-group", [
+        m("label.col-sm-3.control-label[for='gitlab_path']", "GitLab Path"),
+        m(".col-sm-5", [
+          m("input.form-control[id='gitlab_path'][placeholder='http://example.com/'][type='text']", {
+            value: state.gitlab_path,
+            oninput: m.withAttr("value", (value) => { state.gitlab_path = value; })
+          })
+        ])
+      ]),
+      m(".form-group", [
+        m("label.col-sm-3.control-label[for='api_path']", "GitLab API Path"),
+        m(".col-sm-5", [
+          m("input.form-control[id='api_path'][placeholder='http://example.com/api/v3/'][type='text']", {
+            value: state.api_path,
+            oninput: m.withAttr("value", (value) => { state.api_path = value; })
+          })
+        ])
+      ]),
+      m(".form-group", [
+        m("label.col-sm-3.control-label[for='private_token']", "Private token"),
+        m(".col-sm-5", [
+          m("input.form-control[id='private_token'][type='password']", {
+            value: state.private_token,
+            oninput: m.withAttr("value", (value) => { state.private_token = value; })
+          })
+        ])
+      ])
+    ]),
+    m("h2", "Notification Setting"),
+    m(".form-horizontal[role='form']", [
+      m(".form-group", [
+        m("label.col-sm-3.control-label[for='polling_second']", "Polling interval"),
+        m(".col-sm-5", [
+          m("input.form-control[id='polling_second'][type='text']", {
+            value: state.polling_second,
+            oninput: m.withAttr("value", (value) => { state.polling_second = value; })
+          }),
+          m("span.help-block", "Polling interval, in seconds. (Need chrome to restart)")
+        ])
+      ]),
+      m(".form-group", [
+        m("label.col-sm-3.control-label[for='max_event_count']", "Notification to show"),
+        m(".col-sm-5", [
+          m("input.form-control[id='max_event_count'][type='text']", {
+            value: state.max_event_count,
+            oninput: m.withAttr("value", (value) => { state.max_event_count = value; })
+          })
+        ])
+      ]),
+      m(".form-group", [
+        m("label.col-sm-3.control-label[for='max_notification_count']", "Notification per project"),
+        m(".col-sm-5", [
+          m("input.form-control[id='max_notification_count'][type='text']", {
+            value: state.max_notification_count,
+            oninput: m.withAttr("value", (value) => { state.max_notification_count = value; })
+          })
+        ])
+      ]),
+      m(".form-group", [
+        m("label.col-sm-3.control-label[for='new_mark_minute']", "Mark event as new"),
+        m(".col-sm-5", [
+          m("input.form-control[id='new_mark_minute'][type='text']", {
+            value: state.new_mark_minute,
+            oninput: m.withAttr("value", (value) => { state.new_mark_minute = value; })
+          }),
+          m("span.help-block", [
+            "The event will be set as ",
+            m("b", "bold"),
+            " for the given amount of minutes"
+          ])
+        ])
+      ])
+    ]),
+    m("button.save.btn.btn-primary", {onclick: saveOptions}, [
+      m("span.glyphicon.glyphicon-save"),
+      "Save"
+    ]),
+    m("button.clear.btn.btn-danger", {onclick: clearCache}, [
+      m("span.glyphicon.glyphicon-trash"),
+      "Clear cache"
+    ]),
+    m("span.status", state.status_message),
+    m("h2", "Repository Events"),
+    m("form.form-inline[role='form']", [
+      m(".form-group.col-xs-4", [
+        m(".input-group", [
+          m(".input-group-addon", [
+            m("span.glyphicon.glyphicon-search")
+          ]),
+          m("input.form-control[id='search_repository'][placeholder='Project name'][type='text']", {
+            oninput: m.withAttr("value", (value) => { state.search_key = value; }),
+            value: state.search_key,
+          })
+        ])
+      ]),
+      m("button.btn.btn-default", {
+        onclick: (event) => {
+          state.reloadGitLabFromConfig();
+          state.gitlab.loadProjects();
+          event.preventDefault();
+        }
+      }, [
+        m("span.glyphicon.glyphicon-refresh"),
+        "Refresh Repository List"
+      ])
+    ]),
+    m("table.table.table-striped.table-hover", [
+      m("thead", [
+        m("tr", [
+          m("th.projects-name", "Project name"),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false); } }, "None")
+          ]),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false); } }, "None")
+          ]),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false); } }, "None")
+          ]),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false); } }, "None")
+          ]),
+          m("th")
+        ])
+      ]),
+      m("tbody[id='projects']", projects()),
+      m("tfoot", [
+        m("tr", [
+          m("th.projects-name", "Project name"),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false); } }, "None")
+          ]),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false); } }, "None")
+          ]),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false); } }, "None")
+          ]),
+          m("th", [
+            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true); } }, "All"),
+            " / ",
+            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false); } }, "None")
+          ]),
+          m("th")
+        ])
+      ])
+    ]),
+    m("button.save.btn.btn-primary", {onclick: saveOptions}, [
+      m("span.glyphicon.glyphicon-save"),
+      "Save"
+    ]),
+    m("button.clear.btn.btn-danger", {onclick: clearCache}, [
+      m("span.glyphicon.glyphicon-trash"),
+      "Clear cache"
+    ]),
+    m("span.status", state.status_message),
+  ]);
+};
+
+try {
+  module.exports = app;
+} catch (e){
+}

@@ -1,43 +1,40 @@
-var notification_cache = (function(){
-    var STORAGE_KEY = "notificationCache";
+try {
+  BaseCache = require("./base_cache.js");
+} catch (e){
+}
 
-    // public methods
-    function add(event) {
-        var key = cacheKey(event);
-        var cache = load();
-        cache[key] = true;
-        save(cache);
-    }
+class NotificationCache extends BaseCache{
+  constructor(storage){
+    super(storage, "notificationCache");
+  }
 
-    function isNotified(event) {
-        var key = cacheKey(event);
-        var cache = load();
-        return cache[key];
-    }
+  add(event) {
+    const key = this.cacheKey(event);
+    const cache = super.load();
+    cache[key] = true;
+    this.save(cache);
+  }
 
-    function cacheKey(event) {
-        var array = [
-            event.project_id,
-            event.target_type,
-            event.target_id,
-            event.action_name
-        ];
+  isNotified(event) {
+    const key = this.cacheKey(event);
+    const cache = super.load();
+    return cache[key];
+  }
 
-        return array.join("_");
-    }
+  cacheKey(event) {
+    const array = [
+      event.project_id,
+      event.target_type,
+      event.target_id,
+      event.action_name,
+      event.created_at,
+    ];
 
-    return {
-        add:        add,
-        isNotified: isNotified,
-        cacheKey:   cacheKey
-    };
+    return array.join("_");
+  }
+}
 
-    // private methods
-    function load(){
-        return JSON.parse(localStorage[STORAGE_KEY] || "{}");
-    }
-
-    function save(cache) {
-        localStorage[STORAGE_KEY] = JSON.stringify(cache);
-    }
-}());
+try {
+  module.exports = NotificationCache;
+} catch (e){
+}

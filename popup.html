@@ -9,32 +9,19 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-        <button class="clear btn btn-danger">
-            <span class="glyphicon glyphicon-trash"></span>
-            Clear cache
-        </button>
-        <button class="goto btn btn-primary">
-            <span class="glyphicon glyphicon-link"></span>
-            Go to GitLab
-        </button>
-    </div>
-</nav>
-
-<div>
-    <ul id="notifyHistories"></ul>
+<div id="app">
 </div>
 
-<script src="lib/jquery-2.0.3.min.js"></script>
-<script src="lib/jquery.timeago.js"></script>
+<script src="lib/jquery-3.2.1.min.js"></script>
+<script src="lib/timeago.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
-<script src="lib/md5.js"></script>
-<script src="src/util.js"></script>
+<script src="lib/mithril.min.js"></script>
+<script src="src/base_cache.js"></script>
+<script src="src/avatar_cache.js"></script>
 <script src="src/gitlab.js"></script>
 <script src="src/config.js"></script>
-<script src="src/avatar_cache.js"></script>
 <script src="src/popup.js"></script>
+<script src="src/popup_init.js"></script>
 </body>
 </html>
 

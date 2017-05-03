@@ -1,42 +1,43 @@
-var avatar_cache = (function(){
-    var STORAGE_KEY = "avatarCache";
+try {
+  BaseCache = require("./base_cache.js");
+} catch (e){
+}
+
+class AvatarCache extends BaseCache{
+  constructor(storage){
+    super(storage, "avatarCache");
 
     // 1 day
-    var EXPIRATION = 1000 * 60 * 60 * 24;
+    this.expiration = 1000 * 60 * 60 * 24;
+  }
 
-    // public methods
-    function get(key){
-        var cache = load();
+  get(key) {
+    const cache = super.load();
 
-        if (!cache[key]) {
-            return null;
-        }
-
-        var expire_time = cache[key].expire_time;
-        var now = new Date();
-
-        if(expire_time < now.getTime()){
-            // expired
-            return null;
-        }
-
-        return cache[key].data;
+    if (!cache[key]) {
+      return null;
     }
 
-    function set(key, data){
-        var cache = load();
-        var now = new Date();
-        cache[key] = { expire_time: now.getTime() + EXPIRATION, data: data };
-        localStorage[STORAGE_KEY] = JSON.stringify(cache);
+    const expire_time = cache[key].expire_time;
+    const now = new Date();
+
+    if(expire_time < now.getTime()){
+      // expired
+      return null;
     }
 
-    return {
-        get: get,
-        set: set
-    };
+    return cache[key].data;
+  }
 
-    // private methods
-    function load(){
-        return JSON.parse(localStorage[STORAGE_KEY] || "{}");
-    }
-}());
+  set(key, data){
+    const cache = super.load();
+    const now = new Date();
+    cache[key] = { expire_time: now.getTime() + this.expiration, data: data };
+    super.save(cache);
+  }
+}
+
+try {
+  module.exports = AvatarCache;
+} catch (e){
+}

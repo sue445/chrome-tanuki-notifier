@@ -1,70 +1,84 @@
-var notification = {
-    notify: function(args){
-        var project       = args.project;
-        var project_event = args.project_event;
-        var internal      = args.internal;
-        var current_time  = args.current_time;
-        var message       = args.message;
-        var author_id     = args.author_id || '';
+class Notification {
+  constructor(args){
+    this.config = args.config;
+    this.chrome = args.chrome;
+    this.notification_cache = args.notification_cache;
+    this.notification_count = 0;
+  }
 
-        util.checkArgs(args, ["project", "project_event", "internal", "current_time", "message"]);
+  notify(args){
+    const project       = args.project;
+    const project_event = args.project_event;
+    const internal      = args.internal;
+    const current_time  = args.current_time;
+    const message       = args.message;
+    const author_id     = args.author_id || "";
 
-        var notifiedEvent = notification_cache.isNotified(project_event);
+    const notifiedEvent = this.notification_cache.isNotified(project_event);
 
-        if (notifiedEvent){
-            // Don't notify same event
-            return;
-        }
+    if (notifiedEvent){
+      // Don't notify same event
+      return false;
+    }
 
-        notification_cache.add(project_event);
-        var notification_id = notification_cache.cacheKey(project_event);
+    this.notification_cache.add(project_event);
+    const notification_id = this.notification_cache.cacheKey(project_event);
 
-        this.createNotification({
-            avatar_url:      project.avatar_url,
-            notification_id: notification_id,
-            title:           project.name,
-            message:         message
-        });
+    this.createNotification({
+      target_url:      internal.target_url,
+      avatar_url:      project.avatar_url,
+      notification_id: notification_id,
+      title:           project.name,
+      message:         message
+    });
 
-        // use hash of notification_id as unique id
-        project_event._id          = notification_id;
-        project_event.project_name = project.name;
-        project_event.target_id    = internal.target_id;
-        project_event.target_url   = internal.target_url;
-        project_event.notified_at  = current_time;
-        project_event.message      = message;
-        project_event.author_id    = author_id;
-        config.addNotifiedHistories([project_event]);
+    // use hash of notification_id as unique id
+    project_event._id          = notification_id;
+    project_event.project_name = project.name;
+    project_event.target_id    = internal.target_id;
+    project_event.target_url   = internal.target_url;
+    project_event.notified_at  = current_time;
+    project_event.message      = message;
+    project_event.author_id    = author_id;
+    this.config.addNotifiedHistories([project_event]);
 
-        this.incNotificationCount();
-    },
+    this.incNotificationCount();
+    return true;
+  }
 
-    createNotification: function(args){
-        var notification_id = args.notification_id;
-        var title           = args.title;
-        var message         = args.message;
+  createNotification(args){
+    const notification_id = args.notification_id;
+    const title           = args.title;
+    const message         = args.message;
+    const target_url      = args.target_url;
 
-        util.checkArgs(args, ["notification_id", "title", "message"]);
+    this.chrome.notifications.create(
+      JSON.stringify({notification_id: notification_id, target_url: target_url}),
+      {
+        type:     "basic",
+        iconUrl:  args.avatar_url || "img/gitlab_logo_128.png",
+        title:    title,
+        message:  message,
+        priority: 0
+      },
+      () => {
+        // do nothing
+      }
+    );
+  }
 
-        chrome.notifications.create(
-            notification_id,
-            {
-                type:     "basic",
-                iconUrl:  args.avatar_url || "img/gitlab_logo_128.png",
-                title:    title,
-                message:  message,
-                priority: 0
-            },
-            function(){
-                // do nothing
-            }
-        );
-    },
+  incNotificationCount(){
+    this.notification_count ++;
+    this.chrome.browserAction.setBadgeText({text: String(this.notification_count)});
+  }
 
-    incNotificationCount: function(){
-        this.notification_count ++;
-        chrome.browserAction.setBadgeText({text: String(this.notification_count)});
-    },
+  set badgeText(value){
+    value = parseInt(value) || 0;
+    this.notification_count = value;
+  }
+}
 
-    notification_count: 0
-};
+try {
+  module.exports = Notification;
+} catch (e){
+}
