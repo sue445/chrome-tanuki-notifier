@@ -56,14 +56,3 @@ Input these to option
 
 * GitLab Path : `https://gitlab.com/`
 * GitLab API Path : `https://gitlab.com/api/v3/`
-
-## Test Suite
-```
-open spec/SpecRunner.html
-```
-
-[![endorse](https://api.coderwall.com/sue445/endorsecount.png)](https://coderwall.com/sue445)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sue445/chrome-gitlab-notifier/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
