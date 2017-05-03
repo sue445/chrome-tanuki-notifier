@@ -8,7 +8,6 @@ script:
 branches:
   only:
     - master
-    - develop-2.0
 sudo: false
 notifications:
   email: false
