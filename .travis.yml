@@ -4,6 +4,7 @@ node_js:
 cache: yarn
 script:
   - npm test
+  - npm run lint
 branches:
   only:
     - master
