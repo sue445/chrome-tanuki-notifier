@@ -1,7 +1,7 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.0.0...master)
 
-## 2.0.0
+## 2.0.0 (2017/05/04)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.3...2.0.0)
 
 * https://github.com/sue445/chrome-gitlab-notifier/pull/105
