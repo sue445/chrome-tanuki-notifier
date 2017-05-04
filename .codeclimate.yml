@@ -1,0 +1,12 @@
+engines:
+  eslint:
+    enabled: true
+  config:
+    config: .eslintrc.json
+    extensions:
+      - .js
+
+ratings:
+   paths:
+     - "src/*.js"
+     - "test/*.js"
