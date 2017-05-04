@@ -1,6 +1,7 @@
 # GitLab Notifier for Google Chrome™
 [![Build Status](https://travis-ci.org/sue445/chrome-gitlab-notifier.png)](https://travis-ci.org/sue445/chrome-gitlab-notifier)
 [![Code Climate](https://codeclimate.com/github/sue445/chrome-gitlab-notifier.png)](https://codeclimate.com/github/sue445/chrome-gitlab-notifier)
+[![Dependency Status](https://gemnasium.com/badges/github.com/sue445/chrome-gitlab-notifier.svg)](https://gemnasium.com/github.com/sue445/chrome-gitlab-notifier)
 [![Stories in Ready](https://badge.waffle.io/sue445/chrome-gitlab-notifier.png?label=ready)](https://waffle.io/sue445/chrome-gitlab-notifier)
 
 Notify GitLab Project events (Commit, Issue, MergeRequest and Milestone)
