@@ -151,7 +151,13 @@ class GitLab {
         api_url = `${this.api_path}/projects/:project_id/issues/:target_id`;
         break;
       case "MergeRequest":
-        api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
+        if (this.apiVersion >= 4) {
+          // since v4
+          api_url = `${this.api_path}/projects/:project_id/merge_requests/:target_id`;
+        } else {
+          // until v3
+          api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
+        }
         break;
       case "Milestone":
         api_url = `${this.api_path}/projects/:project_id/milestones/:target_id`;
