@@ -178,6 +178,14 @@ class GitLab {
       return Promise.resolve({target_id: id, target_url: url});
     });
   }
+
+  get apiVersion(){
+    const ret = this.api_path.match(/\/api\/v([0-9]+)$/);
+    if (ret){
+      return parseInt(ret[1]);
+    }
+    return 0;
+  }
 }
 
 try {
