@@ -133,29 +133,57 @@ class Background {
             author_id:     project_event.author_id
           });
         });
-        break;
       }
 
       case "Note": {
         // Issue, MergeRequest (Comment)
-        return this.gitlab.getEventInternalId({
-          project_name: project.name,
-          target_type:  project_event.note.noteable_type,
-          target_id:    project_event.note.noteable_id,
-          project_id:   project_event.project_id,
-        }).then((internal) => {
-          internal.target_url = `${internal.target_url}#note_${project_event.note.id}`;
+        if(this.gitlab.apiVersion >= 4){
+          // API v4+
+          let url;
+          switch (project_event.note.noteable_type) {
+            case "Issue":
+              url = `${this.gitlab.gitlab_path}/${project.name}/issues/${project_event.target_iid}#note_${project_event.note.id}`;
+              break;
+            case "MergeRequest":
+              url = `${this.gitlab.gitlab_path}/${project.name}/merge_requests/${project_event.target_iid}#note_${project_event.note.id}`;
+              break;
+          }
 
           const note_body = this.truncate(project_event.note.body, 200);
           this.notification.notify({
             project:       project,
             project_event: project_event,
-            internal:      internal,
-            message:       `[${project_event.note.noteable_type}] #${internal.target_id} ${note_body} ${project_event.action_name}`,
+            internal: {
+              target_id: project_event.note.noteable_iid,
+              target_url: url
+            },
+            message:       `[${project_event.note.noteable_type}] #${project_event.note.noteable_iid} ${note_body} ${project_event.action_name}`,
             current_time:  project_event.created_at || new Date(),
             author_id:     project_event.author_id
           });
-        });
+
+        } else {
+          // API v3
+          return this.gitlab.getEventInternalId({
+            project_name: project.name,
+            target_type:  project_event.note.noteable_type,
+            target_id:    project_event.note.noteable_id,
+            project_id:   project_event.project_id,
+          }).then((internal) => {
+            internal.target_url = `${internal.target_url}#note_${project_event.note.id}`;
+
+            const note_body = this.truncate(project_event.note.body, 200);
+            this.notification.notify({
+              project:       project,
+              project_event: project_event,
+              internal:      internal,
+              message:       `[${project_event.note.noteable_type}] #${internal.target_id} ${note_body} ${project_event.action_name}`,
+              current_time:  project_event.created_at || new Date(),
+              author_id:     project_event.author_id
+            });
+          });
+        }
+        break;
       }
     }
   }
