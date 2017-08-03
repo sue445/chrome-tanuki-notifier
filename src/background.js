@@ -70,9 +70,54 @@ class Background {
         break;
       }
       case "Issue":
-      case "MergeRequest":
+      case "MergeRequest": {
+        // Issue, MergeRequest
+        if(this.gitlab.apiVersion >= 4) {
+          // API v4+
+          let url;
+          switch (target_type) {
+            case "Issue":
+              url = `${this.gitlab.gitlab_path}/${project.name}/issues/${project_event.target_iid}`;
+              break;
+            case "MergeRequest":
+              url = `${this.gitlab.gitlab_path}/${project.name}/merge_requests/${project_event.target_iid}`;
+              break;
+          }
+
+          this.notification.notify({
+            project:       project,
+            project_event: project_event,
+            internal: {
+              target_id: project_event.target_iid,
+              target_url: url
+            },
+            message:       `[${target_type}] #${project_event.target_iid} ${project_event.target_title} ${project_event.action_name}`,
+            current_time:  project_event.created_at || new Date(),
+            author_id:     project_event.author_id
+          });
+
+        } else {
+          // API v3
+          return this.gitlab.getEventInternalId({
+            project_name: project.name,
+            target_type:  target_type,
+            target_id:    project_event.target_id,
+            project_id:   project_event.project_id,
+          }).then((internal) => {
+            this.notification.notify({
+              project:       project,
+              project_event: project_event,
+              internal:      internal,
+              message:       `[${target_type}] #${internal.target_id} ${project_event.target_title} ${project_event.action_name}`,
+              current_time:  project_event.created_at || new Date(),
+              author_id:     project_event.author_id
+            });
+          });
+        }
+        break;
+      }
       case "Milestone": {
-        // Issue, MergeRequest, Milestone
+        // Milestone
         return this.gitlab.getEventInternalId({
           project_name: project.name,
           target_type:  target_type,
@@ -88,6 +133,7 @@ class Background {
             author_id:     project_event.author_id
           });
         });
+        break;
       }
 
       case "Note": {
