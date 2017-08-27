@@ -128,86 +128,29 @@ describe("Background", () => {
     });
 
     context("When target_type is Issue", () => {
-      let target_id, target_url;
+      context("When API v3", () => {
+        let target_id, target_url;
 
-      beforeEach(() => {
-        target_id = 1;
-        target_url = `http://example.com/sue445/example/issues/${target_id}`;
+        beforeEach(() => {
+          target_id = 1;
+          target_url = `http://example.com/sue445/example/issues/${target_id}`;
 
-        background.gitlab = {
-          getEventInternalId: (_args) => {
-            return Promise.resolve({target_id: target_id, target_url: target_url});
-          },
-        };
+          background.gitlab = {
+            apiVersion: 3,
+            getEventInternalId: (_args) => {
+              return Promise.resolve({target_id: target_id, target_url: target_url});
+            }
+          };
 
-        project_event = {
-          "title": null,
-          "project_id": 15,
-          "action_name": "closed",
-          "target_id": 830,
-          "target_type": "Issue",
-          "author_id": 1,
-          "data": null,
-          "target_title": "Public project search field",
-          "author": {
-            "name": "Dmitriy Zaporozhets",
-            "username": "root",
-            "id": 1,
-            "state": "active",
-            "avatar_url": "http://localhost:3000/uploads/user/avatar/1/fox_avatar.png",
-            "web_url": "http://localhost:3000/root"
-          },
-          "author_username": "root",
-          "created_at": "2015-12-04T10:33:58.089Z"
-        };
-      });
-
-      it("should call notification.notify", (done) => {
-        notification.notify = (args) => {
-          assert.deepEqual(args.project, project);
-          assert.deepEqual(args.project_event, project_event);
-          assert(args.internal.target_id == 1);
-          assert(args.internal.target_url == "http://example.com/sue445/example/issues/1");
-          assert(args.message == "[Issue] #1 Public project search field closed");
-          assert(args.current_time == "2015-12-04T10:33:58.089Z");
-          assert(args.author_id == 1);
-          notify_count++;
-        };
-
-        background.notifyProjectEvent(project_id, project_event).then(() => {
-          assert(notify_count == 1);
-          done();
-        });
-      });
-    });
-
-    context("When target_type is Note", () => {
-      let target_id, target_url;
-
-      beforeEach(() => {
-        target_id = 377;
-        target_url = `http://example.com/sue445/example/issues/${target_id}`;
-
-        background.gitlab = {
-          getEventInternalId: (_args) => {
-            return Promise.resolve({target_id: target_id, target_url: target_url});
-          },
-        };
-
-        project_event = {
-          "title": null,
-          "project_id": 15,
-          "action_name": "commented on",
-          "target_id": 1312,
-          "target_type": "Note",
-          "author_id": 1,
-          "data": null,
-          "target_title": null,
-          "created_at": "2015-12-04T10:33:58.089Z",
-          "note": {
-            "id": 1312,
-            "body": "What an awesome day!",
-            "attachment": null,
+          project_event = {
+            "title": null,
+            "project_id": 15,
+            "action_name": "closed",
+            "target_id": 830,
+            "target_type": "Issue",
+            "author_id": 1,
+            "data": null,
+            "target_title": "Public project search field",
             "author": {
               "name": "Dmitriy Zaporozhets",
               "username": "root",
@@ -216,38 +159,101 @@ describe("Background", () => {
               "avatar_url": "http://localhost:3000/uploads/user/avatar/1/fox_avatar.png",
               "web_url": "http://localhost:3000/root"
             },
-            "created_at": "2015-12-04T10:33:56.698Z",
-            "system": false,
-            "noteable_id": 377,
-            "noteable_type": "Issue"
-          },
-          "author": {
-            "name": "Dmitriy Zaporozhets",
-            "username": "root",
-            "id": 1,
-            "state": "active",
-            "avatar_url": "http://localhost:3000/uploads/user/avatar/1/fox_avatar.png",
-            "web_url": "http://localhost:3000/root"
-          },
-          "author_username": "root"
-        };
+            "author_username": "root",
+            "created_at": "2015-12-04T10:33:58.089Z"
+          };
+        });
+
+        it("should call notification.notify", (done) => {
+          notification.notify = (args) => {
+            assert.deepEqual(args.project, project);
+            assert.deepEqual(args.project_event, project_event);
+            assert(args.internal.target_id == 1);
+            assert(args.internal.target_url == "http://example.com/sue445/example/issues/1");
+            assert(args.message == "[Issue] #1 Public project search field closed");
+            assert(args.current_time == "2015-12-04T10:33:58.089Z");
+            assert(args.author_id == 1);
+            notify_count++;
+          };
+
+          background.notifyProjectEvent(project_id, project_event).then(() => {
+            assert(notify_count == 1);
+            done();
+          });
+        });
       });
+    });
 
-      it("should call notification.notify", (done) => {
-        notification.notify = (args) => {
-          assert.deepEqual(args.project, project);
-          assert.deepEqual(args.project_event, project_event);
-          assert(args.internal.target_id == target_id);
-          assert(args.internal.target_url == "http://example.com/sue445/example/issues/377#note_1312");
-          assert(args.message == "[Issue] #377 What an awesome day! commented on");
-          assert(args.current_time == "2015-12-04T10:33:58.089Z");
-          assert(args.author_id == 1);
-          notify_count++;
-        };
+    context("When target_type is Note", () => {
+      context("When API v3", () => {
+        let target_id, target_url;
 
-        background.notifyProjectEvent(project_id, project_event).then(() => {
-          assert(notify_count == 1);
-          done();
+        beforeEach(() => {
+          target_id = 377;
+          target_url = `http://example.com/sue445/example/issues/${target_id}`;
+
+          background.gitlab = {
+            apiVersion: 3,
+            getEventInternalId: (_args) => {
+              return Promise.resolve({target_id: target_id, target_url: target_url});
+            }
+          };
+
+          project_event = {
+            "title": null,
+            "project_id": 15,
+            "action_name": "commented on",
+            "target_id": 1312,
+            "target_type": "Note",
+            "author_id": 1,
+            "data": null,
+            "target_title": null,
+            "created_at": "2015-12-04T10:33:58.089Z",
+            "note": {
+              "id": 1312,
+              "body": "What an awesome day!",
+              "attachment": null,
+              "author": {
+                "name": "Dmitriy Zaporozhets",
+                "username": "root",
+                "id": 1,
+                "state": "active",
+                "avatar_url": "http://localhost:3000/uploads/user/avatar/1/fox_avatar.png",
+                "web_url": "http://localhost:3000/root"
+              },
+              "created_at": "2015-12-04T10:33:56.698Z",
+              "system": false,
+              "noteable_id": 377,
+              "noteable_type": "Issue"
+            },
+            "author": {
+              "name": "Dmitriy Zaporozhets",
+              "username": "root",
+              "id": 1,
+              "state": "active",
+              "avatar_url": "http://localhost:3000/uploads/user/avatar/1/fox_avatar.png",
+              "web_url": "http://localhost:3000/root"
+            },
+            "author_username": "root"
+          };
+        });
+
+        it("should call notification.notify", (done) => {
+          notification.notify = (args) => {
+            assert.deepEqual(args.project, project);
+            assert.deepEqual(args.project_event, project_event);
+            assert(args.internal.target_id == target_id);
+            assert(args.internal.target_url == "http://example.com/sue445/example/issues/377#note_1312");
+            assert(args.message == "[Issue] #377 What an awesome day! commented on");
+            assert(args.current_time == "2015-12-04T10:33:58.089Z");
+            assert(args.author_id == 1);
+            notify_count++;
+          };
+
+          background.notifyProjectEvent(project_id, project_event).then(() => {
+            assert(notify_count == 1);
+            done();
+          });
         });
       });
     });
