@@ -236,6 +236,61 @@ describe("Background", () => {
       });
     });
 
+    context("When target_type is Milestone", () => {
+      let target_id, target_url;
+
+      beforeEach(() => {
+        target_id = 2;
+        target_url = `http://example.com/sue445/example/milestones/${target_id}`;
+
+        background.gitlab = {
+          apiVersion: 4,
+          getEventInternalId: (_args) => {
+            return Promise.resolve({target_id: target_id, target_url: target_url});
+          }
+        };
+
+        project_event = {
+          "action_name": "opened",
+          "author": {
+            "avatar_url": "https://secure.gravatar.com/avatar/fbf625a9c371d2d87fe0d4343b68dc65?s=80&d=identicon",
+            "id": 125864,
+            "name": "sue445",
+            "state": "active",
+            "username": "sue445",
+            "web_url": "https://gitlab.com/sue445"
+          },
+          "author_id": 125864,
+          "author_username": "sue445",
+          "created_at": "2017-08-27T15:36:59.863Z",
+          "project_id": 219579,
+          "target_id": 365398,
+          "target_iid": 2,
+          "target_title": "test milestone",
+          "target_type": "Milestone",
+          "title": null
+        };
+      });
+
+      it("should call notification.notify", (done) => {
+        notification.notify = (args) => {
+          assert.deepEqual(args.project, project);
+          assert.deepEqual(args.project_event, project_event);
+          assert(args.internal.target_id == 2);
+          assert(args.internal.target_url == "http://example.com/sue445/example/milestones/2");
+          assert(args.message == "[Milestone] #2 test milestone opened");
+          assert(args.current_time == "2017-08-27T15:36:59.863Z");
+          assert(args.author_id == 125864);
+          notify_count++;
+        };
+
+        background.notifyProjectEvent(project_id, project_event).then(() => {
+          assert(notify_count == 1);
+          done();
+        });
+      });
+    });
+
     context("When target_type is Note", () => {
       context("When API v3", () => {
         let target_id, target_url;
