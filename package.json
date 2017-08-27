@@ -3,7 +3,8 @@
   "scripts": {
     "lint": "eslint src/*.js test/*.js",
     "lint-fix": "eslint --fix src/*.js test/*.js",
-    "test": "mocha --require intelli-espower-loader"
+    "test": "mocha --require intelli-espower-loader",
+    "test:coverage": "istanbul cover _mocha -- test"
   },
   "directories": {
     "test": "test/"
