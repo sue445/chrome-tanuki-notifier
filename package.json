@@ -3,7 +3,8 @@
   "scripts": {
     "lint": "eslint src/*.js test/*.js",
     "lint-fix": "eslint --fix src/*.js test/*.js",
-    "test": "mocha --require intelli-espower-loader"
+    "test": "mocha --require intelli-espower-loader",
+    "test:coverage": "istanbul cover _mocha -- test"
   },
   "directories": {
     "test": "test/"
@@ -15,8 +16,10 @@
     "mithril": "^1.0.1"
   },
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.5.0",
     "eslint": "^3.19.0",
     "intelli-espower-loader": "^1.0.1",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "power-assert": "^1.4.2",
     "sinon": "^2.1.0"
