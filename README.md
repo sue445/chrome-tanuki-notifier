@@ -63,4 +63,4 @@ Open extension option -> Clear cache
 Input these to option
 
 * GitLab Path : `https://gitlab.com/`
-* GitLab API Path : `https://gitlab.com/api/v3/`
+* GitLab API Path : `https://gitlab.com/api/v4/`
