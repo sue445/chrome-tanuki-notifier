@@ -180,7 +180,7 @@ app.view = function(vnode) {
       m(".form-group", [
         m("label.col-sm-3.control-label[for='api_path']", "GitLab API Path"),
         m(".col-sm-5", [
-          m("input.form-control[id='api_path'][placeholder='http://example.com/api/v3/'][type='text']", {
+          m("input.form-control[id='api_path'][placeholder='http://example.com/api/v4/'][type='text']", {
             value: state.api_path,
             oninput: m.withAttr("value", (value) => { state.api_path = value; })
           })
