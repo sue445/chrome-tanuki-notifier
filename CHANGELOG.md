@@ -1,5 +1,8 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.0.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.0...master)
+
+## 2.1.0 (2017/08/29)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.0.0...2.1.0)
 
 ### Enhancements
 * Support GitLab API v4
