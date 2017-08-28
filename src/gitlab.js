@@ -33,6 +33,20 @@ class GitLab {
   }
 
   loadProjectsBase(page, all_projects) {
+    const data = {
+      page: page,
+      per_page: this.per_page,
+      order_by: "name",
+      sort: "asc"
+    };
+
+    if (this.apiVersion >= 4) {
+      // Until v3, GET /projects returns that user is member.
+      // But since v4, GET /projects returns all projects visible to current user, even if the user is not a member.
+      // To get projects the user is a member of, use GET /projects?membership=true
+      data.membership = true;
+    }
+
     // List projects
     // GET /projects
     // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects
@@ -40,12 +54,7 @@ class GitLab {
     return m.request({
       url: `${this.api_path}/projects`,
       method: "GET",
-      data: {
-        page: page,
-        per_page: this.per_page,
-        order_by: "name",
-        sort: "asc"
-      },
+      data: data,
       headers: {
         "PRIVATE-TOKEN": this.private_token
       }
@@ -142,7 +151,13 @@ class GitLab {
         api_url = `${this.api_path}/projects/:project_id/issues/:target_id`;
         break;
       case "MergeRequest":
-        api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
+        if (this.apiVersion >= 4) {
+          // since v4
+          api_url = `${this.api_path}/projects/:project_id/merge_requests/:target_id`;
+        } else {
+          // until v3
+          api_url = `${this.api_path}/projects/:project_id/merge_request/:target_id`;
+        }
         break;
       case "Milestone":
         api_url = `${this.api_path}/projects/:project_id/milestones/:target_id`;
@@ -177,6 +192,14 @@ class GitLab {
 
       return Promise.resolve({target_id: id, target_url: url});
     });
+  }
+
+  get apiVersion(){
+    const ret = this.api_path.match(/\/api\/v([0-9]+)$/);
+    if (ret){
+      return parseInt(ret[1]);
+    }
+    return 0;
   }
 }
 

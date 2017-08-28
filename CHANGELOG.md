@@ -1,6 +1,14 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.0.0...master)
 
+### Enhancements
+* Support GitLab API v4
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/116
+
+### Note :warning:
+* If you want to use GitLab API v4, change **GitLab API Path** from `/api/v3` to `/api/v4` at option.
+  * Requirement GitLab v9.5.0+
+
 ## 2.0.0 (2017/05/04)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/1.4.3...2.0.0)
 
