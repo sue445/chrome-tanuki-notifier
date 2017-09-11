@@ -1,5 +1,12 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.2...master)
+
+## 2.1.2 (2017/09/12)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.1...2.1.2)
+
+* Fixed: missing note link with API v4
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/121
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/122
 
 ## 2.1.1 (2017/08/29)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.0...2.1.1)
