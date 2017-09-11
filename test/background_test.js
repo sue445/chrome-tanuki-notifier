@@ -365,10 +365,11 @@ describe("Background", () => {
       });
 
       context("When API v4", () => {
-        let target_id;
+        let target_id, noteable_iid;
 
         beforeEach(() => {
           target_id = 445;
+          noteable_iid = 10;
 
           background.gitlab = {
             apiVersion: 4,
@@ -401,7 +402,7 @@ describe("Background", () => {
               "created_at": "2015-12-04T10:33:56.698Z",
               "system": false,
               "noteable_id": 377,
-              "noteable_iid": 445,
+              "noteable_iid": noteable_iid,
               "noteable_type": "Issue"
             },
             "author": {
@@ -420,9 +421,9 @@ describe("Background", () => {
           notification.notify = (args) => {
             assert.deepEqual(args.project, project);
             assert.deepEqual(args.project_event, project_event);
-            assert(args.internal.target_id == target_id);
-            assert(args.internal.target_url == "http://example.com/sue445/example/issues/445#note_1312");
-            assert(args.message == "[Issue] #445 What an awesome day! commented on");
+            assert(args.internal.target_id == noteable_iid);
+            assert(args.internal.target_url == "http://example.com/sue445/example/issues/10#note_1312");
+            assert(args.message == "[Issue] #10 What an awesome day! commented on");
             assert(args.current_time == "2015-12-04T10:33:58.089Z");
             assert(args.author_id == 1);
             notify_count++;

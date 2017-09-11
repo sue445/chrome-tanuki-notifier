@@ -142,10 +142,10 @@ class Background {
           let url;
           switch (project_event.note.noteable_type) {
             case "Issue":
-              url = `${this.gitlab.gitlab_path}/${project.name}/issues/${project_event.target_iid}#note_${project_event.note.id}`;
+              url = `${this.gitlab.gitlab_path}/${project.name}/issues/${project_event.note.noteable_iid}#note_${project_event.note.id}`;
               break;
             case "MergeRequest":
-              url = `${this.gitlab.gitlab_path}/${project.name}/merge_requests/${project_event.target_iid}#note_${project_event.note.id}`;
+              url = `${this.gitlab.gitlab_path}/${project.name}/merge_requests/${project_event.note.noteable_iid}#note_${project_event.note.id}`;
               break;
           }
 
