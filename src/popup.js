@@ -67,6 +67,14 @@ app.view = function(vnode) {
         }, [
           m("i.fa.fa-gitlab[aria-hidden='true']"),
           "Go to GitLab"
+        ]),
+        m("button.goto.btn.btn-success", {
+          onclick: () => {
+            state.markAllAsRead();
+          }
+        }, [
+          m("i.fa.fa-check[aria-hidden='true']"),
+          "Mark all as read"
         ])
       ]),
     ]),
