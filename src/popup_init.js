@@ -27,6 +27,11 @@ window.onload = function() {
         config.clearCache();
       };
 
+      this.markAllAsRead = function () {
+        this.histories = [];
+        config.notifiedHistories = [];
+      };
+
       this.saveNotifiedHistories = function (histories) {
         config.notifiedHistories = histories;
       };
