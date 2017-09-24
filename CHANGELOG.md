@@ -1,5 +1,11 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.2...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.0...master)
+
+## 2.2.0 (2017/09/24)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.2...2.2.0)
+
+* add a button to mark all notifications as read
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/123
 
 ## 2.1.2 (2017/09/12)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.1...2.1.2)
