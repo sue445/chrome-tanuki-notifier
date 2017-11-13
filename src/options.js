@@ -243,11 +243,15 @@ app.view = function(vnode) {
     ]),
     m("button.save.btn.btn-primary", {onclick: saveOptions}, [
       m("span.glyphicon.glyphicon-save"),
-      "Save"
+      " Save"
     ]),
     m("button.clear.btn.btn-danger", {onclick: clearCache}, [
       m("span.glyphicon.glyphicon-trash"),
-      "Clear cache"
+      " Clear cache"
+    ]),
+    m("a.btn-info.btn[href='./trigger.html'][role='button']", [
+      m("span.glyphicon.glyphicon-send"),
+      " Trigger"
     ]),
     m("span.status", state.status_message),
     m("h2", "Repository Events"),
@@ -271,7 +275,7 @@ app.view = function(vnode) {
         }
       }, [
         m("span.glyphicon.glyphicon-refresh"),
-        "Refresh Repository List"
+        " Refresh Repository List"
       ])
     ]),
     m("table.table.table-striped.table-hover", [
