@@ -15,76 +15,29 @@ app.view = function(vnode) {
       return project.path_with_namespace.match(r);
     });
   };
+  const matchBranch = (project) => {
+    const keys = state.search_key.split(" ");
+    return keys.every((key) => {
+      const r = new RegExp(key, "i");
+      return project.path_with_namespace.match(r);
+    });
+  };
 
   const projectEvents = (project) => {
     const project_id = parseInt(project.id);
     const config_project = state.config_projects[project_id] || {};
     return config_project.events || {};
   };
-
-  const saveOptions = (event) => {
-    const projects = {};
-
-    if(state.gitlab.projects){
-      state.gitlab.projects.forEach((project) => {
-        const project_id = parseInt(project.id);
-        projects[project_id] = {
-          name:       project.path_with_namespace,
-          avatar_url: project.avatar_url,
-          events:     project.events
-        };
-      });
-    }
-
-    state.saveConfig(state, projects);
-
-    showStatus("Options Saved.");
-    event.preventDefault();
-  };
-
-  const selectProject = (event, project_event, checked) => {
-    if(!state.gitlab.projects) {
-      event.preventDefault();
-      return;
-    }
-
-    state.gitlab.projects.filter((project) =>{
-      return matchSearchKey(project);
-    }).forEach((project) => {
-      project.events[project_event] = checked;
-    });
-    event.preventDefault();
-  };
-
-  const clearCache = (event) => {
-    state.clearConfigCache();
-    showStatus("Cache cleared");
-    event.preventDefault();
-  };
-
-  const showStatus = (message) => {
-    state.status_message = message;
-    setTimeout(() => {
-      state.status_message = "";
-      m.redraw();
-    }, 750);
-  };
-  const showTriggerMsg = (message) => {
-    state.trigger_message = message;
-    setTimeout(() => {
-      state.trigger_message = "";
-      m.redraw();
-    }, 7500);
-  };
   const branchList = () => {
     if (!state.gitlab.branchs) {
       return m("li", m("div","------"));
     }
-    return state.gitlab.branchs.filter((branch) =>{ return "aaa"; }).map((branch) => {
+    return state.gitlab.branchs.filter((branch) =>{ 
+      return matchBranch(branch);
+    }).map((branch) => {
       return m("li",  m("a", {
         onclick: (e) => {
           var targ = e.target;
-          console.log( targ.innerText );
           $( "#curBranch" ).html( targ.innerText );
           e.preventDefault();
         }
@@ -105,12 +58,13 @@ app.view = function(vnode) {
     if (!state.gitlab.triggers) {
       return m("li.token", m("div","------"));
     }
-    return state.gitlab.triggers.filter((token) =>{ return "aaa"; }).map((token) => {
+    return state.gitlab.triggers.filter((token) =>{ 
+      return token; 
+    }).map((token) => {
       return m("li.token", 
         m("a", {
           onclick: (e) => {
             var targ = e.target;
-            console.log( targ.innerText );
             $( "#curToken" ).html( targ.innerText );
             e.preventDefault();
           }
@@ -154,7 +108,6 @@ app.view = function(vnode) {
         m('button.btn[id="projName"]', {
           onclick: (e) => {
             var targ = e.target;
-            console.log( targ.innerText );
             $( "#curProjName" ).html( targ.innerText );
             state.gitlab.loadBranchs( targ.innerText );
             e.preventDefault();
@@ -222,7 +175,6 @@ app.view = function(vnode) {
               method: "POST",
               data: data,
             }).then((message) => {
-              console.log( message );
               state.trigger_message = JSON.stringify(message);
             }).catch((e) => {
               alert(e);
