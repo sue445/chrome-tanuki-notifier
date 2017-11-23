@@ -80,23 +80,23 @@ app.view = function(vnode) {
     if (!state.gitlab.branchs) {
       return m("li", m("div","------"));
     }
-    return state.gitlab.branchs.filter((branch) =>{ return 'aaa'; }).map((branch) => {
-      return m("li",  m('a', {
-          onclick: (e) => {
-            var targ = e.target
-            console.log( targ.innerText )
-            $( "#curBranch" ).html( targ.innerText )
-            e.preventDefault();
-          }
-        }, 
-        branch.name
+    return state.gitlab.branchs.filter((branch) =>{ return "aaa"; }).map((branch) => {
+      return m("li",  m("a", {
+        onclick: (e) => {
+          var targ = e.target;
+          console.log( targ.innerText );
+          $( "#curBranch" ).html( targ.innerText );
+          e.preventDefault();
+        }
+      }, 
+      branch.name
       ));
     });
   };
   const branchBtn = () => {
-    return m('div.dropdown',[
+    return m("div.dropdown",[
       m('button.btn.btn-primary.btn-block.dropdown-toggle[type="button"][data-toggle="dropdown"]', [
-        "branch ", m('span.caret')
+        "branch ", m("span.caret")
       ]),
       m('ul.dropdown-menu[role="menu"]',branchList()),
     ]);
@@ -105,26 +105,26 @@ app.view = function(vnode) {
     if (!state.gitlab.triggers) {
       return m("li.token", m("div","------"));
     }
-    return state.gitlab.triggers.filter((token) =>{ return 'aaa'; }).map((token) => {
+    return state.gitlab.triggers.filter((token) =>{ return "aaa"; }).map((token) => {
       return m("li.token", 
-          m('a', {
+        m("a", {
           onclick: (e) => {
-            var targ = e.target
-            console.log( targ.innerText )
-            $( "#curToken" ).html( targ.innerText )
+            var targ = e.target;
+            console.log( targ.innerText );
+            $( "#curToken" ).html( targ.innerText );
             e.preventDefault();
           }
         }, 
         token.token)
-        );
+      );
     });
   };
   const tokenBtn = () => {
-    return m('div.dropdown',[
+    return m("div.dropdown",[
       m('button.btn.btn-primary.btn-block.dropdown-toggle[type="button"][data-toggle="dropdown"]', [
-        "token ", m('span.caret')
+        "token ", m("span.caret")
       ]),
-      m('ul.dropdown-menu', tokenList() ),
+      m("ul.dropdown-menu", tokenList() ),
     ]);
   };
 
@@ -145,7 +145,7 @@ app.view = function(vnode) {
       project.events = project.events || projectEvents(project);
 
       const names = [];
-      var avatar = '../img/gitlab_logo_48.png';
+      var avatar = "../img/gitlab_logo_48.png";
       if(project.avatar_url) {
         avatar = project.avatar_url;
       }
@@ -153,15 +153,15 @@ app.view = function(vnode) {
       names.push(
         m('button.btn[id="projName"]', {
           onclick: (e) => {
-            var targ = e.target
-            console.log( targ.innerText )
-            $( "#curProjName" ).html( targ.innerText )
-            state.gitlab.loadBranchs( targ.innerText )
+            var targ = e.target;
+            console.log( targ.innerText );
+            $( "#curProjName" ).html( targ.innerText );
+            state.gitlab.loadBranchs( targ.innerText );
             e.preventDefault();
           }
         }, 
         project.path_with_namespace
-      ) );
+        ) );
       return m("li.name", m("div",names));
     });
   };
@@ -196,42 +196,42 @@ app.view = function(vnode) {
         " Refresh Repository List"
       ])
     ]),
-    m('div.row', [
-      m('nav.col-sm-4[id=porjNav]', [
-        m('ul.nav.nav-pills.nav-stacked', projList()),
+    m("div.row", [
+      m("nav.col-sm-4[id=porjNav]", [
+        m("ul.nav.nav-pills.nav-stacked", projList()),
       ]),
-      m('nav.col-sm-6[id=porjNav]', [
-        m('div.row.form-group', [
-          m('nav.col-sm-3', m("button.btn.btn-primary.btn-block","project")),
-          m('nav.col-sm-7', m("button.btn.btn-block[id=curProjName]","Please select a Project")),
+      m("nav.col-sm-6[id=porjNav]", [
+        m("div.row.form-group", [
+          m("nav.col-sm-3", m("button.btn.btn-primary.btn-block","project")),
+          m("nav.col-sm-7", m("button.btn.btn-block[id=curProjName]","Please select a Project")),
         ]),
-        m('div.row.form-group', [
-          m('nav.col-sm-3', m("div",tokenBtn())),
-          m('nav.col-sm-7', m("button.btn.btn-block[id=curToken]","Please select a token")),
+        m("div.row.form-group", [
+          m("nav.col-sm-3", m("div",tokenBtn())),
+          m("nav.col-sm-7", m("button.btn.btn-block[id=curToken]","Please select a token")),
         ]),
-        m('div.row.form-group', [
-          m('nav.col-sm-3', m("div",branchBtn())),
-          m('nav.col-sm-7', m("button.btn.btn-block[id=curBranch]","Please select a branch")),
+        m("div.row.form-group", [
+          m("nav.col-sm-3", m("div",branchBtn())),
+          m("nav.col-sm-7", m("button.btn.btn-block[id=curBranch]","Please select a branch")),
         ]),
-        m('div.row.form-group', [
+        m("div.row.form-group", [
           m("button.btn-block.btn-primary.btn",{onclick: (e) => {
-            var data = { 'token': $( "#curToken" ).html(),
-             'ref': $( "#curBranch" ).html() };
+            var data = { "token": $( "#curToken" ).html(),
+              "ref": $( "#curBranch" ).html() };
             m.request({
               url: `${this.api_path}/projects/${state.gitlab.cur_proj_id}/trigger/builds`,
               method: "POST",
-                data: data,
+              data: data,
             }).then((message) => {
-              console.log( message )
-              state.trigger_message = JSON.stringify(message)
+              console.log( message );
+              state.trigger_message = JSON.stringify(message);
             }).catch((e) => {
               alert(e);
             });
             e.preventDefault();
           }},[m("span.glyphicon.glyphicon-send"),"  trigger"]),
         ]),
-        m('div.row.form-group', m("span.triggerMSG", state.trigger_message)),
-        m('div.row.form-group', m("span.pipeline_link", "")),
+        m("div.row.form-group", m("span.triggerMSG", state.trigger_message)),
+        m("div.row.form-group", m("span.pipeline_link", "")),
       ]),
     ]),
     m("span.status", state.status_message),
