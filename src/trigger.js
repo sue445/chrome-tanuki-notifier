@@ -15,13 +15,6 @@ app.view = function(vnode) {
       return project.path_with_namespace.match(r);
     });
   };
-  const matchBranch = (project) => {
-    const keys = state.search_key.split(" ");
-    return keys.every((key) => {
-      const r = new RegExp(key, "i");
-      return project.path_with_namespace.match(r);
-    });
-  };
 
   const projectEvents = (project) => {
     const project_id = parseInt(project.id);
@@ -33,7 +26,7 @@ app.view = function(vnode) {
       return m("li", m("div","------"));
     }
     return state.gitlab.branchs.filter((branch) =>{ 
-      return matchBranch(branch);
+      return branch;
     }).map((branch) => {
       return m("li",  m("a", {
         onclick: (e) => {
