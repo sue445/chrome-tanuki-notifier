@@ -83,7 +83,7 @@ class GitLab {
   }
 
   loadBranchs(cur_proj_name) {
-    var projId = encodeURIComponent(cur_proj_name)
+    var projId = encodeURIComponent(cur_proj_name);
     m.request({
       url: `${this.api_path}/projects/${projId}`,
       method: "GET",
@@ -91,13 +91,11 @@ class GitLab {
         "PRIVATE-TOKEN": this.private_token
       }
     }).then((proj) => {
-        this.cur_proj_name = proj.name_with_namespace
-        this.cur_proj_id = proj.id
-        console.log( proj.name_with_namespace )
-        console.log( proj.id )
-        this.loadTriggers();
-        this.branchs = null;
-        return this.loadBranchsBase(1, []);
+      this.cur_proj_name = proj.name_with_namespace;
+      this.cur_proj_id = proj.id;
+      this.loadTriggers();
+      this.branchs = null;
+      return this.loadBranchsBase(1, []);
     }).catch((e) => {
       alert(e);
       return Promise.reject();
@@ -111,7 +109,6 @@ class GitLab {
         "PRIVATE-TOKEN": this.private_token
       }
     }).then((trig) => {
-      console.log( trig )
       this.triggers = trig;
       return Promise.resolve(trig);
     }).catch((e) => {
