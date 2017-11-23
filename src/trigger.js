@@ -78,11 +78,10 @@ app.view = function(vnode) {
   };
   const branchList = () => {
     if (!state.gitlab.branchs) {
-      return m("li.branch", m("div","------"));
+      return m("li", m("div","------"));
     }
     return state.gitlab.branchs.filter((branch) =>{ return 'aaa'; }).map((branch) => {
-      return m("li.branch", m('div', 
-        m('a', {
+      return m("li",  m('a', {
           onclick: (e) => {
             var targ = e.target
             console.log( targ.innerText )
@@ -91,7 +90,7 @@ app.view = function(vnode) {
           }
         }, 
         branch.name
-      )) );
+      ));
     });
   };
   const branchBtn = () => {
@@ -99,7 +98,7 @@ app.view = function(vnode) {
       m('button.btn.btn-primary.btn-block.dropdown-toggle[type="button"][data-toggle="dropdown"]', [
         "branch ", m('span.caret')
       ]),
-      m('ul.dropdown-menu',branchList()),
+      m('ul.dropdown-menu[role="menu"]',branchList()),
     ]);
   };
   const tokenList = () => {
@@ -108,7 +107,6 @@ app.view = function(vnode) {
     }
     return state.gitlab.triggers.filter((token) =>{ return 'aaa'; }).map((token) => {
       return m("li.token", 
-        m("div",
           m('a', {
           onclick: (e) => {
             var targ = e.target
@@ -118,8 +116,7 @@ app.view = function(vnode) {
           }
         }, 
         token.token)
-        ),
-      );
+        );
     });
   };
   const tokenBtn = () => {
@@ -205,7 +202,7 @@ app.view = function(vnode) {
       ]),
       m('nav.col-sm-6[id=porjNav]', [
         m('div.row.form-group', [
-          m('nav.col-sm-3', m("span","project")),
+          m('nav.col-sm-3', m("button.btn.btn-primary.btn-block","project")),
           m('nav.col-sm-7', m("button.btn.btn-block[id=curProjName]","Please select a Project")),
         ]),
         m('div.row.form-group', [
