@@ -65,3 +65,15 @@ body {
     min-height: 0;
     padding: 10px;
 }
+
+i.fa {
+    margin-right: 6px;
+}
+
+span.glyphicon {
+    margin-right: 6px;
+}
+
+.btn {
+    margin-right: 12px;
+}
