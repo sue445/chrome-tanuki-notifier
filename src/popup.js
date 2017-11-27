@@ -82,7 +82,7 @@ app.view = function(vnode) {
           }
         }, [
           m("i.fa.fa-send[aria-hidden='true']"),
-          " ci trigger"
+          "ci trigger"
         ])
       ]),
     ]),
