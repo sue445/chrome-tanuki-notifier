@@ -108,7 +108,7 @@ app.view = function(vnode) {
   return m("div", [
     m("h2", [
       m("i.fa.fa-gitlab[aria-hidden='true']"),
-      " GitLab CI trigger",
+      "GitLab CI trigger",
     ]),    
     m("span.status", state.status_message),
     m("h2", "Repository List"),
@@ -132,7 +132,7 @@ app.view = function(vnode) {
         }
       }, [
         m("span.glyphicon.glyphicon-refresh"),
-        " Refresh Repository List"
+        "Refresh Repository List"
       ])
     ]),
     m("div.row", [
@@ -166,7 +166,7 @@ app.view = function(vnode) {
               alert(e);
             });
             e.preventDefault();
-          }},[m("span.glyphicon.glyphicon-send"),"  trigger"]),
+          }},[m("span.glyphicon.glyphicon-send"),"trigger"]),
         ]),
         m("div.row.form-group", m("span.triggerMSG", state.trigger_message)),
         m("div.row.form-group", m("span.pipeline_link", "")),
