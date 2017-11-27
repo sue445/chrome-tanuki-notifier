@@ -96,6 +96,7 @@ app.view = function(vnode) {
             var targ = e.target;
             $( "#curProjName" ).html( targ.innerText );
             state.gitlab.loadBranchs( targ.innerText );
+            state.gitlab.loadTriggers( targ.innerText );
             e.preventDefault();
           }
         }, 

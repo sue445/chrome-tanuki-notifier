@@ -11,7 +11,6 @@ class GitLab {
     this.projects = null;
     this.avatar_cache = args.avatar_cache;
     this.cur_proj_name = null;
-    this.cur_proj_id = null;
     this.branchs = null;
     this.triggers = null;
   }
@@ -82,63 +81,46 @@ class GitLab {
     });
   }
 
-  loadBranchs(cur_proj_name) {
-    var projId = encodeURIComponent(cur_proj_name);
+  loadTriggers(proj_name) {
+    var projId = encodeURIComponent(proj_name);
     m.request({
-      url: `${this.api_path}/projects/${projId}`,
+      url: `${this.api_path}/projects/${projId}/triggers`,
       method: "GET",
       headers: {
         "PRIVATE-TOKEN": this.private_token
       }
-    }).then((proj) => {
-      this.cur_proj_name = proj.name_with_namespace;
-      this.cur_proj_id = proj.id;
-      this.loadTriggers();
-      this.branchs = null;
-      return this.loadBranchsBase(1, []);
-    }).catch((e) => {
-      alert(e);
-      return Promise.reject();
-    });
-  }
-  loadTriggers() {
-    m.request({
-      url: `${this.api_path}/projects/${this.cur_proj_id}/triggers`,
-      method: "GET",
-      headers: {
-        "PRIVATE-TOKEN": this.private_token
-      }
-    }).then((trig) => {
-      this.triggers = trig;
-      return Promise.resolve(trig);
+    }).then((data) => {
+      this.triggers = data;
+      return Promise.resolve(data);
     }).catch((e) => {
       alert(e);
       return Promise.reject();
     });
   }
   
-
-  loadBranchsBase(page, all_branchs) {
+  loadBranchs(proj_name) {
+    if (this.api_path.length > 0){
+      this.branchs = null;
+      var proj_id = encodeURIComponent(proj_name);
+      return this.loadBranchsBase(proj_id, 1, []);
+    } else {
+      this.branchs = [];
+      return Promise.resolve(this.branchs);
+    }
+  }
+  loadBranchsBase(proj_id, page, all_branchs) {
     const data = {
       page: page,
       per_page: this.per_page,
       order_by: "name",
       sort: "asc"
     };
-
-    if (this.apiVersion >= 4) {
-      // Until v3, GET /projects returns that user is member.
-      // But since v4, GET /projects returns all projects visible to current user, even if the user is not a member.
-      // To get projects the user is a member of, use GET /projects?membership=true
-      data.membership = true;
-    }
-
     // List repository branches 
-    // GET /projects
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects
+    // GET /projects/:id/repository/branches
+    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/branches.md#list-repository-branches
     // NOTE: order_by and sort are supported by v7.7.0+. If no options, order_by created_at DESC
     return m.request({
-      url: `${this.api_path}/projects/${this.cur_proj_id}/repository/branches`,
+      url: `${this.api_path}/projects/${proj_id}/repository/branches`,
       method: "GET",
       data: data,
       headers: {
@@ -153,7 +135,7 @@ class GitLab {
         return Promise.resolve(all_branchs);
       } else {
         // paging
-        return this.loadBranchsBase(page + 1, all_branchs);
+        return this.loadBranchsBase(proj_id, page + 1, all_branchs);
       }
     }).catch((e) => {
       if(!this.branchs) {
