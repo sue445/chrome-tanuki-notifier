@@ -16,6 +16,9 @@ window.onload = function() {
       this.gitlab = GitLab.createFromConfig(config, localStorage);
       this.gitlab.loadProjects();
       this.trigger_message = "";
+      this.project_name  = "Please select a Project";
+      this.trigger_token = "Please select a   Token";
+      this.branch_name   = "Please select a  Branch";
 
       this.clearConfigCache = function () {
         config.clearCache();

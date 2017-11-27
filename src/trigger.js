@@ -25,8 +25,7 @@ app.view = function(vnode) {
     }).map((branch) => {
       return m("li",  m("a", {
         onclick: (e) => {
-          var targ = e.target;
-          $( "#curBranch" ).html( targ.innerText );
+          this.branch_name = branch.name;
           e.preventDefault();
         }
       }, 
@@ -52,8 +51,7 @@ app.view = function(vnode) {
       return m("li.token", 
         m("a", {
           onclick: (e) => {
-            var targ = e.target;
-            $( "#curToken" ).html( targ.innerText );
+            this.trigger_token = token.token;
             e.preventDefault();
           }
         }, 
@@ -93,10 +91,9 @@ app.view = function(vnode) {
       names.push(
         m('button.btn[id="projName"]', {
           onclick: (e) => {
-            var targ = e.target;
-            $( "#curProjName" ).html( targ.innerText );
-            state.gitlab.loadBranchs( targ.innerText );
-            state.gitlab.loadTriggers( targ.innerText );
+            this.project_name = project.path_with_namespace;
+            state.gitlab.loadBranchs( this.project_name );
+            state.gitlab.loadTriggers( this.project_name );
             e.preventDefault();
           }
         }, 
@@ -143,22 +140,25 @@ app.view = function(vnode) {
       m("nav.col-sm-6[id=porjNav]", [
         m("div.row.form-group", [
           m("nav.col-sm-3", m("button.btn.btn-primary.btn-block","project")),
-          m("nav.col-sm-7", m("button.btn.btn-block[id=curProjName]","Please select a Project")),
+          m("nav.col-sm-7", m("button.btn.btn-block", this.project_name)),
         ]),
         m("div.row.form-group", [
           m("nav.col-sm-3", m("div",tokenBtn())),
-          m("nav.col-sm-7", m("button.btn.btn-block[id=curToken]","Please select a token")),
+          m("nav.col-sm-7", m("button.btn.btn-block", this.trigger_token)),
         ]),
         m("div.row.form-group", [
           m("nav.col-sm-3", m("div",branchBtn())),
-          m("nav.col-sm-7", m("button.btn.btn-block[id=curBranch]","Please select a branch")),
+          m("nav.col-sm-7", m("button.btn.btn-block", this.branch_name)),
         ]),
         m("div.row.form-group", [
           m("button.btn-block.btn-primary.btn",{onclick: (e) => {
-            var data = { "token": $( "#curToken" ).html(),
-              "ref": $( "#curBranch" ).html() };
+            var data = { 
+              "token": this.trigger_token,
+              "ref"  : this.branch_name, 
+            };
+            var projId = encodeURIComponent(this.project_name);
             m.request({
-              url: `${this.api_path}/projects/${state.gitlab.cur_proj_id}/trigger/builds`,
+              url: `${this.api_path}/projects/${projId}/trigger/builds`,
               method: "POST",
               data: data,
             }).then((message) => {
