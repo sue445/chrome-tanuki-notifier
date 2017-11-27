@@ -16,11 +16,6 @@ app.view = function(vnode) {
     });
   };
 
-  const projectEvents = (project) => {
-    const project_id = parseInt(project.id);
-    const config_project = state.config_projects[project_id] || {};
-    return config_project.events || {};
-  };
   const branchList = () => {
     if (!state.gitlab.branchs) {
       return m("li", m("div","------"));
@@ -89,8 +84,6 @@ app.view = function(vnode) {
     return state.gitlab.projects.filter((project) =>{
       return matchSearchKey(project);
     }).map((project) => {
-      project.events = project.events || projectEvents(project);
-
       const names = [];
       var avatar = "../img/gitlab_logo_48.png";
       if(project.avatar_url) {
