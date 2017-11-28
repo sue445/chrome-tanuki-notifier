@@ -196,7 +196,10 @@ app.view = function(vnode) {
         ])
       ])
     ]),
-    m("h2", "Notification Setting"),
+    m("h2", [
+      m("i.fa.fa-bell[aria-hidden='true']"),
+      "Notification Setting"]
+    ),
     m(".form-horizontal[role='form']", [
       m(".form-group", [
         m("label.col-sm-3.control-label[for='polling_second']", "Polling interval"),
@@ -254,7 +257,9 @@ app.view = function(vnode) {
       "Trigger"
     ]),
     m("span.status", state.status_message),
-    m("h2", "Repository Events"),
+    m("h2", [
+      m("i.fa.fa-envelope[aria-hidden='true']"),
+      "Repository Events"]),
     m("form.form-inline[role='form']", [
       m(".form-group.col-xs-4", [
         m(".input-group", [
