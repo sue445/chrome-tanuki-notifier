@@ -161,6 +161,23 @@ app.view = function(vnode) {
       ]);
     });
   };
+  const quickSelectCol = (column) => {
+    return [
+      m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, column, true); } }, "All"),
+      " / ",
+      m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, column, false); } }, "None")
+    ];
+  };
+  const quickSelect = () => {
+    return m("tr", [
+      m("th.projects-name", "Project name"),
+      m("th", quickSelectCol("Commit")),
+      m("th", quickSelectCol("Issue")),
+      m("th", quickSelectCol("MergeRequest")),
+      m("th", quickSelectCol("Milestone")),
+      m("th")
+    ]);
+  };
 
   return m("div", [
     m("h2", [
@@ -280,59 +297,9 @@ app.view = function(vnode) {
       ])
     ]),
     m("table.table.table-striped.table-hover", [
-      m("thead", [
-        m("tr", [
-          m("th.projects-name", "Project name"),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false); } }, "None")
-          ]),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false); } }, "None")
-          ]),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false); } }, "None")
-          ]),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false); } }, "None")
-          ]),
-          m("th")
-        ])
-      ]),
+      m("thead", quickSelect() ),
       m("tbody[id='projects']", projects()),
-      m("tfoot", [
-        m("tr", [
-          m("th.projects-name", "Project name"),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Commit", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Commit", false); } }, "None")
-          ]),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Issue", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Issue", false); } }, "None")
-          ]),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "MergeRequest", false); } }, "None")
-          ]),
-          m("th", [
-            m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, "Milestone", true); } }, "All"),
-            " / ",
-            m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, "Milestone", false); } }, "None")
-          ]),
-          m("th")
-        ])
-      ])
+      m("tfoot", quickSelect() )
     ]),
     m("button.save.btn.btn-primary", {onclick: saveOptions}, [
       m("span.glyphicon.glyphicon-save"),
