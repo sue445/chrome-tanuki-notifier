@@ -111,9 +111,7 @@ class GitLab {
   loadBranchsBase(proj_id, page, all_branchs) {
     const data = {
       page: page,
-      per_page: this.per_page,
-      order_by: "name",
-      sort: "asc"
+      per_page: this.per_page
     };
     // List repository branches 
     // GET /projects/:id/repository/branches
