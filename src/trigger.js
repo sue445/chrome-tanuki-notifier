@@ -107,9 +107,7 @@ app.view = function(vnode) {
     m("h2", [
       m("i.fa.fa-gitlab[aria-hidden='true']"),
       "GitLab CI trigger",
-    ]),    
-    m("span.status", state.status_message),
-    m("h2", "Repository List"),
+    ]),
     m("form.form-inline[role='form']", [
       m(".form-group.col-xs-4", [
         m(".input-group", [
