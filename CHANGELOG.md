@@ -1,6 +1,15 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.0...master)
 
+## 2.3.0 (2017/12/04)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.2.0...2.3.0)
+
+* Add ci trigger page
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/124
+* Refactorings
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/125
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/127
+
 ## 2.2.0 (2017/09/24)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.1.2...2.2.0)
 
