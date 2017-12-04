@@ -11,7 +11,7 @@ class GitLab {
     this.projects = null;
     this.avatar_cache = args.avatar_cache;
     this.cur_proj_name = null;
-    this.branchs = null;
+    this.branches = null;
     this.triggers = null;
   }
 
@@ -98,17 +98,17 @@ class GitLab {
     });
   }
   
-  loadBranchs(proj_name) {
+  loadBranches(proj_name) {
     if (this.api_path.length > 0){
-      this.branchs = null;
+      this.branches = null;
       var proj_id = encodeURIComponent(proj_name);
-      return this.loadBranchsBase(proj_id, 1, []);
+      return this.loadBranchesBase(proj_id, 1, []);
     } else {
-      this.branchs = [];
-      return Promise.resolve(this.branchs);
+      this.branches = [];
+      return Promise.resolve(this.branches);
     }
   }
-  loadBranchsBase(proj_id, page, all_branchs) {
+  loadBranchesBase(proj_id, page, all_branches) {
     const data = {
       page: page,
       per_page: this.per_page
@@ -124,20 +124,20 @@ class GitLab {
       headers: {
         "PRIVATE-TOKEN": this.private_token
       }
-    }).then((branchs) => {
-      all_branchs = all_branchs.concat(branchs);
+    }).then((branches) => {
+      all_branches = all_branches.concat(branches);
 
-      if (branchs.length < this.per_page) {
+      if (branches.length < this.per_page) {
         // final page
-        this.branchs = all_branchs;
-        return Promise.resolve(all_branchs);
+        this.branches = all_branches;
+        return Promise.resolve(all_branches);
       } else {
         // paging
-        return this.loadBranchsBase(proj_id, page + 1, all_branchs);
+        return this.loadBranchesBase(proj_id, page + 1, all_branches);
       }
     }).catch((e) => {
-      if(!this.branchs) {
-        this.branchs = [];
+      if(!this.branches) {
+        this.branches = [];
       }
       alert(e);
       return Promise.reject();

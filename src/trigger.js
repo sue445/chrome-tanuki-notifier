@@ -17,10 +17,10 @@ app.view = function(vnode) {
   };
 
   const branchList = () => {
-    if (!state.gitlab.branchs) {
+    if (!state.gitlab.branches) {
       return m("li", m("div","------"));
     }
-    return state.gitlab.branchs.filter((branch) =>{ 
+    return state.gitlab.branches.filter((branch) =>{ 
       return branch;
     }).map((branch) => {
       return m("li",  m("a", {
@@ -92,7 +92,7 @@ app.view = function(vnode) {
         m('button.btn[id="projName"]', {
           onclick: (e) => {
             this.project_name = project.path_with_namespace;
-            state.gitlab.loadBranchs( this.project_name );
+            state.gitlab.loadBranches( this.project_name );
             state.gitlab.loadTriggers( this.project_name );
             e.preventDefault();
           }
