@@ -10,6 +10,9 @@ class GitLab {
     this.per_page = args.per_page || 100;
     this.projects = null;
     this.avatar_cache = args.avatar_cache;
+    this.cur_proj_name = null;
+    this.branches = null;
+    this.triggers = null;
   }
 
   static createFromConfig(config, storage) {
@@ -72,6 +75,69 @@ class GitLab {
     }).catch((e) => {
       if(!this.projects) {
         this.projects = [];
+      }
+      alert(e);
+      return Promise.reject();
+    });
+  }
+
+  loadTriggers(proj_name) {
+    var projId = encodeURIComponent(proj_name);
+    m.request({
+      url: `${this.api_path}/projects/${projId}/triggers`,
+      method: "GET",
+      headers: {
+        "PRIVATE-TOKEN": this.private_token
+      }
+    }).then((data) => {
+      this.triggers = data;
+      return Promise.resolve(data);
+    }).catch((e) => {
+      alert(e);
+      return Promise.reject();
+    });
+  }
+  
+  loadBranches(proj_name) {
+    if (this.api_path.length > 0){
+      this.branches = null;
+      var proj_id = encodeURIComponent(proj_name);
+      return this.loadBranchesBase(proj_id, 1, []);
+    } else {
+      this.branches = [];
+      return Promise.resolve(this.branches);
+    }
+  }
+  loadBranchesBase(proj_id, page, all_branches) {
+    const data = {
+      page: page,
+      per_page: this.per_page
+    };
+    // List repository branches 
+    // GET /projects/:id/repository/branches
+    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/branches.md#list-repository-branches
+    // NOTE: order_by and sort are supported by v7.7.0+. If no options, order_by created_at DESC
+    return m.request({
+      url: `${this.api_path}/projects/${proj_id}/repository/branches`,
+      method: "GET",
+      data: data,
+      headers: {
+        "PRIVATE-TOKEN": this.private_token
+      }
+    }).then((branches) => {
+      all_branches = all_branches.concat(branches);
+
+      if (branches.length < this.per_page) {
+        // final page
+        this.branches = all_branches;
+        return Promise.resolve(all_branches);
+      } else {
+        // paging
+        return this.loadBranchesBase(proj_id, page + 1, all_branches);
+      }
+    }).catch((e) => {
+      if(!this.branches) {
+        this.branches = [];
       }
       alert(e);
       return Promise.reject();

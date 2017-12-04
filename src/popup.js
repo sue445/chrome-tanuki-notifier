@@ -75,6 +75,14 @@ app.view = function(vnode) {
         }, [
           m("i.fa.fa-check[aria-hidden='true']"),
           "Mark all as read"
+        ]),
+        m("button.ciTrigger.btn.btn-info", {
+          onclick: () => {
+            window.open("trigger.html");
+          }
+        }, [
+          m("i.fa.fa-send[aria-hidden='true']"),
+          "ci trigger"
         ])
       ]),
     ]),

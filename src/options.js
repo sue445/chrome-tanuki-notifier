@@ -269,6 +269,10 @@ app.view = function(vnode) {
       m("span.glyphicon.glyphicon-trash"),
       "Clear cache"
     ]),
+    m("a.btn-info.btn[href='./trigger.html'][role='button']", [
+      m("span.glyphicon.glyphicon-send"),
+      "Trigger"
+    ]),
     m("span.status", state.status_message),
     m("h2", [
       m("i.fa.fa-envelope[aria-hidden='true']"),
