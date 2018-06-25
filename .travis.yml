@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "7"
+  - "10"
 cache: yarn
 before_script:
 - export CODECLIMATE_REPO_TOKEN=16f8346ea06caac0156fab512cbafa725334f2b3a60c9ef10d8f5626d221a795
