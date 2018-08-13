@@ -145,4 +145,13 @@ describe("Notification", () => {
       });
     });
   });
+
+  describe("#sanitizeUrl()", () => {
+    it("should be sanitized", () => {
+      assert(notification.sanitizeUrl("https://example.com/namespace/repo/")                        == "https://example.com/namespace/repo/");
+      assert(notification.sanitizeUrl("https://example.com//namespace/repo/")                       == "https://example.com/namespace/repo/");
+      assert(notification.sanitizeUrl("http://example.com//namespace/repo/")                        == "http://example.com/namespace/repo/");
+      assert(notification.sanitizeUrl("https://example.com//namespace/repo/issues/1#note_12345678") == "https://example.com/namespace/repo/issues/1#note_12345678");
+    });
+  });
 });

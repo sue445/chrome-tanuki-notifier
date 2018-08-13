@@ -60,4 +60,13 @@ describe("Popup", () => {
     assert(vnode.tag == "div");
     assert(vnode.children.length > 0);
   });
+
+  describe("#sanitizeUrl()", () => {
+    it("should be sanitized", () => {
+      assert(Popup.sanitizeUrl("https://example.com/namespace/repo/")                        == "https://example.com/namespace/repo/");
+      assert(Popup.sanitizeUrl("https://example.com//namespace/repo/")                       == "https://example.com/namespace/repo/");
+      assert(Popup.sanitizeUrl("http://example.com//namespace/repo/")                        == "http://example.com/namespace/repo/");
+      assert(Popup.sanitizeUrl("https://example.com//namespace/repo/issues/1#note_12345678") == "https://example.com/namespace/repo/issues/1#note_12345678");
+    });
+  });
 });
