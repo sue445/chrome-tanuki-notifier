@@ -6,6 +6,16 @@ try {
 
 const app = {};
 
+app.sanitizeUrl = function(url){
+  if(!url){
+    return url;
+  }
+  // e.g. https://example.com//namespace/repo -> https://example.com/namespace/repo
+  return url.replace(/(https?):\/\/(.+?)\/\//, (match, p1, p2) => {
+    return `${p1}://${p2}/`;
+  });
+};
+
 app.view = function(vnode) {
   const state = vnode.state;
 
@@ -135,7 +145,7 @@ app.view = function(vnode) {
             state.saveNotifiedHistories(state.histories);
           }
         }),
-        m("a.eventLink", {href: project_event.target_url, target: "_blank"}, message),
+        m("a.eventLink", {href: app.sanitizeUrl(project_event.target_url), target: "_blank"}, message),
       ]);
     }))
   ]);

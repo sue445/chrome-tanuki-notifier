@@ -50,7 +50,7 @@ class Notification {
     const notification_id = args.notification_id;
     const title           = args.title;
     const message         = args.message;
-    const target_url      = args.target_url;
+    const target_url      = this.sanitizeUrl(args.target_url);
 
     this.chrome.notifications.create(
       JSON.stringify({notification_id: notification_id, target_url: target_url}),
@@ -70,6 +70,16 @@ class Notification {
   incNotificationCount(){
     this.notification_count ++;
     this.chrome.browserAction.setBadgeText({text: String(this.notification_count)});
+  }
+
+  sanitizeUrl(url){
+    if(!url){
+      return url;
+    }
+    // e.g. https://example.com//namespace/repo -> https://example.com/namespace/repo
+    return url.replace(/(https?):\/\/(.+?)\/\//, (match, p1, p2) => {
+      return `${p1}://${p2}/`;
+    });
   }
 
   set badgeText(value){
