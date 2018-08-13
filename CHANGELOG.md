@@ -1,5 +1,14 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.1...master)
+
+## 2.3.1 (2018/08/14)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.0...2.3.1)
+
+* Upgrade to Mithril.js v1.1.6
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/129
+* Fixed. invalid double-slash url
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/177
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/178
 
 ## 2.3.0 (2017/12/04)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.2.0...2.3.0)
