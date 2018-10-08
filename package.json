@@ -16,7 +16,7 @@
     "mithril": "^1.1.6"
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.5.0",
+    "codeclimate-test-reporter": "^0.5.1",
     "eslint": "^5.6.1",
     "intelli-espower-loader": "^1.0.1",
     "istanbul": "^0.4.5",
