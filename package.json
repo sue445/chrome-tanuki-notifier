@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.5.1",
-    "eslint": "^5.11.0",
+    "eslint": "^5.11.1",
     "intelli-espower-loader": "^1.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
