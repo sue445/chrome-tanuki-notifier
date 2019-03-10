@@ -24,5 +24,4 @@ update_configs:
           dependency_type: "production"
           update_type: "semver:patch"
 
-    # Enable. Only lockfile updates (ignore updates that require Gemfile changes)
-    version_requirement_updates: "off"
+    version_requirement_updates: "auto"
