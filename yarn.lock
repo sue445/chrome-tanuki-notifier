@@ -726,8 +726,8 @@ espower-source@^2.0.0:
     xtend "^4.0.0"
 
 espower@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/espower/-/espower-2.1.0.tgz#ce1edb3d98702841fdf596d1cb8e85bdc4ae8e48"
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/espower/-/espower-2.1.2.tgz#824f88788f9fedf4cf0f928f5e11bb907ce9b918"
   dependencies:
     array-find "^1.0.0"
     escallmatch "^1.5.0"
@@ -738,7 +738,6 @@ espower@^2.0.0:
     estraverse "^4.1.0"
     source-map "^0.5.0"
     type-name "^2.0.0"
-    xtend "^4.0.0"
 
 espree@^5.0.1:
   version "5.0.1"
