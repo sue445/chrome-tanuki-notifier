@@ -1835,8 +1835,8 @@ power-assert-context-reducer-ast@^1.0.7:
     estraverse "^4.2.0"
 
 power-assert-context-traversal@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/power-assert-context-traversal/-/power-assert-context-traversal-1.1.1.tgz#88cabca0d13b6359f07d3d3e8afa699264577ed9"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/power-assert-context-traversal/-/power-assert-context-traversal-1.2.0.tgz#f6e71454baf640de5c1c9c270349f5c9ab0b2e94"
   dependencies:
     core-js "^2.0.0"
     estraverse "^4.1.0"
