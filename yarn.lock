@@ -1041,8 +1041,8 @@ global-prefix@^1.0.1:
     which "^1.2.14"
 
 globals@^11.7.0:
-  version "11.7.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-11.7.0.tgz#a583faa43055b1aca771914bf68258e2fc125673"
+  version "11.11.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.11.0.tgz#dcf93757fa2de5486fbeed7118538adf789e9c2e"
 
 "graceful-readlink@>= 1.0.0":
   version "1.0.1"
