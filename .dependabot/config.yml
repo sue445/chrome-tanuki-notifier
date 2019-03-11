@@ -6,7 +6,7 @@ update_configs:
 
     directory: "/"
 
-    update_schedule: "daily"
+    update_schedule: "weekly"
 
     default_assignees:
       - sue445
