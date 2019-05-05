@@ -810,8 +810,8 @@ glob@^5.0.15:
     path-is-absolute "^1.0.0"
 
 globals@^11.7.0:
-  version "11.11.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-11.11.0.tgz#dcf93757fa2de5486fbeed7118538adf789e9c2e"
+  version "11.12.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
 
 "graceful-readlink@>= 1.0.0":
   version "1.0.1"
