@@ -274,8 +274,8 @@ convert-source-map@^1.1.0, convert-source-map@^1.1.1:
     safe-buffer "~5.1.1"
 
 core-js@^2.0.0:
-  version "2.6.5"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.6.tgz#00eb6d6bf815471cc16d8563edd7d38786dec50b"
 
 core-util-is@1.0.2:
   version "1.0.2"
