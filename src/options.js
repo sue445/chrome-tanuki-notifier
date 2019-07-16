@@ -135,7 +135,7 @@ app.view = function(vnode) {
               checked: project.events.MergeRequest ,
               onclick: m.withAttr("checked", (value) => { project.events.MergeRequest = value; } ),
             }),
-            m("i.fa.fa-check-square-o[title='MergeRequest' aria-hidden='true']"),
+            m("i.fa.fa-code-fork[title='MergeRequest' aria-hidden='true']"),
             "MergeRequest",
           ]),
         ]),
