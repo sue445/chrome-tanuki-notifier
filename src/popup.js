@@ -46,7 +46,7 @@ app.view = function(vnode) {
       case "Issue":
         return m("i.fa.fa-exclamation-circle", {title: target_type});
       case "MergeRequest":
-        return m("i.fa.fa-check-square-o", {title: target_type});
+        return m("i.fa.fa-code-fork", {title: target_type});
       case "Milestone":
         return m("i.fa.fa-calendar", {title: target_type});
       case "Note":
