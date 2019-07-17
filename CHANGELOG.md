@@ -1,5 +1,11 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.1...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.2...master)
+
+## 2.3.2 (2019/07/17)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.1...2.3.2)
+
+* Change merge request icon to code fork
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/329
 
 ## 2.3.1 (2018/08/14)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.0...2.3.1)
