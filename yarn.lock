@@ -1177,9 +1177,9 @@ minimist@~0.0.1:
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
-mithril@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/mithril/-/mithril-1.1.6.tgz#bd2cc0de3d3c86076a6a7a30367a601a1bd108f3"
+mithril@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/mithril/-/mithril-2.0.1.tgz#3454fb7ed228403b91a02f5acc0f810d4bb403ca"
 
 mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.1:
   version "0.5.1"
