@@ -13,7 +13,7 @@
   "author": "sue445",
   "license": "MIT",
   "dependencies": {
-    "mithril": "^1.1.6"
+    "mithril": "^2.0.3"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.5.1",
