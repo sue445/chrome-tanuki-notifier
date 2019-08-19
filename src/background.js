@@ -31,7 +31,7 @@ class Background {
     const target_type = project_event.target_type || "Commit";
 
     let comment_target_type;
-    if(target_type == "Note" && project_event.action_name == "commented on"){
+    if((target_type == "Note" || target_type == "DiffNote" ) && project_event.action_name == "commented on"){
       comment_target_type = project_event.note.noteable_type;
     }
 
@@ -135,6 +135,7 @@ class Background {
         });
       }
 
+      case "DiffNote":
       case "Note": {
         // Issue, MergeRequest (Comment)
         if(this.gitlab.apiVersion >= 4){
