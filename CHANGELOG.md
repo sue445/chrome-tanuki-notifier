@@ -1,5 +1,11 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.2...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.4.0...master)
+
+## 2.4.0 (2019/08/20)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.2...2.4.0)
+
+* Add support for Review Diff Comment
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/351
 
 ## 2.3.2 (2019/07/17)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.1...2.3.2)
