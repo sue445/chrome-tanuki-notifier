@@ -3,7 +3,7 @@
 
   "name": "GitLab Notifier for Google Chrome™",
   "description": "Notify GitLab events (Commit, Issue, MergeRequest and Milestone)",
-  "version": "2.3.2",
+  "version": "2.4.0",
 
   "icons": {
     "16": "img/gitlab_logo_16.png",
