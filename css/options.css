@@ -1,6 +1,6 @@
 .name .icon {
     margin-left: 24px;
-    margin-right: 5px;
+    margin-right: 10px;
     width: 24px;
     height: 24px;
 }
@@ -16,13 +16,46 @@
 }
 
 i.fa {
-    margin-right: 6px;
+    margin: 0 6px;
 }
 
 span.glyphicon {
     margin-right: 6px;
 }
 
-.btn {
+.btn,
+h2 > i.fa {
     margin-right: 12px;
+}
+
+td.Commit,
+td.Issue,
+td.MergeRequest,
+td.Milestone,
+th.quickSelectCol {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.form-custom {
+    display: flex;
+    justify-content: space-between;
+}
+
+h2 {
+    margin: 24px 0 18px 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 12px 0;
+}
+
+.select-all,
+.line-select-all,
+.select-none,
+.line-select-none {
+    font-size: 18px;
+    font-weight: 600;
 }
