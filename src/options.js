@@ -110,72 +110,65 @@ app.view = function(vnode) {
       return m("tr", [
         m("td.name", names),
         m("td.Commit", [
-          m("label.checkbox-inline", [
-            m("input[type='checkbox']", {
-              checked: project.events.Commit,
-              onclick: m.withAttr("checked", (value) => { project.events.Commit = value; } ),
-            }),
-            m("i.fa.fa-upload[title='Commit' aria-hidden='true']"),
-            "Commit",
-          ]),
+          m("input[type='checkbox']", {
+            checked: project.events.Commit,
+            onclick: m.withAttr("checked", (value) => { project.events.Commit = value; } ),
+          })
         ]),
         m("td.Issue", [
-          m("label.checkbox-inline", [
-            m("input[type='checkbox']", {
-              checked: project.events.Issue ,
-              onclick: m.withAttr("checked", (value) => { project.events.Issue = value; } ),
-            }),
-            m("i.fa.fa-exclamation-circle[title='Issue' aria-hidden='true']"),
-            "Issue",
-          ]),
+          m("input[type='checkbox']", {
+            checked: project.events.Issue ,
+            onclick: m.withAttr("checked", (value) => { project.events.Issue = value; } ),
+          })
         ]),
         m("td.MergeRequest", [
-          m("label.checkbox-inline", [
-            m("input[type='checkbox']", {
-              checked: project.events.MergeRequest ,
-              onclick: m.withAttr("checked", (value) => { project.events.MergeRequest = value; } ),
-            }),
-            m("i.fa.fa-code-fork[title='MergeRequest' aria-hidden='true']"),
-            "MergeRequest",
-          ]),
+          m("input[type='checkbox']", {
+            checked: project.events.MergeRequest ,
+            onclick: m.withAttr("checked", (value) => { project.events.MergeRequest = value; } ),
+          })
         ]),
         m("td.Milestone", [
-          m("label.checkbox-inline", [
-            m("input[type='checkbox']", {
-              checked: project.events.Milestone ,
-              onclick: m.withAttr("checked", (value) => { project.events.Milestone = value; } ),
-            }),
-            m("i.fa.fa-calendar[title='Milestone' aria-hidden='true']"),
-            "Milestone",
-          ]),
+          m("input[type='checkbox']", {
+            checked: project.events.Milestone ,
+            onclick: m.withAttr("checked", (value) => { project.events.Milestone = value; } ),
+          })
         ]),
         m("td", [
           m("a.line-select-all[href='#']", {
             onclick: (event) => { select_events(event, true );}
-          }, "All"),
+          }, "+"),
           " / ",
           m("a.line-select-none[href='#']", {
             onclick: (event) => { select_events(event, false );}
-          }, "None"),
+          }, "-"),
         ]),
       ]);
     });
   };
+  const tHeaderProjects = () => {
+    return m("tr", [
+      m("th.projects-name", "Project name"),
+      m("th", [m("i.fa.fa-upload[title='Commit' aria-hidden='true']"), "Commit"]),
+      m("th", [m("i.fa.fa-exclamation-circle[title='Issue' aria-hidden='true']"), "Issue",]),
+      m("th", [m("i.fa.fa-code-fork[title='MergeRequest' aria-hidden='true']"), "MergeRequest",]),
+      m("th", [m("i.fa.fa-calendar[title='Milestone' aria-hidden='true']"), "Milestone"])
+    ]);
+  };
   const quickSelectCol = (column) => {
     return [
-      m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, column, true); } }, "All"),
+      m("a.select-all[href='#']", { onclick: (event) => { selectProject(event, column, true); } }, "+"),
       " / ",
-      m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, column, false); } }, "None")
+      m("a.select-none[href='#']", { onclick: (event) => { selectProject(event, column, false); } }, "-")
     ];
   };
   const quickSelect = () => {
     return m("tr", [
-      m("th.projects-name", "Project name"),
-      m("th", quickSelectCol("Commit")),
-      m("th", quickSelectCol("Issue")),
-      m("th", quickSelectCol("MergeRequest")),
-      m("th", quickSelectCol("Milestone")),
-      m("th")
+      m("th.projects-name", ""),
+      m("th.quickSelectCol", quickSelectCol("Commit")),
+      m("th.quickSelectCol", quickSelectCol("Issue")),
+      m("th.quickSelectCol", quickSelectCol("MergeRequest")),
+      m("th.quickSelectCol", quickSelectCol("Milestone")),
+      m("th.quickSelectCol")
     ]);
   };
 
@@ -261,23 +254,27 @@ app.view = function(vnode) {
         ])
       ])
     ]),
-    m("button.save.btn.btn-primary", {onclick: saveOptions}, [
-      m("span.glyphicon.glyphicon-save"),
-      "Save"
-    ]),
-    m("button.clear.btn.btn-danger", {onclick: clearCache}, [
-      m("span.glyphicon.glyphicon-trash"),
-      "Clear cache"
-    ]),
-    m("a.btn-info.btn[href='./trigger.html'][role='button']", [
-      m("span.glyphicon.glyphicon-send"),
-      "Trigger"
+    m("div.buttons",
+      m("a.btn-info.btn[href='./trigger.html'][role='button']", [
+        m("span.glyphicon.glyphicon-send"),
+        "Trigger"
+      ])
+    ),
+    m("div.buttons", [
+      m("button.clear.btn.btn-danger", {onclick: clearCache}, [
+        m("span.glyphicon.glyphicon-trash"),
+        "Clear cache"
+      ]),
+      m("button.save.btn.btn-primary", {onclick: saveOptions}, [
+        m("span.glyphicon.glyphicon-save"),
+        "Save"
+      ]),
     ]),
     m("span.status", state.status_message),
     m("h2", [
       m("i.fa.fa-envelope[aria-hidden='true']"),
       "Repository Events"]),
-    m("form.form-inline[role='form']", [
+    m("form.form-inline[role='form'].form-custom", [
       m(".form-group.col-xs-4", [
         m(".input-group", [
           m(".input-group-addon", [
@@ -301,17 +298,19 @@ app.view = function(vnode) {
       ])
     ]),
     m("table.table.table-striped.table-hover", [
-      m("thead", quickSelect() ),
+      m("thead", tHeaderProjects() ),
       m("tbody[id='projects']", projects()),
       m("tfoot", quickSelect() )
     ]),
-    m("button.save.btn.btn-primary", {onclick: saveOptions}, [
-      m("span.glyphicon.glyphicon-save"),
-      "Save"
-    ]),
-    m("button.clear.btn.btn-danger", {onclick: clearCache}, [
-      m("span.glyphicon.glyphicon-trash"),
-      "Clear cache"
+    m("div.buttons", [
+      m("button.clear.btn.btn-danger", {onclick: clearCache}, [
+        m("span.glyphicon.glyphicon-trash"),
+        "Clear cache"
+      ]),
+      m("button.save.btn.btn-primary", {onclick: saveOptions}, [
+        m("span.glyphicon.glyphicon-save"),
+        "Save"
+      ])
     ]),
     m("span.status", state.status_message),
   ]);
