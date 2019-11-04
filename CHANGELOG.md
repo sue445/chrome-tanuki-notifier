@@ -1,5 +1,11 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.4.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.4.1...master)
+
+## 2.4.1 (2019/11/04)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.4.0...2.4.1)
+
+* Improve design options page
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/392
 
 ## 2.4.0 (2019/08/20)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.3.2...2.4.0)
