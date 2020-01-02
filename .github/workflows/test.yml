@@ -32,12 +32,22 @@ jobs:
 
       - run: yarn install
 
-      - name: Run test and lint
-        run: |
-          set -xe
-          npm run test:coverage
-          codeclimate-test-reporter < coverage/lcov.info
-          npm run lint
+      - name: Setup Code Climate Test Reporter
+        uses: aktions/codeclimate-test-reporter@v1
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          command: before-build
+
+      - run: npm run test:coverage
+
+      - name: Teardown Code Climate Test Reporter
+        uses: aktions/codeclimate-test-reporter@v1
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          command: after-build
+        if: always()
+
+      - run: npm run lint
 
       - name: Slack Notification
         uses: homoluctus/slatify@v2.0.0
