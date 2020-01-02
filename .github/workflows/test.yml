@@ -1,0 +1,50 @@
+name: test
+
+on:
+  push:
+  schedule:
+    - cron: "0 10 * * 5" # JST 19:00 (Fri)
+
+env:
+  CI: "true"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: yarn install
+
+      - name: Run test and lint
+        run: |
+          set -xe
+          npm run test:coverage
+          codeclimate-test-reporter < coverage/lcov.info
+          npm run lint
+
+      - name: Slack Notification
+        uses: homoluctus/slatify@v2.0.0
+        if: always()
+        with:
+          job_name: '*Build*'
+          type: ${{ job.status }}
+          icon_emoji: ":octocat:"
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          token: ${{ secrets.GITHUB_TOKEN }}

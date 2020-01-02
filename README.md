@@ -1,5 +1,5 @@
 # GitLab Notifier for Google Chrome™
-[![Build Status](https://travis-ci.org/sue445/chrome-gitlab-notifier.png)](https://travis-ci.org/sue445/chrome-gitlab-notifier)
+[![Build Status](https://github.com/sue445/chrome-gitlab-notifier/workflows/test/badge.svg?branch=master)](https://github.com/sue445/chrome-gitlab-notifier/actions?query=workflow%3Atest)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c7681dcd7cabdbc85ba4/maintainability)](https://codeclimate.com/github/sue445/chrome-gitlab-notifier/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c7681dcd7cabdbc85ba4/test_coverage)](https://codeclimate.com/github/sue445/chrome-gitlab-notifier/test_coverage)
 
