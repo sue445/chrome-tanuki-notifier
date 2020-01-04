@@ -112,25 +112,25 @@ app.view = function(vnode) {
         m("td.Commit", [
           m("input[type='checkbox']", {
             checked: project.events.Commit,
-            onclick: m.withAttr("checked", (value) => { project.events.Commit = value; } ),
+            onclick: (e) => { project.events.Commit = e.target.checked; },
           })
         ]),
         m("td.Issue", [
           m("input[type='checkbox']", {
             checked: project.events.Issue ,
-            onclick: m.withAttr("checked", (value) => { project.events.Issue = value; } ),
+            onclick: (e) => { project.events.Issue = e.target.checked; },
           })
         ]),
         m("td.MergeRequest", [
           m("input[type='checkbox']", {
             checked: project.events.MergeRequest ,
-            onclick: m.withAttr("checked", (value) => { project.events.MergeRequest = value; } ),
+            onclick: (e) => { project.events.MergeRequest = e.target.checked; },
           })
         ]),
         m("td.Milestone", [
           m("input[type='checkbox']", {
             checked: project.events.Milestone ,
-            onclick: m.withAttr("checked", (value) => { project.events.Milestone = value; } ),
+            onclick: (e) => { project.events.Milestone = e.target.checked; },
           })
         ]),
         m("td", [
@@ -183,7 +183,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='gitlab_path'][placeholder='http://example.com/'][type='text']", {
             value: state.gitlab_path,
-            oninput: m.withAttr("value", (value) => { state.gitlab_path = value; })
+            oninput: (e) => { state.gitlab_path = e.target.value; }
           })
         ])
       ]),
@@ -192,7 +192,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='api_path'][placeholder='http://example.com/api/v4/'][type='text']", {
             value: state.api_path,
-            oninput: m.withAttr("value", (value) => { state.api_path = value; })
+            oninput: (e) => { state.api_path = e.target.value; }
           })
         ])
       ]),
@@ -201,7 +201,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='private_token'][type='password']", {
             value: state.private_token,
-            oninput: m.withAttr("value", (value) => { state.private_token = value; })
+            oninput: (e) => { state.private_token = e.target.value; }
           })
         ])
       ])
@@ -216,7 +216,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='polling_second'][type='text']", {
             value: state.polling_second,
-            oninput: m.withAttr("value", (value) => { state.polling_second = value; })
+            oninput: (e) => { state.polling_second = e.target.value; }
           }),
           m("span.help-block", "Polling interval, in seconds. (Need chrome to restart)")
         ])
@@ -226,7 +226,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='max_event_count'][type='text']", {
             value: state.max_event_count,
-            oninput: m.withAttr("value", (value) => { state.max_event_count = value; })
+            oninput: (e) => { state.max_event_count = e.target.value; }
           })
         ])
       ]),
@@ -235,7 +235,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='max_notification_count'][type='text']", {
             value: state.max_notification_count,
-            oninput: m.withAttr("value", (value) => { state.max_notification_count = value; })
+            oninput: (e) => { state.max_notification_count = e.target.value; }
           })
         ])
       ]),
@@ -244,7 +244,7 @@ app.view = function(vnode) {
         m(".col-sm-5", [
           m("input.form-control[id='new_mark_minute'][type='text']", {
             value: state.new_mark_minute,
-            oninput: m.withAttr("value", (value) => { state.new_mark_minute = value; })
+            oninput: (e) => { state.new_mark_minute = e.target.value; }
           }),
           m("span.help-block", [
             "The event will be set as ",
@@ -281,7 +281,7 @@ app.view = function(vnode) {
             m("span.glyphicon.glyphicon-search")
           ]),
           m("input.form-control[id='search_repository'][placeholder='Project name'][type='text']", {
-            oninput: m.withAttr("value", (value) => { state.search_key = value; }),
+            oninput: (e) => { state.search_key = e.target.value; },
             value: state.search_key,
           })
         ])

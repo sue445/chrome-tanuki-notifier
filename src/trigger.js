@@ -115,7 +115,7 @@ app.view = function(vnode) {
             m("span.glyphicon.glyphicon-search")
           ]),
           m("input.form-control[id='search_repository'][placeholder='Project name'][type='text']", {
-            oninput: m.withAttr("value", (value) => { state.search_key = value; }),
+            oninput: (e) => { state.search_key = e.target.value; },
             value: state.search_key,
           })
         ])
