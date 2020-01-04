@@ -1,5 +1,6 @@
 global.window = require("mithril/test-utils/browserMock.js")();
 global.document = window.document;
+global.requestAnimationFrame = cb => cb();
 
 const assert = require("power-assert");
 const trigger = require("../src/trigger.js");
