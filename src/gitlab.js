@@ -36,7 +36,7 @@ class GitLab {
   }
 
   loadProjectsBase(page, all_projects) {
-    const data = {
+    const params = {
       page: page,
       per_page: this.per_page,
       order_by: "name",
@@ -47,7 +47,7 @@ class GitLab {
       // Until v3, GET /projects returns that user is member.
       // But since v4, GET /projects returns all projects visible to current user, even if the user is not a member.
       // To get projects the user is a member of, use GET /projects?membership=true
-      data.membership = true;
+      params.membership = true;
     }
 
     // List projects
@@ -57,7 +57,7 @@ class GitLab {
     return m.request({
       url: `${this.api_path}/projects`,
       method: "GET",
-      data: data,
+      params: params,
       headers: {
         "PRIVATE-TOKEN": this.private_token
       }
@@ -109,7 +109,7 @@ class GitLab {
     }
   }
   loadBranchesBase(proj_id, page, all_branches) {
-    const data = {
+    const params = {
       page: page,
       per_page: this.per_page
     };
@@ -120,7 +120,7 @@ class GitLab {
     return m.request({
       url: `${this.api_path}/projects/${proj_id}/repository/branches`,
       method: "GET",
-      data: data,
+      params: params,
       headers: {
         "PRIVATE-TOKEN": this.private_token
       }
@@ -188,7 +188,7 @@ class GitLab {
     return m.request({
       url: `${this.api_path}/projects/:project_id/events`,
       method: "GET",
-      data: {
+      params: {
         project_id: project_id,
         per_page: this.per_page
       },
@@ -233,7 +233,7 @@ class GitLab {
     return m.request({
       url: api_url,
       method: "GET",
-      data: {
+      params: {
         project_id: args.project_id,
         target_id: args.target_id
       },
