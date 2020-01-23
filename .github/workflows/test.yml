@@ -50,7 +50,7 @@ jobs:
       - run: npm run lint
 
       - name: Slack Notification
-        uses: homoluctus/slatify@v2.0.0
+        uses: homoluctus/slatify@master
         if: always()
         with:
           job_name: '*Build*'
