@@ -8,6 +8,7 @@ class Background {
 
   fetch(){
     this.gitlab = GitLab.createFromConfig(this.config, this.storage);
+    this.fetchCurrentUser().then(user => (this.currentUser = user));
     this.config.activeProjectIds.forEach((project_id) => {
       this.gitlab.getProjectEvents(project_id).then((project_events) => {
         // latest check
@@ -26,8 +27,6 @@ class Background {
         });
       });
     });
-
-    this.gitlab.getCurrentUser().then(user => (this.currentUser = user));
   }
 
   notifyProjectEvent(project_id, project_event){
@@ -256,6 +255,10 @@ class Background {
       return message.substring(0, truncate_length) + "...";
     }
     return message;
+  }
+
+  fetchCurrentUser() {
+    return this.currentUser ? Promise.resolve(this.currentUser) : this.gitlab.getCurrentUser();
   }
 }
 
