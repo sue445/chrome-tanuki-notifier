@@ -81,6 +81,14 @@ class Config {
     this.storage.newMarkMinute = value;
   }
 
+  get ignoreOwnEvents(){
+    return JSON.parse(this.storage.ignoreOwnEvents || false);
+  }
+
+  set ignoreOwnEvents(value){
+    this.storage.ignoreOwnEvents = value;
+  }
+
   get notifiedHistories(){
     return JSON.parse(this.storage.notifiedHistories || "[]");
   }
@@ -143,6 +151,7 @@ class Config {
     this.maxEventCount        = args.maxEventCount;
     this.maxNotificationCount = args.maxNotificationCount;
     this.newMarkMinute        = args.newMarkMinute;
+    this.ignoreOwnEvents      = args.ignoreOwnEvents;
 
     if (Object.keys(args.projects).length > 0) {
       this.projects = args.projects;

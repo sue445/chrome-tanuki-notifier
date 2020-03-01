@@ -10,6 +10,7 @@ window.onload = function() {
       this.max_event_count = config.maxEventCount;
       this.max_notification_count = config.maxNotificationCount;
       this.new_mark_minute = config.newMarkMinute;
+      this.ignore_own_events = config.ignoreOwnEvents;
       this.config_projects = config.projects;
       this.search_key = "";
       this.status_message = "";
@@ -33,6 +34,7 @@ window.onload = function() {
           maxEventCount:        state.max_event_count,
           maxNotificationCount: state.max_notification_count,
           newMarkMinute:        state.new_mark_minute,
+          ignoreOwnEvents:      state.ignore_own_events,
           projects:             projects
         });
       };

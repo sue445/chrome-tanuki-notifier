@@ -22,9 +22,7 @@ class Notification {
       return false;
     }
 
-    // TODO @aazarov: add options
-    const suppress_self = true;
-    if (suppress_self && is_self_action) {
+    if (this.config.ignoreOwnEvents && is_self_action) {
       return;
     }
 

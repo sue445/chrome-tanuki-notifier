@@ -252,6 +252,15 @@ app.view = function(vnode) {
             " for the given amount of minutes"
           ])
         ])
+      ]),
+      m(".form-group", [
+        m("label.col-sm-3.text-right[for='ignore_own_events']", "Ignore own events"),
+        m(".col-sm-5", [
+          m("input[id='ignore_own_events'][type='checkbox']", {
+            checked: state.ignore_own_events,
+            onclick: (e) => { state.ignore_own_events = e.target.checked; },
+          })
+        ])
       ])
     ]),
     m("div.buttons",
