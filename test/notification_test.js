@@ -87,27 +87,84 @@ describe("Notification", () => {
 
       it("should return false", () => {
         const result = notification.notify({
-          project:       project,
+          project: project,
           project_event: project_event,
-          internal:      internal,
-          current_time:  current_time,
-          message:       message,
-          author_id:     author_id
+          internal: internal,
+          current_time: current_time,
+          message: message,
+          author_id: author_id
         });
 
         assert(!result);
       });
     });
 
+    context("When ignoring own events", () => {
+      beforeEach(() => {
+        notification.config.ignoreOwnEvents = true;
+      });
+
+      it("should return false when author matches to the current user", () => {
+        const result = notification.notify({
+          project: project,
+          project_event: project_event,
+          internal: internal,
+          current_time: current_time,
+          message: message,
+          author_id: author_id,
+          is_self_action: true,
+        });
+
+        assert(!result);
+      });
+
+      it("should send notification when author NOT matches to the current user", () => {
+        const result = notification.notify({
+          project: project,
+          project_event: project_event,
+          internal: internal,
+          current_time: current_time,
+          message: message,
+          author_id: author_id,
+          is_self_action: false,
+        });
+
+        assert(result);
+        assert(chrome.notifications.create.calledOnce);
+      });
+    });
+
+    context("When NOT ignoring own events", () => {
+      beforeEach(() => {
+        notification.config.ignoreOwnEvents = false;
+      });
+
+      [true, false].forEach(is_self_action =>
+        it(`should send notification when (author==currentUser equals ${is_self_action})`, () => {
+          const result = notification.notify({
+            project: project,
+            project_event: project_event,
+            internal: internal,
+            current_time: current_time,
+            message: message,
+            author_id: author_id,
+            is_self_action,
+          });
+
+          assert(result);
+          assert(chrome.notifications.create.calledOnce);
+        }));
+    });
+
     context("When not notified", () => {
       it("works", () => {
         const result = notification.notify({
-          project:       project,
+          project: project,
           project_event: project_event,
-          internal:      internal,
-          current_time:  current_time,
-          message:       message,
-          author_id:     author_id
+          internal: internal,
+          current_time: current_time,
+          message: message,
+          author_id: author_id
         });
 
         assert(result);

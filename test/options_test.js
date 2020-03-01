@@ -17,6 +17,7 @@ describe("Options", () => {
         max_event_count: 100,
         max_notification_count: 10,
         new_mark_minute: 10,
+        ignore_own_events: false,
         config_projects: {},
         search_key: "",
         status_message: "",
