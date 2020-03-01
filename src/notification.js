@@ -7,18 +7,25 @@ class Notification {
   }
 
   notify(args){
-    const project       = args.project;
-    const project_event = args.project_event;
-    const internal      = args.internal;
-    const current_time  = args.current_time;
-    const message       = args.message;
-    const author_id     = args.author_id || "";
+    const project        = args.project;
+    const project_event  = args.project_event;
+    const internal       = args.internal;
+    const current_time   = args.current_time;
+    const message        = args.message;
+    const author_id      = args.author_id || "";
+    const is_self_action = args.is_self_action;
 
     const notifiedEvent = this.notification_cache.isNotified(project_event);
 
     if (notifiedEvent){
       // Don't notify same event
       return false;
+    }
+
+    // TODO @aazarov: add options
+    const suppress_self = true;
+    if (suppress_self && is_self_action) {
+      return;
     }
 
     this.notification_cache.add(project_event);

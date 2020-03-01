@@ -260,6 +260,16 @@ class GitLab {
     });
   }
 
+  getCurrentUser(){
+    return m.request({
+      url:  `${this.api_path}/user`,
+      method: "GET",
+      headers: {
+        "PRIVATE-TOKEN": this.private_token
+      }
+    });
+  }
+
   get apiVersion(){
     const ret = this.api_path.match(/\/api\/v([0-9]+)$/);
     if (ret){
