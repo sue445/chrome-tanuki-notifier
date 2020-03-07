@@ -25,7 +25,7 @@ window.onload = function() {
         config.clearCache();
       };
 
-      this.saveConfig = function (state, projects) {
+      this.saveConfig = function (state, projects, userId) {
         config.save({
           gitlabPath:           state.gitlab_path,
           apiPath:              state.api_path,
@@ -35,7 +35,8 @@ window.onload = function() {
           maxNotificationCount: state.max_notification_count,
           newMarkMinute:        state.new_mark_minute,
           ignoreOwnEvents:      state.ignore_own_events,
-          projects:             projects
+          projects:             projects,
+          userId:               userId
         });
       };
 

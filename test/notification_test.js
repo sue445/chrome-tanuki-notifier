@@ -87,12 +87,12 @@ describe("Notification", () => {
 
       it("should return false", () => {
         const result = notification.notify({
-          project: project,
+          project:       project,
           project_event: project_event,
-          internal: internal,
-          current_time: current_time,
-          message: message,
-          author_id: author_id
+          internal:      internal,
+          current_time:  current_time,
+          message:       message,
+          author_id:     author_id
         });
 
         assert(!result);
@@ -105,28 +105,28 @@ describe("Notification", () => {
       });
 
       it("should return false when author matches to the current user", () => {
+        notification.config.userId = author_id;
         const result = notification.notify({
-          project: project,
+          project:       project,
           project_event: project_event,
-          internal: internal,
-          current_time: current_time,
-          message: message,
-          author_id: author_id,
-          is_self_action: true,
+          internal:      internal,
+          current_time:  current_time,
+          message:       message,
+          author_id:     author_id
         });
 
         assert(!result);
       });
 
       it("should send notification when author NOT matches to the current user", () => {
+        notification.config.userId = -1;
         const result = notification.notify({
-          project: project,
+          project:       project,
           project_event: project_event,
-          internal: internal,
-          current_time: current_time,
-          message: message,
-          author_id: author_id,
-          is_self_action: false,
+          internal:      internal,
+          current_time:  current_time,
+          message:       message,
+          author_id:     author_id
         });
 
         assert(result);
@@ -141,14 +141,15 @@ describe("Notification", () => {
 
       [true, false].forEach(is_self_action =>
         it(`should send notification when (author==currentUser equals ${is_self_action})`, () => {
+          notification.config.userId = is_self_action ? author_id : -1;
+
           const result = notification.notify({
-            project: project,
+            project:       project,
             project_event: project_event,
-            internal: internal,
-            current_time: current_time,
-            message: message,
-            author_id: author_id,
-            is_self_action,
+            internal:      internal,
+            current_time:  current_time,
+            message:       message,
+            author_id:     author_id
           });
 
           assert(result);
@@ -159,12 +160,12 @@ describe("Notification", () => {
     context("When not notified", () => {
       it("works", () => {
         const result = notification.notify({
-          project: project,
+          project:       project,
           project_event: project_event,
-          internal: internal,
-          current_time: current_time,
-          message: message,
-          author_id: author_id
+          internal:      internal,
+          current_time:  current_time,
+          message:       message,
+          author_id:     author_id
         });
 
         assert(result);

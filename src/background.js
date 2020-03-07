@@ -3,12 +3,10 @@ class Background {
     this.config = args.config;
     this.notification = args.notification;
     this.storage = args.storage;
-    this.currentUser = null;
   }
 
   fetch(){
     this.gitlab = GitLab.createFromConfig(this.config, this.storage);
-    this.fetchCurrentUser().then(user => (this.currentUser = user));
     this.config.activeProjectIds.forEach((project_id) => {
       this.gitlab.getProjectEvents(project_id).then((project_events) => {
         // latest check
@@ -18,7 +16,7 @@ class Background {
 
         let event_count = 0;
         project_events.forEach((project_event) => {
-          if (event_count >= this.config.maxNotificationCount) {
+          if(event_count >= this.config.maxNotificationCount){
             return;
           }
 
@@ -43,7 +41,6 @@ class Background {
     }
 
     const project = this.config.getProject(project_id);
-    const is_self_action = this.currentUser && this.currentUser.id === project_event.author_id;
 
     switch (target_type){
       case "Commit": {
@@ -67,8 +64,7 @@ class Background {
             },
             message:      `[${branch_name}] @${project_event.data.user_name} ${display_id} ${commit_message} (${project_event.data.total_commits_count} commits)`,
             current_time: project_event.created_at || new Date(),
-            author_id:    project_event.author_id,
-            is_self_action
+            author_id:    project_event.author_id
           });
         }
         break;
@@ -97,8 +93,7 @@ class Background {
             },
             message:       `[${target_type}] #${project_event.target_iid} ${project_event.target_title} ${project_event.action_name}`,
             current_time:  project_event.created_at || new Date(),
-            author_id:     project_event.author_id,
-            is_self_action
+            author_id:     project_event.author_id
           });
 
         } else {
@@ -115,8 +110,7 @@ class Background {
               internal:      internal,
               message:       `[${target_type}] #${internal.target_id} ${project_event.target_title} ${project_event.action_name}`,
               current_time:  project_event.created_at || new Date(),
-              author_id:     project_event.author_id,
-              is_self_action
+              author_id:     project_event.author_id
             });
           });
         }
@@ -136,8 +130,7 @@ class Background {
             internal:      internal,
             message:       `[${target_type}] #${internal.target_id} ${project_event.target_title} ${project_event.action_name}`,
             current_time:  project_event.created_at || new Date(),
-            author_id:     project_event.author_id,
-            is_self_action
+            author_id:     project_event.author_id
           });
         });
       }
@@ -167,8 +160,7 @@ class Background {
             },
             message:       `[${project_event.note.noteable_type}] #${project_event.note.noteable_iid} ${note_body} ${project_event.action_name}`,
             current_time:  project_event.created_at || new Date(),
-            author_id:     project_event.author_id,
-            is_self_action
+            author_id:     project_event.author_id
           });
 
         } else {
@@ -188,8 +180,7 @@ class Background {
               internal:      internal,
               message:       `[${project_event.note.noteable_type}] #${internal.target_id} ${note_body} ${project_event.action_name}`,
               current_time:  project_event.created_at || new Date(),
-              author_id:     project_event.author_id,
-              is_self_action
+              author_id:     project_event.author_id
             });
           });
         }
@@ -255,10 +246,6 @@ class Background {
       return message.substring(0, truncate_length) + "...";
     }
     return message;
-  }
-
-  fetchCurrentUser() {
-    return this.currentUser ? Promise.resolve(this.currentUser) : this.gitlab.getCurrentUser();
   }
 }
 

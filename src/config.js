@@ -98,6 +98,14 @@ class Config {
     this.storage.notifiedHistories = JSON.stringify(histories);
   }
 
+  set userId(value){
+    this.storage.userId = value;
+  }
+
+  get userId(){
+    return +this.storage.userId;
+  }
+
   addNotifiedHistories(newHistories){
     // newHistories = [newest ... oldest]
     // notifiedHistories = [newest ... oldest]
@@ -152,6 +160,7 @@ class Config {
     this.maxNotificationCount = args.maxNotificationCount;
     this.newMarkMinute        = args.newMarkMinute;
     this.ignoreOwnEvents      = args.ignoreOwnEvents;
+    this.userId               = args.userId;
 
     if (Object.keys(args.projects).length > 0) {
       this.projects = args.projects;

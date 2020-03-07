@@ -7,13 +7,12 @@ class Notification {
   }
 
   notify(args){
-    const project        = args.project;
-    const project_event  = args.project_event;
-    const internal       = args.internal;
-    const current_time   = args.current_time;
-    const message        = args.message;
-    const author_id      = args.author_id || "";
-    const is_self_action = args.is_self_action;
+    const project       = args.project;
+    const project_event = args.project_event;
+    const internal      = args.internal;
+    const current_time  = args.current_time;
+    const message       = args.message;
+    const author_id     = args.author_id || "";
 
     const notifiedEvent = this.notification_cache.isNotified(project_event);
 
@@ -22,6 +21,7 @@ class Notification {
       return false;
     }
 
+    const is_self_action = this.config.userId === project_event.author_id;
     if (this.config.ignoreOwnEvents && is_self_action) {
       return false;
     }

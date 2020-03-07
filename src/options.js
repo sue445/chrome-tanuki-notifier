@@ -36,10 +36,16 @@ app.view = function(vnode) {
       });
     }
 
-    state.saveConfig(state, projects);
+    // get and save user_id when API is available
+    const hasAuthParams = state.api_path !== "" && state.private_token !== "";
+    const userIdPromise = hasAuthParams ? state.gitlab.getCurrentUser().then(({ id }) => id) : Promise.resolve("");
 
-    showStatus("Options Saved.");
-    event.preventDefault();
+    userIdPromise.then((userId) => {
+      state.saveConfig(state, projects, userId);
+
+      showStatus("Options Saved.");
+      event.preventDefault();
+    });
   };
 
   const selectProject = (event, project_event, checked) => {
