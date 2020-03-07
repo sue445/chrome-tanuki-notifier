@@ -23,7 +23,7 @@ class Notification {
     }
 
     if (this.config.ignoreOwnEvents && is_self_action) {
-      return;
+      return false;
     }
 
     this.notification_cache.add(project_event);
