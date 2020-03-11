@@ -2,6 +2,11 @@ name: test
 
 on:
   push:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
   schedule:
     - cron: "0 10 * * 5" # JST 19:00 (Fri)
 
@@ -52,6 +57,7 @@ jobs:
       - name: Slack Notification
         uses: homoluctus/slatify@master
         if: always()
+        continue-on-error: true
         with:
           job_name: '*Build*'
           type: ${{ job.status }}
