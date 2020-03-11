@@ -36,10 +36,16 @@ app.view = function(vnode) {
       });
     }
 
-    state.saveConfig(state, projects);
+    // get and save user_id when API is available
+    const hasAuthParams = state.api_path !== "" && state.private_token !== "";
+    const userIdPromise = hasAuthParams ? state.gitlab.getCurrentUser().then(({ id }) => id) : Promise.resolve("");
 
-    showStatus("Options Saved.");
-    event.preventDefault();
+    userIdPromise.then((userId) => {
+      state.saveConfig(state, projects, userId);
+
+      showStatus("Options Saved.");
+      event.preventDefault();
+    });
   };
 
   const selectProject = (event, project_event, checked) => {
@@ -251,6 +257,15 @@ app.view = function(vnode) {
             m("b", "bold"),
             " for the given amount of minutes"
           ])
+        ])
+      ]),
+      m(".form-group", [
+        m("label.col-sm-3.text-right[for='ignore_own_events']", "Ignore own events"),
+        m(".col-sm-5", [
+          m("input[id='ignore_own_events'][type='checkbox']", {
+            checked: state.ignore_own_events,
+            onclick: (e) => { state.ignore_own_events = e.target.checked; },
+          })
         ])
       ])
     ]),
