@@ -21,7 +21,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^7.1.0",
     "power-assert": "^1.6.1",
-    "sinon": "^9.0.0"
+    "sinon": "^9.0.1"
   },
   "version": "2.5.0"
 }
