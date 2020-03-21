@@ -38,7 +38,7 @@ app.view = function(vnode) {
 
     // get and save user_id when API is available
     const hasAuthParams = state.api_path !== "" && state.private_token !== "";
-    const userIdPromise = hasAuthParams ? state.gitlab.getCurrentUser().then(({ id }) => id) : Promise.resolve("");
+    const userIdPromise = hasAuthParams ? state.gitlab.getCurrentUser({api_path: state.api_path, private_token: state.private_token}).then(({ id }) => id) : Promise.resolve("");
 
     userIdPromise.then((userId) => {
       state.saveConfig(state, projects, userId);
