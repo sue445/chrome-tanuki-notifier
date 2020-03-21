@@ -1,5 +1,12 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.5.0...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.5.1...master)
+
+## 2.5.1 (2020/03/21)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.5.0...2.5.1)
+
+* Bugfix. Can't save option when immediately after installation
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/494
+* Update dependencies
 
 ## 2.5.0 (2020/03/12)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.4.1...2.5.0)
