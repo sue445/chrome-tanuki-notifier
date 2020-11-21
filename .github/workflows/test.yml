@@ -44,6 +44,7 @@ jobs:
         with:
           codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
           command: before-build
+        continue-on-error: true
 
       - run: npm run test:coverage
 
@@ -53,6 +54,7 @@ jobs:
           codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
           command: after-build
         if: always()
+        continue-on-error: true
 
       - run: npm run lint
 
