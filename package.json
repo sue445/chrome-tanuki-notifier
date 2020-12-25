@@ -16,7 +16,7 @@
     "mithril": "^2.0.4"
   },
   "devDependencies": {
-    "eslint": "^7.15.0",
+    "eslint": "^7.16.0",
     "intelli-espower-loader": "^1.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^8.2.1",
