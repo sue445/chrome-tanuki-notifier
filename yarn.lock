@@ -1552,8 +1552,8 @@ type@^2.0.0:
   resolved "https://registry.yarnpkg.com/type/-/type-2.0.0.tgz#5f16ff6ef2eb44f260494dae271033b29c09a9c3"
 
 uglify-js@^3.1.4:
-  version "3.12.8"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.12.8.tgz#a82e6e53c9be14f7382de3d068ef1e26e7d4aaf8"
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.13.0.tgz#66ed69f7241f33f13531d3d51d5bcebf00df7f69"
 
 universal-deep-strict-equal@^1.2.1:
   version "1.2.2"
