@@ -867,9 +867,9 @@ inherits@2:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
 
-intelli-espower-loader@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/intelli-espower-loader/-/intelli-espower-loader-1.0.1.tgz#2c7b03146bc1d46bf210d0a0397c5c91ab4ca2b0"
+intelli-espower-loader@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/intelli-espower-loader/-/intelli-espower-loader-1.1.0.tgz#64f126471f4d54bdfb55ba603e7105059d43e681"
   dependencies:
     espower-loader "^1.0.0"
 
