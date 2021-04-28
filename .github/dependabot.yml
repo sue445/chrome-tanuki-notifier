@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    timezone: Asia/Tokyo
+  open-pull-requests-limit: 99
+  assignees:
+  - sue445
+  ignore:
+  - dependency-name: get-intrinsic
+    versions:
+    - 1.1.1
