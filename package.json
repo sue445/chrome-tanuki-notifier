@@ -19,7 +19,7 @@
     "eslint": "^7.25.0",
     "intelli-espower-loader": "^1.1.0",
     "istanbul": "^0.4.5",
-    "mocha": "^8.3.2",
+    "mocha": "^8.4.0",
     "power-assert": "^1.6.1",
     "sinon": "^10.0.1"
   },
