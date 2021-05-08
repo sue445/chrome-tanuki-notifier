@@ -9,7 +9,3 @@ updates:
   open-pull-requests-limit: 99
   assignees:
   - sue445
-  ignore:
-  - dependency-name: get-intrinsic
-    versions:
-    - 1.1.1
