@@ -34,9 +34,9 @@
   dependencies:
     type-detect "4.0.8"
 
-"@sinonjs/fake-timers@>=5", "@sinonjs/fake-timers@^9.0.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sinonjs/fake-timers/-/fake-timers-9.1.0.tgz#8c92c56f195e0bed4c893ba59c8e3d55831ca0df"
+"@sinonjs/fake-timers@>=5", "@sinonjs/fake-timers@^9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@sinonjs/fake-timers/-/fake-timers-9.1.2.tgz#4eaab737fab77332ab132d396a3c0d364bd0ea8c"
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
@@ -1301,12 +1301,12 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
 
-sinon@^13.0.1:
-  version "13.0.1"
-  resolved "https://registry.yarnpkg.com/sinon/-/sinon-13.0.1.tgz#2a568beca2084c48985dd98e276e065c81738e3c"
+sinon@^13.0.2:
+  version "13.0.2"
+  resolved "https://registry.yarnpkg.com/sinon/-/sinon-13.0.2.tgz#c6a8ddd655dc1415bbdc5ebf0e5b287806850c3a"
   dependencies:
     "@sinonjs/commons" "^1.8.3"
-    "@sinonjs/fake-timers" "^9.0.0"
+    "@sinonjs/fake-timers" "^9.1.2"
     "@sinonjs/samsam" "^6.1.1"
     diff "^5.0.0"
     nise "^5.1.1"
