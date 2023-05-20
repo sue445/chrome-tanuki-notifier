@@ -1,5 +1,13 @@
 ## development
-[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.5.1...master)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.6.0...master)
+
+## 2.5.1 (2020/03/21)
+[full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.5.1...2.6.0)
+
+* Support GitLab 16.0+
+  * https://github.com/sue445/chrome-gitlab-notifier/pull/778
+  * https://github.com/sue445/chrome-gitlab-notifier/issues/774
+* Update dependencies
 
 ## 2.5.1 (2020/03/21)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.5.0...2.5.1)
