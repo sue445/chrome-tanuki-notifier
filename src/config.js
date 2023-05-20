@@ -114,6 +114,11 @@ class Config {
     return this.storage.gitlabVersion;
   }
 
+  // Whether GitLab 16.0+
+  isGitLab16_0() {
+    return parseFloat(this.gitlabVersion) >= 16.0;
+  }
+
   addNotifiedHistories(newHistories){
     // newHistories = [newest ... oldest]
     // notifiedHistories = [newest ... oldest]
