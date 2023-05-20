@@ -15,6 +15,9 @@ describe("Notification", () => {
     config = {
       addNotifiedHistories: (new_histories) => {
         histories = new_histories;
+      },
+      isGitLab16_0: () => {
+        return true;
       }
     };
     chrome = {
@@ -209,7 +212,7 @@ describe("Notification", () => {
       assert(notification.sanitizeUrl("https://example.com/namespace/repo/")                        == "https://example.com/namespace/repo/");
       assert(notification.sanitizeUrl("https://example.com//namespace/repo/")                       == "https://example.com/namespace/repo/");
       assert(notification.sanitizeUrl("http://example.com//namespace/repo/")                        == "http://example.com/namespace/repo/");
-      assert(notification.sanitizeUrl("https://example.com//namespace/repo/issues/1#note_12345678") == "https://example.com/namespace/repo/issues/1#note_12345678");
+      assert(notification.sanitizeUrl("https://example.com//namespace/repo/issues/1#note_12345678") == "https://example.com/namespace/repo/-/issues/1#note_12345678");
     });
   });
 });

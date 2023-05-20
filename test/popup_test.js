@@ -53,6 +53,9 @@ describe("Popup", () => {
           avatar_urls: {
             1: "http://example.com/uploads/project/avatar/4/uploads/avatar.png",
           }
+        },
+        isGitLab16_0: () => {
+          return true;
         }
       }
     });
