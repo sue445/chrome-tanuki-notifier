@@ -52,7 +52,7 @@ class GitLab {
 
     // List projects
     // GET /projects
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#list-projects
+    // https://docs.gitlab.com/ee/api/projects.html#list-all-projects
     // NOTE: order_by and sort are supported by v7.7.0+. If no options, order_by created_at DESC
     return m.request({
       url: `${this.api_path}/projects`,
@@ -115,7 +115,7 @@ class GitLab {
     };
     // List repository branches 
     // GET /projects/:id/repository/branches
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/branches.md#list-repository-branches
+    // https://docs.gitlab.com/ee/api/branches.html#list-repository-branches
     // NOTE: order_by and sort are supported by v7.7.0+. If no options, order_by created_at DESC
     return m.request({
       url: `${this.api_path}/projects/${proj_id}/repository/branches`,
@@ -168,7 +168,7 @@ class GitLab {
   getUserAvatarUrl(user_id) {
     // Single user
     // GET /users/:id
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/users.md#single-user
+    // https://docs.gitlab.com/ee/api/users.html#for-user
     return m.request({
       url: `${this.api_path}/users/:user_id`,
       method: "GET",
@@ -183,8 +183,8 @@ class GitLab {
 
   getProjectEvents(project_id){
     // Get project events
-    // GET /projects/:id/events
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/projects.md#get-project-events
+    // GET /projects/:project_id/events
+    // https://docs.gitlab.com/ee/api/events.html#list-a-projects-visible-events
     return m.request({
       url: `${this.api_path}/projects/:project_id/events`,
       method: "GET",
@@ -200,16 +200,16 @@ class GitLab {
 
   getEventInternalId(args){
     // Single issue
-    // GET /projects/:id/issues/:issue_id
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/issues.md#single-issue
+    // GET GET /projects/:id/issues/:issue_iid
+    // https://docs.gitlab.com/ee/api/issues.html#single-project-issue
     //   or
     // Get single MR
-    // GET /projects/:id/merge_request/:merge_request_id
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/merge_requests.md#get-single-mr
+    // GET /projects/:id/merge_requests/:merge_request_iid
+    // https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr
     //   or
     // Get single milestone
     // GET /projects/:id/milestones/:milestone_id
-    // https://github.com/gitlabhq/gitlabhq/blob/master/doc/api/milestones.md#get-single-milestone
+    // https://docs.gitlab.com/ee/api/milestones.html#get-single-milestone
 
     let api_url;
     switch(args.target_type) {
