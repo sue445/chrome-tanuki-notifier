@@ -16,6 +16,17 @@ app.sanitizeUrl = function(url){
   });
 };
 
+app.addDelimiter = function (url) {
+  if(!url){
+    return url;
+  }
+
+  // e.g. https://example.com/namespace/repo/issues -> https://example.com/namespace/repo/-/issues
+  return url.replace(/\/(issues|merge_requests|milestones|compare|commit)(?=\/[0-9]+)/, (match, p1) => {
+    return `/-/${p1}`;
+  });
+};
+
 app.view = function(vnode) {
   const state = vnode.state;
 
@@ -123,6 +134,11 @@ app.view = function(vnode) {
         });
       }
 
+      let target_url = app.sanitizeUrl(project_event.target_url);
+      if (state.isGitLab16_0()) {
+        target_url = app.addDelimiter(target_url);
+      }
+
       return m("li", {class: li_class}, [
         m("img.icon.img-rounded", {src: avatar_url, align: "left"}),
         author_avatar,
@@ -145,7 +161,7 @@ app.view = function(vnode) {
             state.saveNotifiedHistories(state.histories);
           }
         }),
-        m("a.eventLink", {href: app.sanitizeUrl(project_event.target_url), target: "_blank"}, message),
+        m("a.eventLink", {href: target_url, target: "_blank"}, message),
       ]);
     }))
   ]);

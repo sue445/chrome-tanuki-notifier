@@ -35,6 +35,10 @@ window.onload = function() {
       this.saveNotifiedHistories = function (histories) {
         config.notifiedHistories = histories;
       };
+
+      this.isGitLab16_0 = function () {
+        return config.isGitLab16_0();
+      };
     },
     view: app.view
   });

@@ -82,9 +82,18 @@ class Notification {
       return url;
     }
     // e.g. https://example.com//namespace/repo -> https://example.com/namespace/repo
-    return url.replace(/(https?):\/\/(.+?)\/\//, (match, p1, p2) => {
+    url = url.replace(/(https?):\/\/(.+?)\/\//, (match, p1, p2) => {
       return `${p1}://${p2}/`;
     });
+
+    if (this.config.isGitLab16_0()){
+      // e.g. https://example.com/namespace/repo/issues -> https://example.com/namespace/repo/-/issues
+      url = url.replace(/\/(issues|merge_requests|milestones|compare|commit)(?=\/[0-9]+)/, (match, p1) => {
+        return `/-/${p1}`;
+      });
+    }
+
+    return url;
   }
 
   set badgeText(value){
