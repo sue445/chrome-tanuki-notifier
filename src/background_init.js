@@ -26,6 +26,11 @@ window.onload = function() {
     notification_cache: notification_cache,
   });
 
+  const gitlab = GitLab.createFromConfig(config, localStorage);
+  gitlab.getGitLabVersion().then(function (data) {
+    config.gitlabVersion = data.version;
+  });
+
   const background = new Background({
     config: config,
     notification: notification,
