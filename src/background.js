@@ -7,6 +7,15 @@ class Background {
 
   fetch(){
     this.gitlab = GitLab.createFromConfig(this.config, this.storage);
+
+    // If current GitLab version hasn't been obtained, attempt to obtain it periodically
+    const config = this.config;
+    if(!config.gitlabVersion || config.gitlabVersion == "") {
+      this.gitlab.getGitLabVersion().then(function (data) {
+        config.gitlabVersion = data.version;
+      });
+    }
+
     this.config.activeProjectIds.forEach((project_id) => {
       this.gitlab.getProjectEvents(project_id).then((project_events) => {
         // latest check

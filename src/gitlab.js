@@ -272,6 +272,46 @@ class GitLab {
     });
   }
 
+  getGitLabVersion() {
+    // Metadata API
+    // GET /metadata
+    // https://docs.gitlab.com/ee/api/metadata.html (for GitLab 15.5+)
+    return m.request({
+      url: `${this.api_path}/metadata`,
+      extract: function(xhr) {return {status: xhr.status, body: xhr.responseText};},
+      method: "GET",
+      headers: {
+        "PRIVATE-TOKEN": this.private_token
+      }
+    }).then((res) => {
+      if(res.status == 200) {
+        const data = JSON.parse(res.body);
+        return Promise.resolve({ version: data.version });
+      }
+
+      if(res.status == 404) {
+        // fallback to Version API (for GitLab < 15.5)
+        // GET /version
+        // https://docs.gitlab.com/ee/api/version.html
+        return m.request({
+          url: `${this.api_path}/version`,
+          method: "GET",
+          headers: {
+            "PRIVATE-TOKEN": this.private_token
+          }
+        }).then((data) => {
+          return Promise.resolve({ version: data.version });
+        }).catch((e) => {
+          alert(e);
+          return Promise.reject();
+        });
+      }
+
+      alert(e);
+      return Promise.reject();
+    });
+  }
+
   get apiVersion(){
     const ret = this.api_path.match(/\/api\/v([0-9]+)$/);
     if (ret){
