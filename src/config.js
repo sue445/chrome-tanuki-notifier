@@ -106,6 +106,14 @@ class Config {
     return +this.storage.userId;
   }
 
+  set gitlabVersion(value) {
+    this.storage.gitlabVersion = value;
+  }
+
+  get gitlabVersion() {
+    return this.storage.gitlabVersion;
+  }
+
   addNotifiedHistories(newHistories){
     // newHistories = [newest ... oldest]
     // notifiedHistories = [newest ... oldest]
