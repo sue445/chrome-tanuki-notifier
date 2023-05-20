@@ -23,5 +23,5 @@
     "power-assert": "^1.6.1",
     "sinon": "^15.1.0"
   },
-  "version": "2.5.1"
+  "version": "2.6.0"
 }
