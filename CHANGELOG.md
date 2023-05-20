@@ -1,7 +1,7 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.6.0...master)
 
-## 2.5.1 (2020/03/21)
+## 2.6.0 (2022/05/20)
 [full changelog](https://github.com/sue445/chrome-gitlab-notifier/compare/2.5.1...2.6.0)
 
 * Support GitLab 16.0+
