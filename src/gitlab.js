@@ -278,7 +278,7 @@ class GitLab {
     // https://docs.gitlab.com/ee/api/metadata.html (for GitLab 15.5+)
     return m.request({
       url: `${this.api_path}/metadata`,
-      extract: function(xhr) {return {status: xhr.status, body: xhr.responseText}},
+      extract: function(xhr) {return {status: xhr.status, body: xhr.responseText};},
       method: "GET",
       headers: {
         "PRIVATE-TOKEN": this.private_token
