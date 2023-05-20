@@ -26,6 +26,7 @@ window.onload = function() {
     notification_cache: notification_cache,
   });
 
+  // Get current GitLab version on initial startup
   const gitlab = GitLab.createFromConfig(config, localStorage);
   gitlab.getGitLabVersion().then(function (data) {
     config.gitlabVersion = data.version;
