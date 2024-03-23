@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "GitLab Notifier for Google Chrome™",
+  "name": "Tanuki Notifier for Google Chrome™",
   "description": "Notify GitLab events (Commit, Issue, MergeRequest and Milestone)",
   "version": "2.6.0",
 
