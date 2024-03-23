@@ -1,6 +1,13 @@
 ## development
 [full changelog](https://github.com/sue445/chrome-tanuki-notifier/compare/2.6.0...master)
 
+## 3.0.0 (2024/03/23)
+[full changelog](https://github.com/sue445/chrome-tanuki-notifier/compare/2.6.0...3.0.0)
+
+* :bomb: Rename to "Tanuki Notifier for Google Chrome™"
+  * https://github.com/sue445/chrome-tanuki-notifier/pull/810
+* Update dependencies
+
 ## 2.6.0 (2023/05/20)
 [full changelog](https://github.com/sue445/chrome-tanuki-notifier/compare/2.5.1...2.6.0)
 
