@@ -39,8 +39,7 @@ Open extension option -> Clear cache
 
 
 ### Notification
-![notification1](doc/notification1.png)
-![notification2](doc/notification2.png)
+![notification](doc/notification.png)
 
 ### Popup
 ![popup1](doc/popup.png)
