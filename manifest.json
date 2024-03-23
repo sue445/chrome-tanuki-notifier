@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
 
-  "name": "GitLab Notifier for Google Chrome™",
+  "name": "Tanuki Notifier for Google Chrome™",
   "description": "Notify GitLab events (Commit, Issue, MergeRequest and Milestone)",
   "version": "2.6.0",
 
   "icons": {
-    "16": "img/gitlab_logo_16.png",
-    "48": "img/gitlab_logo_48.png",
-    "128": "img/gitlab_logo_128.png"
+    "16": "img/logo_16.png",
+    "48": "img/logo_48.png",
+    "128": "img/logo_128.png"
   },
 
   "permissions": [
@@ -25,7 +25,7 @@
   },
 
   "browser_action": {
-    "default_icon": "img/gitlab_logo_128.png",
+    "default_icon": "img/logo_128.png",
     "default_popup": "popup.html"
   }
 }

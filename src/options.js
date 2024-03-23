@@ -101,7 +101,7 @@ app.view = function(vnode) {
       if(project.avatar_url) {
         names.push(m("img.icon.img-rounded", {src: project.avatar_url}));
       } else {
-        names.push(m("img.icon.img-rounded[src='../img/gitlab_logo_128.png']"));
+        names.push(m("img.icon.img-rounded[src='../img/logo_128.png']"));
       }
       names.push(m("a", {href: state.gitlab_path + project.path_with_namespace}, project.path_with_namespace));
 

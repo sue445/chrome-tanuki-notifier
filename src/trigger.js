@@ -83,7 +83,7 @@ app.view = function(vnode) {
       return matchSearchKey(project);
     }).map((project) => {
       const names = [];
-      var avatar = "../img/gitlab_logo_48.png";
+      var avatar = "../img/logo_48.png";
       if(project.avatar_url) {
         avatar = project.avatar_url;
       }

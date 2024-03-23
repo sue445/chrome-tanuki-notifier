@@ -1,9 +1,11 @@
-# GitLab Notifier for Google Chrome™
-[![Build Status](https://github.com/sue445/chrome-gitlab-notifier/workflows/test/badge.svg?branch=master)](https://github.com/sue445/chrome-gitlab-notifier/actions?query=workflow%3Atest)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c7681dcd7cabdbc85ba4/maintainability)](https://codeclimate.com/github/sue445/chrome-gitlab-notifier/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/c7681dcd7cabdbc85ba4/test_coverage)](https://codeclimate.com/github/sue445/chrome-gitlab-notifier/test_coverage)
+# Tanuki Notifier for Google Chrome™
+[![Build Status](https://github.com/sue445/chrome-tanuki-notifier/workflows/test/badge.svg?branch=master)](https://github.com/sue445/chrome-tanuki-notifier/actions?query=workflow%3Atest)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c7681dcd7cabdbc85ba4/maintainability)](https://codeclimate.com/github/sue445/chrome-tanuki-notifier/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c7681dcd7cabdbc85ba4/test_coverage)](https://codeclimate.com/github/sue445/chrome-tanuki-notifier/test_coverage)
 
-Notify GitLab Project events (Commit, Issue, MergeRequest and Milestone)
+"Tanuki Notifier for Google Chrome™" notify GitLab™ Project events (Commit, Issue, MergeRequest and Milestone)
+
+_GITLAB is a trademark of GitLab Inc. in the United States and other countries and regions_
 
 ## Requirements
 ### API v3
@@ -37,8 +39,7 @@ Open extension option -> Clear cache
 
 
 ### Notification
-![notification1](doc/notification1.png)
-![notification2](doc/notification2.png)
+![notification](doc/notification.png)
 
 ### Popup
 ![popup1](doc/popup.png)
