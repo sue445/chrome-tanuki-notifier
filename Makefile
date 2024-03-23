@@ -1,5 +1,5 @@
 # Requirements: git, jq
-NAME := chrome-gitlab-notifier
+NAME := chrome-tanuki-notifier
 VERSION := $(shell cat manifest.json | jq --raw-output .version)
 
 build/$(NAME)-$(VERSION).zip:

@@ -1,5 +1,5 @@
 {
-  "name": "chrome-gitlab-notifier",
+  "name": "chrome-tanuki-notifier",
   "scripts": {
     "lint": "eslint src/*.js test/*.js",
     "lint-fix": "eslint --fix src/*.js test/*.js",
@@ -9,7 +9,7 @@
   "directories": {
     "test": "test/"
   },
-  "repository": "https://github.com/sue445/chrome-gitlab-notifier.git",
+  "repository": "https://github.com/sue445/chrome-tanuki-notifier.git",
   "author": "sue445",
   "license": "MIT",
   "dependencies": {
