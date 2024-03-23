@@ -109,7 +109,7 @@ app.view = function(vnode) {
     ]),
     m("ul[id='notifyHistories']", state.histories.map((project_event) => {
       const project = getProjectByName(project_event.project_name);
-      const avatar_url = project.avatar_url || "img/gitlab_logo_128.png";
+      const avatar_url = project.avatar_url || "img/logo_128.png";
       const project_url = state.gitlabPath + project_event.project_name;
 
       let li_class = null;

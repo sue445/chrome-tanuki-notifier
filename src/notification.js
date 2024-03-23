@@ -61,7 +61,7 @@ class Notification {
       JSON.stringify({notification_id: notification_id, target_url: target_url}),
       {
         type:     "basic",
-        iconUrl:  args.avatar_url || "img/gitlab_logo_128.png",
+        iconUrl:  args.avatar_url || "img/logo_128.png",
         title:    title,
         message:  message,
         priority: 0
