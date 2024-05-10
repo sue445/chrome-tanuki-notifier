@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> This extension is scheduled for maintenance end after **July 2024**. (If nothing else)
+>
+> See https://github.com/sue445/chrome-tanuki-notifier/issues/816
+
 # Tanuki Notifier for Google Chrome™
 [![Build Status](https://github.com/sue445/chrome-tanuki-notifier/workflows/test/badge.svg?branch=master)](https://github.com/sue445/chrome-tanuki-notifier/actions?query=workflow%3Atest)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c7681dcd7cabdbc85ba4/maintainability)](https://codeclimate.com/github/sue445/chrome-tanuki-notifier/maintainability)
